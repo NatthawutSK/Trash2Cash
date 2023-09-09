@@ -9,7 +9,7 @@ import { SplashScreen, Stack } from "expo-router";
 import { Suspense, useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { TamaguiProvider, Text, Theme } from "tamagui";
-import config from "../tamagui.config";
+import config from "../../tamagui.config";
 import { MySafeAreaView } from "../components/MySafeAreaView";
 
 export {
@@ -29,7 +29,7 @@ export default function RootLayout() {
   const [loaded, error] = useFonts({
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
     InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+    SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
     ...FontAwesome.font,
   });
 

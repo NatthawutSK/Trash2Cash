@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "../../components/EditScreenInfo";
-import { Text, View } from "../../components/Themed";
-import DialogDemo from "../../components/DialogDemo";
-import SpinnerDemo from "../../components/SpinnerDemo";
+import EditScreenInfo from "@/components/EditScreenInfo";
+import { Text, View } from "@/components/Themed";
+import DialogDemo from "@/components/DialogDemo";
+import SpinnerDemo from "@/components/SpinnerDemo";
 
 export default function TabTwoScreen() {
   return (

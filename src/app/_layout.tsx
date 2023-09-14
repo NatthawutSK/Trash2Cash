@@ -61,7 +61,7 @@ function RootLayoutNav() {
           <ThemeProvider
             value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
           >
-            {/* <MySafeAreaView> */}
+            <MySafeAreaView>
             <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               <Stack.Screen name="modal" options={{ presentation: "modal" }} />
@@ -78,7 +78,7 @@ function RootLayoutNav() {
                 options={{ title: "Detail Store" }}
               />
             </Stack>
-            {/* </MySafeAreaView> */}
+            </MySafeAreaView>
           </ThemeProvider>
         </Theme>
       </Suspense>

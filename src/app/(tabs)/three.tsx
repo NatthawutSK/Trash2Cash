@@ -1,70 +1,105 @@
-import { Github, Twitter } from "@tamagui/lucide-icons";
-import { Link, useRouter } from "expo-router";
 import {
-  Button,
-  H1,
-  ListItem,
-  Paragraph,
-  Separator,
-  YGroup,
-  YStack,
+	Github,
+	Leaf,
+	Trash,
+	Twitter,
+	User,
+	Cloudy,
+	ChevronRight,
+	Map,
+	Lock,
+	LogOut,
+} from "@tamagui/lucide-icons";
+import { Link, useRouter } from "expo-router";
+import type { IconProps } from "@tamagui/helpers-icon";
+import { ButtonIcon, H6 } from "tamagui";
+import { Avatar, H2, H3, H4, H5, Stack, XStack, ZStack } from "tamagui";
+import {
+	Button,
+	H1,
+	ListItem,
+	Paragraph,
+	Separator,
+	YGroup,
+	YStack,
 } from "tamagui";
 
 import { MyStack } from "@/components/MyStack";
-
+import { Icon, IconButtonProps } from "@expo/vector-icons/build/createIconSet";
 export default function three() {
-  const router = useRouter();
+	const router = useRouter();
 
-  return (
-    <MyStack>
-      <YStack space="$4" maxWidth={600}>
-        <H1 textAlign="center">Welcome to Tamagui.</H1>
-        <Paragraph textAlign="center">
-          Here&apos;s a basic starter to show navigating from one screen to
-          another.
-        </Paragraph>
-      </YStack>
+	type notBtnProp = {
+		icon: any;
+		text1: string;
+		text2: string;
+	};
+	const NotBtn = (props: notBtnProp) => {
+		return (
+			<>
+				<YStack
+					maw={"$11"}
+					justifyContent="center"
+					ac={"center"}
+					ai={"center"}
+				>
+					<Button icon={props.icon} size="$7" mx={10}></Button>
+					<H5 size={"$5"}>{props.text1}</H5>
+					<H5 size={"$3"}>{props.text2}</H5>
+				</YStack>
+			</>
+		);
+	};
+	return (
+		<YStack flex={1} padding="$4" space={"$3"}>
+			<Avatar size="$10" br={10}>
+				<Avatar.Image src="http://placekitten.com/200/300" />
+				<Avatar.Fallback bc="gray" />
+			</Avatar>
+			<H2 fow="900">Name Surname</H2>
+			<XStack jc={"space-between"} space={"$2"}>
+				<NotBtn
+					icon={Cloudy}
+					text1="10 kCO2e"
+					text2="ลด Co2 ไปแล้ว"
+				></NotBtn>
+				<NotBtn
+					icon={Leaf}
+					text1="10000 ต้น"
+					text2="เทียบเท่าปลูกต้นไม้"
+				></NotBtn>
+				<NotBtn icon={Leaf} text1="10000 กก." text2="ลดขยะ"></NotBtn>
+			</XStack>
+			<H5>ข้อมูลส่วนตัว</H5>
 
-      <Button onPress={() => router.push("/users/testuser")}>
-        Go to user page
-      </Button>
+			<Button
+				jc={"space-between"}
+				icon={<User size="$2" />}
+				iconAfter={<ChevronRight size="$2" />}
+				onPress={() => {
+					router.push("/editProfile");
+				}}
+			>
+				แก้ไขข้อมูลส่วนตัว
+			</Button>
 
-      <YStack space="$5">
-        <YGroup bordered separator={<Separator />} theme="green">
-          <YGroup.Item>
-            <Link
-              asChild
-              href="https://twitter.com/natebirdman"
-              target="_blank"
-            >
-              <ListItem hoverTheme title="Nate" pressTheme icon={Twitter} />
-            </Link>
-          </YGroup.Item>
-          <YGroup.Item>
-            <Link
-              asChild
-              href="https://github.com/tamagui/tamagui"
-              target="_blank"
-            >
-              <ListItem hoverTheme pressTheme title="Tamagui" icon={Github} />
-            </Link>
-          </YGroup.Item>
-          <YGroup.Item>
-            <Link
-              asChild
-              href="https://github.com/ivopr/tamagui-expo"
-              target="_blank"
-            >
-              <ListItem
-                hoverTheme
-                pressTheme
-                title="This Template"
-                icon={Github}
-              />
-            </Link>
-          </YGroup.Item>
-        </YGroup>
-      </YStack>
-    </MyStack>
-  );
+			<Button
+				jc={"space-between"}
+				icon={<Lock size="$2" />}
+				iconAfter={<ChevronRight size="$2" />}
+				onPress={() => router.push("/changePassword")}
+			>
+				เปลี่ยนรหัสผ่าน
+			</Button>
+
+			<Button
+				jc={"space-between"}
+				icon={<LogOut size="$2" />}
+				iconAfter={<ChevronRight size="$2" />}
+				bc={"#b23b3b"}
+			>
+				ล็อกเอาท์
+			</Button>
+		</YStack>
+	);
 }

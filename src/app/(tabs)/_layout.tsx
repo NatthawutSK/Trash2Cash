@@ -24,19 +24,19 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="three"
         options={{
           title: "Tab One",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
-            <Link href="/modal" asChild>
+            <Link href="/search" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome
-                    name="info-circle"
-                    size={25}
-                    color={Colors[colorScheme ?? "light"].text}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                    name="search"
+                    size={20}
+                    color="gray"
+                    style={{ marginRight: 20, opacity: pressed ? 0.5 : 1 }}
                   />
                 )}
               </Pressable>
@@ -52,9 +52,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="three"
+        name="index"
         options={{
-          title: "Tab three",
+          title: "Profile",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />

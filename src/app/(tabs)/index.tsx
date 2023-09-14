@@ -5,12 +5,12 @@ import { View } from "@/components/Themed";
 import { Button, Image, Text } from "tamagui";
 import { Link, useRouter } from "expo-router";
 
-export default function TabOneScreen() {
+export default function home() {
   const router = useRouter();
   return (
     <View style={styles.container}>
       <Text className="text-xl ">Home</Text>
-      <Image source={require("../../../assets/images/co2.png")} />
+      {/* <Image source={require("../../../assets/images/co2.png")} /> */}
       <Button
         alignSelf="center"
         size="$6"
@@ -22,12 +22,43 @@ export default function TabOneScreen() {
       <Button
         alignSelf="center"
         size="$6"
+        onPress={() => router.push("/(admin)/adminApprove")}
+      >
+        only for admin
+      </Button>
+
+      {/* <Link href={"/(thirds)/history"} asChild> */}
+      {/* <Button
+        alignSelf="center"
+        size="$6"
+        onPress={() => router.push("/(thirds)/history")}
+      >
+        go to admin Approve
+      </Button> */}
+      {/* </Link> */}
+      {/* <Button
+        alignSelf="center"
+        size="$6"
         onPress={() => router.push("/detailStore/66")}
       >
         go to detail Store
       </Button>
+      <Button
+        alignSelf="center"
+        size="$6"
+        onPress={() => router.push("/detailStore/66")}
+      >
+        go to detail Store
+      </Button>
+      <Button
+        alignSelf="center"
+        size="$6"
+        onPress={() => router.push("/detailStore/66")}
+      >
+        go to detail Store
+      </Button> */}
       {/* </Link> */}
-      <SwitchDemo />
+      {/* <SwitchDemo /> */}
       {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
     </View>
   );

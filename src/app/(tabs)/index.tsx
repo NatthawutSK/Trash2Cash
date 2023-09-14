@@ -1,15 +1,15 @@
 import { StyleSheet } from "react-native";
 
 import SwitchDemo from "@/components/SwitchDemo";
-import { Text, View } from "@/components/Themed";
-import { Button, Image } from "tamagui";
-import { useRouter } from "expo-router";
+import { View } from "@/components/Themed";
+import { Button, Image, Text } from "tamagui";
+import { Link, useRouter } from "expo-router";
 
 export default function TabOneScreen() {
   const router = useRouter();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
+      <Text className="text-xl ">Home</Text>
       <Image source={require("../../../assets/images/co2.png")} />
       <Button
         alignSelf="center"
@@ -18,9 +18,16 @@ export default function TabOneScreen() {
       >
         go to login
       </Button>
-
+      {/* <Link href={`/detailStore/99`} asChild> */}
+      <Button
+        alignSelf="center"
+        size="$6"
+        onPress={() => router.push("/detailStore/66")}
+      >
+        go to detail Store
+      </Button>
+      {/* </Link> */}
       <SwitchDemo />
-
       {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
     </View>
   );

@@ -73,6 +73,10 @@ function RootLayoutNav() {
                 name="(auth)/signup"
                 options={{ headerShown: false }}
               />
+              <Stack.Screen
+                name="detailStore/[id]"
+                options={{ title: "Detail Store" }}
+              />
             </Stack>
             {/* </MySafeAreaView> */}
           </ThemeProvider>

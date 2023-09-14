@@ -1,16 +1,22 @@
 import { StyleSheet } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
-import { Button, Switch } from "tamagui";
 import SwitchDemo from "@/components/SwitchDemo";
+import { Text, View } from "@/components/Themed";
+import { Button, Image } from "tamagui";
+import { useRouter } from "expo-router";
 
 export default function TabOneScreen() {
+  const router = useRouter();
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab One</Text>
-      <Button alignSelf="center" size="$6">
-        Large
+      <Image source={require("../../../assets/images/co2.png")} />
+      <Button
+        alignSelf="center"
+        size="$6"
+        onPress={() => router.push("/login")}
+      >
+        go to login
       </Button>
 
       <SwitchDemo />

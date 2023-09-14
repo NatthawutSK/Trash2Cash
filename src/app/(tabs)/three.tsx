@@ -1,70 +1,73 @@
-import { Github, Twitter } from "@tamagui/lucide-icons";
-import { Link, useRouter } from "expo-router";
 import {
-  Button,
-  H1,
-  ListItem,
-  Paragraph,
-  Separator,
-  YGroup,
-  YStack,
-} from "tamagui";
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 
-import { MyStack } from "@/components/MyStack";
+import EditScreenInfo from "@/components/EditScreenInfo";
+import { Text, View } from "@/components/Themed";
+import DialogDemo from "@/components/DialogDemo";
+import SpinnerDemo from "@/components/SpinnerDemo";
+import MapViewComponent from "@/components/MapComponent";
+import { useEffect, useRef, useState } from "react";
+import DetailTrashWantBuy from "@/components/DetailTrashWantBuy";
+import ApprovePageAdmin from "@/components/ApproveAdmin";
 
-export default function three() {
-  const router = useRouter();
+const images = [
+  { id: "1", source: require("../../../assets/images/t.jpg") },
+  { id: "2", source: require("../../../assets/images/op1.jpg") },
+  { id: "3", source: require("../../../assets/images/op4.jpg") },
+  // Add more images as needed
+];
 
+export default function TabThreeScreen() {
   return (
-    <MyStack>
-      <YStack space="$4" maxWidth={600}>
-        <H1 textAlign="center">Welcome to Tamagui.</H1>
-        <Paragraph textAlign="center">
-          Here&apos;s a basic starter to show navigating from one screen to
-          another.
-        </Paragraph>
-      </YStack>
-
-      <Button onPress={() => router.push("/users/testuser")}>
-        Go to user page
-      </Button>
-
-      <YStack space="$5">
-        <YGroup bordered separator={<Separator />} theme="green">
-          <YGroup.Item>
-            <Link
-              asChild
-              href="https://twitter.com/natebirdman"
-              target="_blank"
-            >
-              <ListItem hoverTheme title="Nate" pressTheme icon={Twitter} />
-            </Link>
-          </YGroup.Item>
-          <YGroup.Item>
-            <Link
-              asChild
-              href="https://github.com/tamagui/tamagui"
-              target="_blank"
-            >
-              <ListItem hoverTheme pressTheme title="Tamagui" icon={Github} />
-            </Link>
-          </YGroup.Item>
-          <YGroup.Item>
-            <Link
-              asChild
-              href="https://github.com/ivopr/tamagui-expo"
-              target="_blank"
-            >
-              <ListItem
-                hoverTheme
-                pressTheme
-                title="This Template"
-                icon={Github}
-              />
-            </Link>
-          </YGroup.Item>
-        </YGroup>
-      </YStack>
-    </MyStack>
+    <SafeAreaView>
+      <ScrollView>
+        <View>
+            <ApprovePageAdmin />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
+  circlemini: {
+    width: 10,
+    height: 10,
+    borderRadius: 50,
+    marginLeft: 10,
+    backgroundColor: "red",
+  },
+  hr: {
+    borderBottomColor: "white", // Change color as needed
+    borderBottomWidth: 1, // Change thickness as needed
+    marginVertical: 10,
+    margin: 40, // Adjust spacing as needed
+  },
+  miniimage: {
+    width: 40,
+    height: 40,
+    borderRadius: 50,
+    backgroundColor: "white",
+    padding: 10,
+    margin: 10,
+  },
+});

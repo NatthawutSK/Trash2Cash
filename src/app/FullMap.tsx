@@ -6,7 +6,7 @@ import DialogDemo from "@/components/DialogDemo";
 import SpinnerDemo from "@/components/SpinnerDemo";
 import MapViewComponent from "@/components/MapComponent";
 
-export default function TabTwoScreen() {
+export default function FullMap() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Full Map</Text>

@@ -29,6 +29,8 @@ export default function TabThreeScreen() {
       <ScrollView>
         <View>
             <ApprovePageAdmin />
+            <ApprovePageAdmin />
+            <ApprovePageAdmin />
         </View>
       </ScrollView>
     </SafeAreaView>

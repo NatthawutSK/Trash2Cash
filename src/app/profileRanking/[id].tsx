@@ -19,7 +19,7 @@ import { Leaf, Trash, Trees, Users } from "@tamagui/lucide-icons";
 type Props = {};
 const detailProfile = (props: Props) => {
 	const { id } = useLocalSearchParams();
-	const user = DATA.find((user) => user.id === id);
+	const user = DATA.find((user) => user.id === Number(id));
 	return (
 		<YStack jc={"center"} als={"center"} ai={"center"} space={30} mt={50}>
 			<Stack

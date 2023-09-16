@@ -19,7 +19,6 @@ import {
 import { FlatList } from "react-native";
 import { router } from "expo-router";
 import RankingUser, { RankingUserProps } from "./../../components/RankingUser";
-import renderRankingUser from "./../../components/RankingUser";
 
 type Props = {};
 
@@ -87,9 +86,11 @@ export const DATA: RankingUserProps[] = [
 ];
 
 const DATA2 = DATA.filter((item) => item.id < 5);
-
+const renderRankingUser = (item: { item: RankingUserProps }) => {
+	return <RankingUser {...item.item} />;
+};
 const Ranking = (props: Props) => {
-	const [isNow, setNow] = useState(DATA2);
+	const [isNow, setNow] = useState(DATA);
 	return (
 		<YStack ai={"stretch"} jc={"center"} w={"100%"} h={"100%"}>
 			<XStack pt={30} ac={"center"} ai={"center"} jc={"space-evenly"}>
@@ -113,12 +114,11 @@ const Ranking = (props: Props) => {
 					keyExtractor={(item, index) => index.toString()}
 					// Performance settings
 					removeClippedSubviews={true} // Unmount components when outside of window
-					initialNumToRender={2} // Reduce initial render amount
+					initialNumToRender={7} // Reduce initial render amount
 					maxToRenderPerBatch={1} // Reduce number in each render batch
-					updateCellsBatchingPeriod={100} // Increase time between renders
 					windowSize={7} // Reduce the window size
 				/>
-				<RankingUser item={DATA[5]} />
+				<RankingUser {...DATA[5]} />
 			</YStack>
 		</YStack>
 	);

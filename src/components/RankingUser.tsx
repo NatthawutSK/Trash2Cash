@@ -66,47 +66,8 @@ const RankingUser = (item: RankingUserProps, index: number) => {
 			>
 				{item.point}
 			</H5>
-			{/* <View fd={"row"}>
-				<H5
-					alignSelf="center"
-					color={
-						item.id === 1
-							? "gold"
-							: item.id === 2
-							? "silver"
-							: item.id === 3
-							? "#CD7F32"
-							: "green"
-					}
-				>
-					{index + 1}
-				</H5>
-				<Avatar
-					circular
-					size={item.id === 1 ? "$6" : item.id === 2 ? "$5" : "$4"}
-				>
-					<Avatar.Image
-						accessibilityLabel="Cam"
-						src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
-					/>
-					<Avatar.Fallback backgroundColor="$blue10" />
-				</Avatar>
-				<H5 color={index === 0 ? "gold" : "white"} alignSelf="center">
-					{item.name}
-				</H5>
-			</View>
-			<H5
-				ac={"flex-end"}
-				color={index === 0 ? "gold" : "white"}
-				alignSelf="center"
-			>
-				{item.point}
-			</H5> */}
 		</YStack>
 	);
 };
 
-const renderRankingUser = (item: { item: RankingUserProps }) => {
-	return <RankingUser {...item.item} />;
-};
-export default renderRankingUser;
+export default RankingUser;

@@ -28,6 +28,7 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
+
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
           headerRight: () => (
             <Stack f={1} flexDirection="row" ai={"center"} space={"$3"}>
@@ -48,7 +49,7 @@ export default function TabLayout() {
                     <FontAwesome
                       name="map-marker"
                       size={28}
-                      color="gray"
+                      color="green"
                       style={{ marginRight: 20, opacity: pressed ? 0.5 : 1 }}
                     />
                   )}
@@ -59,9 +60,9 @@ export default function TabLayout() {
           headerTitle(props) {
             return (
               <FontAwesome
-                name="leaf"
+                name="recycle"
                 size={20}
-                color="gray"
+                color="green"
                 style={{ marginRight: 20 }}
               />
             );
@@ -75,13 +76,13 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
       />
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="stats"
         options={{
           title: "Stats",
           tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
         }}
-      />
+      /> */}
       <Tabs.Screen
         name="profile"
         options={{

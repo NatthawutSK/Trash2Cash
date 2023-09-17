@@ -1,6 +1,7 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Button } from "tamagui";
+import { router } from "expo-router";
 
 const ApprovePageAdmin = () => {
   const truncateText = (text: string, maxLength: number) => {
@@ -11,11 +12,6 @@ const ApprovePageAdmin = () => {
     }
   };
   
-  const [showDetails, setShowDetails] = useState(false);
-  
-  const toggleDetails = () => {
-    setShowDetails(!showDetails);
-  };
   
   let p = 5;
   
@@ -23,10 +19,11 @@ const ApprovePageAdmin = () => {
     <View
       style={{
         padding: 40,
-        backgroundColor: "grey",
+        backgroundColor: "#8ECDDD",
         margin: 15,
         flex: 0,
         flexDirection: "column",
+        borderRadius: 12
       }}
     >
       <TouchableOpacity style={{ flexDirection: "row" }}>
@@ -54,7 +51,7 @@ const ApprovePageAdmin = () => {
           height="$5"
           theme="active"
           borderRadius="$10"
-          onPress={toggleDetails}
+          onPress={() => router.push("/(admin)/ApproveMain")}
         >
           Approve
         </Button>

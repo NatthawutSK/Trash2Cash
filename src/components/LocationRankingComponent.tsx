@@ -15,9 +15,10 @@ const LocationRankingComponent = () => {
   return (
     <View  style={{
       padding: 40,
-      backgroundColor: "grey",
+      backgroundColor: "#8ECDDD",
       margin: 15,
-      flex: 0, flexDirection: "column"
+      flex: 0, flexDirection: "column",
+      borderRadius: 12
     }}>
       <TouchableOpacity style={{flexDirection: "row"}}>
       <Image
@@ -26,7 +27,7 @@ const LocationRankingComponent = () => {
           uri: 'https://reactnative.dev/img/tiny_logo.png',
         }}
       />
-      <View style={{ flexDirection: "column", justifyContent: "center", marginLeft: 15}}>
+      <View style={{ flexDirection: "column", justifyContent: "center", marginLeft: 15,}}>
         <Text style={{fontSize: 16}}>Name : {truncateText("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPp", 10)}</Text>
         <Text style={{fontSize: 16}}>Distance : 1 KM</Text>
       </View>

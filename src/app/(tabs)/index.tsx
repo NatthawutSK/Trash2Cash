@@ -26,6 +26,13 @@ export default function home() {
       >
         only for admin
       </Button>
+      <Button
+        alignSelf="center"
+        size="$6"
+        onPress={() => router.push("/createapprove/CraeateApprovePage")}
+      >
+        Create Approve for Buyer
+      </Button>
 
       {/* <Link href={"/(thirds)/history"} asChild> */}
       {/* <Button

@@ -49,15 +49,38 @@ const Mockstore: TypeStore[] = [
   },
 ];
 
+const truncateText = (text: string, maxLength: number) => {
+  if (text.length <= maxLength) {
+    return text;
+  } else {
+    return text.substring(0, maxLength) + "...";
+  }
+};
+
+const exampleTrash = (
+  typeTrash: string,
+  img: string,
+  recieveAmount: string
+) => {
+  return (
+    <Stack>
+      <Text fos={"$1"}>{truncateText(typeTrash, 8)}</Text>
+      <Image
+        w={50}
+        h={50}
+        br={10}
+        source={{
+          uri: img,
+        }}
+      />
+      <Text color={"$green8Dark"}>{recieveAmount}</Text>
+    </Stack>
+  );
+};
+
 const detailStore = (props: Props) => {
   const { id } = useLocalSearchParams();
-  const truncateText = (text: string, maxLength: number) => {
-    if (text.length <= maxLength) {
-      return text;
-    } else {
-      return text.substring(0, maxLength) + "...";
-    }
-  };
+
   return (
     <ScrollView>
       <Image width={500} h={250} source={{ uri: Mockstore[0].img }} />
@@ -135,78 +158,46 @@ const detailStore = (props: Props) => {
                 flexWrap="wrap"
                 // className="flex flex-wrap "
               >
-                <Stack>
-                  <Text>{truncateText("หมวดกระดาษ", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
-                <Stack>
-                  <Text>{truncateText("หนังสือพิมพ์เก่า", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
-                <Stack>
-                  <Text>{truncateText("หนังสือพิมพ์เก่า", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
-                <Stack>
-                  <Text>{truncateText("หนังสือพิมพ์เก่า", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
-                <Stack>
-                  <Text>{truncateText("หนังสือพิมพ์เก่า", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
-                <Stack>
-                  <Text>{truncateText("หนังสือพิมพ์เก่า", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
+                {exampleTrash(
+                  "กล่องกระดาษลัง",
+                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "กล่องกระดาษลัง",
+                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "กล่องกระดาษลัง",
+                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "กล่องกระดาษลัง",
+                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "หนังสือพิมพ์เก่า",
+                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "หนังสือพิมพ์เก่า",
+                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "หนังสือพิมพ์เก่า",
+                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "หนังสือพิมพ์เก่า",
+                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
+                  "ไม่จำกัด"
+                )}
               </XStack>
             </Accordion.Content>
           </Accordion.Item>
@@ -238,78 +229,46 @@ const detailStore = (props: Props) => {
                 flexWrap="wrap"
                 // className="flex flex-wrap "
               >
-                <Stack>
-                  <Text>{truncateText("หมวดกระดาษ", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
-                <Stack>
-                  <Text>{truncateText("หนังสือพิมพ์เก่า", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
-                <Stack>
-                  <Text>{truncateText("หนังสือพิมพ์เก่า", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
-                <Stack>
-                  <Text>{truncateText("หนังสือพิมพ์เก่า", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
-                <Stack>
-                  <Text>{truncateText("หนังสือพิมพ์เก่า", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
-                <Stack>
-                  <Text>{truncateText("หนังสือพิมพ์เก่า", 10)}</Text>
-                  <Image
-                    w={50}
-                    h={50}
-                    br={10}
-                    source={{
-                      uri: "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                    }}
-                  />
-                  <Text color={"$green8Dark"}>ไม่จำกัด</Text>
-                </Stack>
+                {exampleTrash(
+                  "กล่องกระดาษลัง",
+                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "กล่องกระดาษลัง",
+                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "กล่องกระดาษลัง",
+                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "กล่องกระดาษลัง",
+                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "หนังสือพิมพ์เก่า",
+                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "หนังสือพิมพ์เก่า",
+                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "หนังสือพิมพ์เก่า",
+                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
+                  "ไม่จำกัด"
+                )}
+                {exampleTrash(
+                  "หนังสือพิมพ์เก่า",
+                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
+                  "ไม่จำกัด"
+                )}
               </XStack>
             </Accordion.Content>
           </Accordion.Item>

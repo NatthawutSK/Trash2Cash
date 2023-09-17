@@ -1,10 +1,6 @@
 import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
-import { SearchBar as RNE_SearchBar } from "react-native-elements";
-import { Button, Switch } from "tamagui";
-import SwitchDemo from "@/components/SwitchDemo";
+import { View } from "@/components/Themed";
 // import SearchBar from "@/components/SearchBar";
 import DetailPurchaseComponent from "@/components/DetailPurchaseComponent";
 
@@ -20,9 +16,7 @@ export default function history() {
       <SearchBar placeholder={""} onSearch={function (text: string): void {
         throw new Error("Function not implemented.");
       } } />
-
       <SwitchDemo /> */}
-
           {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
           <View>
             <DetailPurchaseComponent />

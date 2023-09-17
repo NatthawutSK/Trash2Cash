@@ -88,7 +88,7 @@ export default function home() {
                 </YStack>
               </Square>
               <Square w={180} h={150} br={20} bg={"$green9Dark"}>
-                <YStack space={"$3"}>
+                <YStack space={"$2"} mt={"$3"}>
                   <Text fos={"$6"} color={"$red1Light"} className="font-bold">
                     เทียบเท่าปลูกต้นไม้
                   </Text>
@@ -104,7 +104,7 @@ export default function home() {
                     </Text>
                   </Text>
                   <MaterialCommunityIcons
-                    name="molecule-co2"
+                    name="tree-outline"
                     size={48}
                     color="white"
                   />
@@ -125,7 +125,7 @@ export default function home() {
                     </Text>
                   </Text>
                   <MaterialCommunityIcons
-                    name="molecule-co2"
+                    name="trash-can-outline"
                     size={48}
                     color="white"
                   />
@@ -134,7 +134,7 @@ export default function home() {
               <Square w={160} h={200} br={20} bg={"$green9Dark"}>
                 <YStack space={"$4"}>
                   <Text fos={"$6"} color={"$red1Light"} className="font-bold">
-                    ผู้เข้าร่วมช่วยโลก
+                    ผู้ร่วมช่วยโลก
                   </Text>
                   <Text
                     fos={"$8"}
@@ -147,11 +147,13 @@ export default function home() {
                       คน
                     </Text>
                   </Text>
-                  <MaterialCommunityIcons
-                    name="molecule-co2"
-                    size={48}
-                    color="white"
-                  />
+                  <Stack ml={"$3"}>
+                    <MaterialCommunityIcons
+                      name="account-group-outline"
+                      size={48}
+                      color="white"
+                    />
+                  </Stack>
                 </YStack>
               </Square>
             </YStack>

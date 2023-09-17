@@ -22,6 +22,45 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        headerRight: () => (
+          <Stack f={1} flexDirection="row" ai={"center"} space={"$3"}>
+            <Link href="/search" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <Input
+                    placeholder="หาวิธีจัดการขยะ"
+                    editable={false}
+                    width={"$20"}
+                  />
+                )}
+              </Pressable>
+            </Link>
+            <Link href="/(map)/nearbyRanking" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="map-marker"
+                    size={28}
+                    color="green"
+                    style={{ marginRight: 20, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          </Stack>
+        ),
+        headerTitle(props) {
+          return (
+            <Link href="/" asChild>
+              <FontAwesome
+                name="recycle"
+                size={20}
+                color="green"
+                style={{ marginRight: 20 }}
+              />
+            </Link>
+          );
+        },
       }}
     >
       <Tabs.Screen
@@ -29,51 +68,16 @@ export default function TabLayout() {
         options={{
           title: "Home",
 
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Stack f={1} flexDirection="row" ai={"center"} space={"$3"}>
-              <Link href="/search" asChild>
-                <Pressable>
-                  {({ pressed }) => (
-                    <Input
-                      placeholder="หาวิธีจัดการขยะ"
-                      editable={false}
-                      width={"$20"}
-                    />
-                  )}
-                </Pressable>
-              </Link>
-              <Link href="/(map)/nearbyRanking" asChild>
-                <Pressable>
-                  {({ pressed }) => (
-                    <FontAwesome
-                      name="map-marker"
-                      size={28}
-                      color="green"
-                      style={{ marginRight: 20, opacity: pressed ? 0.5 : 1 }}
-                    />
-                  )}
-                </Pressable>
-              </Link>
-            </Stack>
-          ),
-          headerTitle(props) {
-            return (
-              <FontAwesome
-                name="recycle"
-                size={20}
-                color="green"
-                style={{ marginRight: 20 }}
-              />
-            );
-          },
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
       <Tabs.Screen
         name="scoreRanking"
         options={{
           title: "Ranking",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="stack-overflow" color={color} />
+          ),
         }}
       />
       {/* <Tabs.Screen
@@ -87,7 +91,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           title: "Profile",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}
       />
     </Tabs>

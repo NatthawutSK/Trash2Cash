@@ -15,20 +15,21 @@ export type RankingUserProps = {
 	id: number;
 	name: string;
 	point: number;
+	index?: number;
 };
 
-const RankingUser = (item: RankingUserProps, index: number) => {
+const RankingUser = (item: RankingUserProps) => {
 	return (
 		<YStack
 			fd={"row"}
 			bc={
-				item.id === 1
+				item.index === 1
 					? "gold"
-					: item.id === 2
+					: item.index === 2
 					? "silver"
-					: item.id === 3
+					: item.index === 3
 					? "#CD7F32"
-					: "green"
+					: "$green8Light"
 			}
 			br={20}
 			m={10}
@@ -42,8 +43,8 @@ const RankingUser = (item: RankingUserProps, index: number) => {
 			}}
 		>
 			<Stack space={10} p={5} br={20} fd={"row"}>
-				<H5 alignSelf="center" color={"black"}>
-					{item.id}
+				<H5 alignSelf="center" color={"$green5Light"}>
+					{item.index}
 				</H5>
 				<Avatar
 					circular
@@ -55,15 +56,11 @@ const RankingUser = (item: RankingUserProps, index: number) => {
 					/>
 					<Avatar.Fallback backgroundColor="$blue10" />
 				</Avatar>
-				<H6 color={index === 0 ? "gold" : "white"} alignSelf="center">
+				<H6 color={"white"} alignSelf="center">
 					{item.name}
 				</H6>
 			</Stack>
-			<H5
-				ac={"flex-end"}
-				color={index === 0 ? "gold" : "white"}
-				alignSelf="center"
-			>
+			<H5 ac={"flex-end"} color={"white"} alignSelf="center">
 				{item.point}
 			</H5>
 		</YStack>

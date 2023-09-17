@@ -17,6 +17,7 @@ import { router, useNavigation, useRouter } from "expo-router";
 import { FontAwesome5 } from "@expo/vector-icons";
 import MaterialItem, { MatProps } from "@/components/MaterialItem";
 import { FlatList } from "react-native";
+import StoreItem, { StoreProps } from "@/components/StoreItem";
 
 type Props = {};
 
@@ -37,64 +38,65 @@ const DATA = [
 	{ name: "ถุงฟิล์ม ยืด PE14", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ3" },
 	{ name: "ถุงฟิล์ม ยืด PE15", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ1" },
 ];
+const DATA2 = [
+	{
+		name: "ร้าน รี",
+		mat: ["wine-bottle", "box", "file", "glass-whiskey"],
+		star: 5.0,
+	},
+	{
+		name: "ร้าน ไซ",
+		mat: ["file", "glass-whiskey"],
+		star: 4.3,
+	},
+	{
+		name: "ร้าน เคิ้ล",
+		mat: ["wine-bottle", "box"],
+		star: 3.3,
+	},
+	{
+		name: "ร้าน รีไซ",
+		mat: ["box", "glass-whiskey"],
+		star: 2.3,
+	},
+	{
+		name: "ร้าน รีเคิล",
+		mat: ["glass-whiskey"],
+		star: 3.7,
+	},
+];
 
 const renderMaterial = (item: { item: MatProps }) => {
 	return <MaterialItem {...item.item} />;
 };
-const StoreItem = () => {
-	return (
-		<YStack w={"100%"}>
-			<XStack
-				alignItems="center"
-				space="$6"
-				jc={"space-between"}
-				bg={"$green10Light"}
-				w={"100%"}
-			>
-				<XStack ai={"center"} ac={"center"} space={"$4"}>
-					<Avatar circular size="$6">
-						<Avatar.Image src="http://placekitten.com/200/300" />
-						<Avatar.Fallback bc="red" />
-					</Avatar>
-					<YStack space={"$1"}>
-						<Text fow={"800"} color={"white"}>
-							ร้านรีป่ะ
-						</Text>
-						<Text>วัสดุที่รับ</Text>
-						<XStack space={"$2"}>
-							<FontAwesome5 name="wine-bottle" size={18} />
-							<FontAwesome5 name="box" size={18} />
-							<FontAwesome5 name="file" size={18} />
-							<FontAwesome5 name="glass-whiskey" size={18} />
-						</XStack>
-					</YStack>
-				</XStack>
-				<YStack ai={"center"} space={"$1"}>
-					<Text>
-						5.0 {""} <Star size={18} />
-					</Text>
-					<Store size={24} />
-				</YStack>
-			</XStack>
-			<Separator alignSelf="stretch" />
-		</YStack>
-	);
+
+const renderStore = (item: { item: StoreProps }) => {
+	return <StoreItem {...item.item} />;
+};
+
+const handleSearch = (search: string) => {
+	console.log("Searching" + search);
 };
 
 const search = (props: Props) => {
 	const navigation = useNavigation();
 	const [search, setSearch] = useState<string>("");
-
+	const [data, setData] = useState<MatProps[]>(DATA);
 	useLayoutEffect(() => {
 		navigation.setOptions({
 			headerSearchBarOptions: {
+				inputType: "text",
 				placeholder: "ค้นหา",
 				// autoFocus: true,
-				onChangeText: (event: any) => setSearch(event.nativeEvent.text),
-				// onBlur: () => {
-				// 	console.log("Searching" + search);
-				//  handleSearch();
-				// },
+				onChangeText: (event: any) => {
+					setData(
+						data.filter((item) =>
+							item.name.includes(
+								event.nativeEvent.text.toUpperCase()
+							)
+						)
+					);
+				},
 				hintTextColor: "gray",
 				obscureBackground: false,
 				// disableBackButtonOverride: true,
@@ -102,8 +104,11 @@ const search = (props: Props) => {
 			},
 		});
 	}, [navigation]);
+
 	return (
 		<Stack ac={"center"}>
+			<Text>{search}</Text>
+
 			<Tabs fd={"column"} defaultValue="tab1" width={"100%"}>
 				<YStack>
 					<Tabs.List
@@ -121,10 +126,10 @@ const search = (props: Props) => {
 					</Tabs.List>
 				</YStack>
 				<Tabs.Content value="tab1" h={"100%"}>
-					<Stack h={"100%"}>
+					<Stack h={"100%"} paddingBottom={200}>
 						<FlatList
 							showsVerticalScrollIndicator={false}
-							data={DATA}
+							data={data}
 							renderItem={renderMaterial}
 							keyExtractor={(item, index) => index.toString()}
 							// Performance settings
@@ -132,20 +137,15 @@ const search = (props: Props) => {
 					</Stack>
 				</Tabs.Content>
 				<Tabs.Content value="tab2">
-					<ScrollView>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-						<StoreItem></StoreItem>
-					</ScrollView>
+					<Stack h={"100%"} paddingBottom={200}>
+						<FlatList
+							showsVerticalScrollIndicator={false}
+							data={DATA2}
+							renderItem={renderStore}
+							keyExtractor={(item, index) => index.toString()}
+							// Performance settings
+						/>
+					</Stack>
 				</Tabs.Content>
 			</Tabs>
 		</Stack>

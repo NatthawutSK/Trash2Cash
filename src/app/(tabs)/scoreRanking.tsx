@@ -86,8 +86,8 @@ export const DATA: RankingUserProps[] = [
 ];
 
 const DATA2 = DATA.filter((item) => item.id < 5);
-const renderRankingUser = (item: { item: RankingUserProps }) => {
-	return <RankingUser {...item.item} />;
+const renderRankingUser = (item: RankingUserProps) => {
+	return <RankingUser {...item} />;
 };
 const Ranking = (props: Props) => {
 	const [isNow, setNow] = useState(DATA);
@@ -110,7 +110,9 @@ const Ranking = (props: Props) => {
 				<FlatList
 					showsVerticalScrollIndicator={false}
 					data={isNow}
-					renderItem={renderRankingUser}
+					renderItem={({ item, index }) =>
+						renderRankingUser({ ...item, index: index + 1 })
+					}
 					keyExtractor={(item, index) => index.toString()}
 					// Performance settings
 					removeClippedSubviews={true} // Unmount components when outside of window

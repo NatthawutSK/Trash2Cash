@@ -42,8 +42,13 @@ const FormApprove = (props: Props) => {
 	];
 	return (
 		<ScrollView bc={"$green10Light"}>
-			<StyledY flex={1} space={"$5"} pt={50} px={20}>
-				<Label ta={"left"} fos={"$5"}>
+			<StyledY flex={1} space={"$5"} pt={30} px={20}>
+				<Label
+					ta={"left"}
+					fow={"800"}
+					fos={"$6"}
+					color={"$green5Light"}
+				>
 					ไอดีของผู้ขาย
 				</Label>
 				<Input placeholder={"กรอกไอดีของผู้ขาย"} w={"100%"} />
@@ -64,7 +69,13 @@ const FormApprove = (props: Props) => {
 							fd={"row"}
 							space={"$8"}
 						>
-							<Label als={"center"}>เลือกหมวดหมู่</Label>
+							<Label
+								als={"center"}
+								fow={"800"}
+								color={"$green5Light"}
+							>
+								เลือกหมวดหมู่
+							</Label>
 							<Select value={select} onValueChange={setSelect}>
 								<Select.Trigger iconAfter={ChevronDown}>
 									<Select.Value
@@ -166,19 +177,24 @@ const FormApprove = (props: Props) => {
 						w={"90%"}
 						space={"$2"}
 					>
-						<Text als="center">น้ำหนัก</Text>
+						<Text als="center" fow={"800"} color={"$green5Light"}>
+							น้ำหนัก
+						</Text>
 						<Input
 							keyboardType="numeric"
 							als={"center"}
-							w={"20%"}
-							placeholder={"ชื่อสินค้า"}
+							w={"50%"}
+							placeholder={"กรอกน้ำหนัก"}
 							value={weight}
 							onChangeText={setWeight}
 						/>
-						<Text als={"center"}>กก.</Text>
+						<Text als={"center"} fow={"800"} color={"$green5Light"}>
+							กก.
+						</Text>
 					</XStack>
 				</YStack>
 				<Button
+					bc={""}
 					onPress={() => {
 						setList([
 							...list,

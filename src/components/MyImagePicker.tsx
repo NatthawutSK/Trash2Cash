@@ -39,7 +39,12 @@ const PickerImg = () => {
 					}}
 				/>
 			)}
-			<Button bc={"#66b55d"} onPress={pickImage}>
+			<Button
+				bc={"#66b55d"}
+				color={"$green5Light"}
+				fow={800}
+				onPress={pickImage}
+			>
 				เลือกรูปหลักฐาน
 			</Button>
 			<Sheet

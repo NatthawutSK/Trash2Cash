@@ -14,13 +14,15 @@ const DetailTrashWantBuy = () => {
 
   return (
     <View  style={{
-      padding: 40,
-      backgroundColor: "grey",
-      margin: 30,
+      padding: 10,
+      backgroundColor: "#8ECDDD",
+      margin: 10,
       marginBottom: 10,
       borderRadius: 20,
       flex: 0, flexDirection: "column"
     }}>
+      <View style={{padding: 1}}>
+
       <TouchableOpacity style={{flexDirection: "row"}}>
       <Image
         style={styles.tinyLogo}
@@ -29,11 +31,12 @@ const DetailTrashWantBuy = () => {
         }}
       />
       <View style={{ flexDirection: "column", justifyContent: "center", marginLeft: 15}}>
-        <Text style={{fontSize: 16}}>Name : {truncateText("Peepoppppppppppppppeeeee", 10)}</Text>
+        <Text style={{fontSize: 16}}>Name Store: {truncateText("Pesssssepoppppppppsssssssssssssssssssssppppppeeeee", 10)}</Text>
         <Text style={{fontSize: 16}}>ประเภทที่รับซื้อ : Snack</Text>
         <Text style={{fontSize: 16}}>Distance : 1 KM</Text>
       </View>
       </TouchableOpacity>
+      </View>
         
     </View>
   );

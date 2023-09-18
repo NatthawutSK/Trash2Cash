@@ -1,31 +1,16 @@
-// import { View, Text } from "react-native";
-// import React from "react";
-// import { useLocalSearchParams } from "expo-router";
-
-// type Props = {};
-
-// const deatilTrash = (props: Props) => {
-//   const { id } = useLocalSearchParams();
-//   return (
-//     <View>
-//       <Text>DETAIL TRASH : {id}</Text>
-//     </View>
-//   );
-// };
-
-// export default deatilTrash;
-
 import {
   SafeAreaView,
   ScrollView,
   StyleSheet,
   Image,
   FlatList,
+  Text,
+  View,
   TouchableOpacity,
 } from "react-native";
 
 import EditScreenInfo from "@/components/EditScreenInfo";
-import { Text, View } from "@/components/Themed";
+//   import { Text, View } from "@/components/Themed";
 import DialogDemo from "@/components/DialogDemo";
 import SpinnerDemo from "@/components/SpinnerDemo";
 import MapViewComponent from "@/components/MapComponent";
@@ -39,7 +24,7 @@ const images = [
   // Add more images as needed
 ];
 
-export default function detailTrash() {
+export default function TrashDetail() {
   let [currentIndex, setCurrentIndex] = useState(0);
   // const flatListRef = useRef(null);
   console.log(currentIndex);
@@ -48,7 +33,7 @@ export default function detailTrash() {
     if (text.length <= maxLength) {
       return text;
     } else {
-      return text.substring(0, maxLength) + "...";
+      return text.substring(0, maxLength) + '...';
     }
   };
 
@@ -56,68 +41,43 @@ export default function detailTrash() {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     incrementIndex();
-  //     flatListRef.current.scrollToIndex({
-  //       index: currentIndex,
-  //       animated: true,
-  //     });
-  //   }, 3000);
-
-  //   return () => clearInterval(interval);
-  // }, [currentIndex]);
-
-  // useEffect(() => {
-  //   const timer = setInterval(incrementIndex, 3000); // Change image every 3 seconds
-
-  //   return () => clearInterval(timer); // Cleanup the timer when the component unmounts
-  // }, []);
 
   const renderItemCircle = () => {
-    // const isCurrent = index === currentIndex;
     const circleStyle = {
       ...styles.circlemini,
-      // backgroundColor: isCurrent ? "green" : "red",
     };
 
     return <View style={circleStyle} />;
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: "#daffd6"}}>
       <ScrollView>
-        <View style={[styles.container, { margin: 30 }]}>
+      <View style={{ padding: 20, margin: 15, backgroundColor: "white" }}>
+
+        <View style={[styles.container, {margin: 10}]}>
           <FlatList
-            // ref={flatListRef}
+          style={{width: 330}}
             data={images}
             keyExtractor={(item) => item.id}
             horizontal
             pagingEnabled
-            // showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
               <>
                 <Image
                   source={item.source}
-                  style={{ width: 350, height: 265 }}
+                  style={{ width: 330, height: 215 }}
                 />
-                {/* {item.id == String(currentIndex+1) ? (
-                      <View style={styles.circlemini} />
-                    ) : (
-                      <Text>Peter</Text>
-                    )} */}
               </>
             )}
-            // initialScrollIndex={currentIndex}
             getItemLayout={(data, index) => ({
-              length: 210, // Adjust this to your image height
-              offset: 210 * index,
+              length: 215, // Adjust this to your image height
+              offset: 215 * index,
               index,
             })}
-            // onMomentumScrollEnd={onMomentumScrollEnd}
           />
         </View>
-        <View style={[styles.container]}>
+        <View style={[styles.container, {margin: 10}]}>
           <FlatList
             data={images}
             keyExtractor={(item) => item.id}
@@ -127,8 +87,8 @@ export default function detailTrash() {
             renderItem={renderItemCircle}
             initialScrollIndex={currentIndex}
             getItemLayout={(data, index) => ({
-              length: 210, // Adjust this to your image height
-              offset: 210 * index,
+              length: 215, // Adjust this to your image height
+              offset: 215 * index,
               index,
             })}
           ></FlatList>
@@ -162,11 +122,11 @@ export default function detailTrash() {
         <View
           style={[
             styles.container,
-            { alignItems: "flex-start", marginLeft: 50 },
+            { alignItems: "flex-start", marginLeft: 30 },
           ]}
         >
           <Text style={{ fontSize: 14 }}>สินค้าที่มีวัสดุนี้</Text>
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", justifyContent: "space-around"}}>
             <Image
               source={require("../../../assets/images/peter.png")}
               style={styles.miniimage}
@@ -192,37 +152,38 @@ export default function detailTrash() {
         <View
           style={[
             styles.container,
-            { alignItems: "flex-start", marginLeft: 50 },
+            { alignItems: "flex-start", marginLeft: 30 },
           ]}
         >
           <Text style={{ fontSize: 14 }}>เลือกประเภทผู้รับวัสดุนี้</Text>
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
             <Image
               source={require("../../../assets/images/peter.png")}
-              style={[styles.miniimage, { borderRadius: 0 }]}
+              style={[styles.miniimage, {borderRadius: 0}]}
             />
             <Image
               source={require("../../../assets/images/peter.png")}
-              style={[styles.miniimage, { borderRadius: 0 }]}
+              style={[styles.miniimage, {borderRadius: 0}]}
             />
             <Image
               source={require("../../../assets/images/peter.png")}
-              style={[styles.miniimage, { borderRadius: 0 }]}
+              style={[styles.miniimage, {borderRadius: 0}]}
             />
             <Image
               source={require("../../../assets/images/peter.png")}
-              style={[styles.miniimage, { borderRadius: 0 }]}
+              style={[styles.miniimage, {borderRadius: 0}]}
             />
             <Image
               source={require("../../../assets/images/peter.png")}
-              style={[styles.miniimage, { borderRadius: 0 }]}
+              style={[styles.miniimage, {borderRadius: 0}]}
             />
           </View>
         </View>
+        <DetailTrashWantBuy />
+        <DetailTrashWantBuy />
+        <DetailTrashWantBuy />
+      </View>
 
-        <DetailTrashWantBuy />
-        <DetailTrashWantBuy />
-        <DetailTrashWantBuy />
       </ScrollView>
     </SafeAreaView>
   );
@@ -250,7 +211,7 @@ const styles = StyleSheet.create({
     backgroundColor: "red",
   },
   hr: {
-    borderBottomColor: "white", // Change color as needed
+    borderBottomColor: "grey", // Change color as needed
     borderBottomWidth: 1, // Change thickness as needed
     marginVertical: 10,
     margin: 40, // Adjust spacing as needed

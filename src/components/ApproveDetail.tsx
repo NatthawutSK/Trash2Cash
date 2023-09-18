@@ -2,14 +2,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Button } from "tamagui";
 
-const DetailPurchaseComponent = () => {
-  const truncateText = (text: string, maxLength: number) => {
-    if (text.length <= maxLength) {
-      return text;
-    } else {
-      return text.substring(0, maxLength) + "...";
-    }
-  };
+const DetailApprove = () => {
   
   const [showDetails, setShowDetails] = useState(false);
   
@@ -17,12 +10,10 @@ const DetailPurchaseComponent = () => {
     setShowDetails(!showDetails);
   };
   
-  let p = 5;
-  
   return (
     <View
       style={{
-        padding: 40,
+        padding: 20,
         backgroundColor: "#8ECDDD",
         margin: 15,
         flex: 0,
@@ -30,31 +21,12 @@ const DetailPurchaseComponent = () => {
         borderRadius: 12
       }}
     >
-      <TouchableOpacity style={{ flexDirection: "row" }}>
-        <Image
-          style={styles.tinyLogo}
-          source={{
-            uri: "https://reactnative.dev/img/tiny_logo.png",
-          }}
-        />
-        <View
-          style={{
-            flexDirection: "column",
-            justifyContent: "center",
-            marginLeft: 15,
-          }}
-        >
-          <Text style={{ fontSize: 15 }}>Name : {truncateText("p", 10)}</Text>
-          <Text style={{ fontSize: 15 }}>Date : 01/01/0001</Text>
-        </View>
-      </TouchableOpacity>
-      <View style={{ position: "relative", left: "80%" }}>
+      <View style={{ position: "relative" }}>
         <Button
-          size="$3"
-          width="$8"
-          height="$5"
+          size={100}
+          width={270}
+          height="$4"
           theme="active"
-          borderRadius="$10"
           onPress={toggleDetails}
         >
           Detail
@@ -68,19 +40,32 @@ const DetailPurchaseComponent = () => {
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <Text style={{ fontWeight: "bold", fontSize: 16 }}>รายการ</Text>
-            <Text style={{ fontWeight: "bold", fontSize: 16 }}>จำนวน</Text>
-            <Text style={{ fontWeight: "bold", fontSize: 16 }}>ราคา</Text>
+            <Text style={{ fontWeight: "bold", fontSize: 16 }}>น้ำหนัก</Text>
             {/* <View style={styles.hr}></View> */}
           </View>
-          {/* for(let i = 0; i < p; i++) {
-
-          } */}
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
-            <Text>รายการ</Text>
-            <Text>จำนวน</Text>
-            <Text>ราคา</Text>
+            <Text>- ขวดน้ำ</Text>
+            <Text>8 kg</Text>
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text>- ขวดน้ำ</Text>
+            <Text>8 kg</Text>
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text>- ขวดน้ำ</Text>
+            <Text>8 kg</Text>
+          </View>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Text>- ขวดน้ำ</Text>
+            <Text>8 kg</Text>
           </View>
         </View>
       )}
@@ -88,7 +73,7 @@ const DetailPurchaseComponent = () => {
   );
 };
 
-export default DetailPurchaseComponent;
+export default DetailApprove;
 
 const styles = StyleSheet.create({
   tinyLogo: {

@@ -29,6 +29,8 @@ export default function adminApprove() {
       <ScrollView>
         <View>
           <ApprovePageAdmin />
+          <ApprovePageAdmin />
+          <ApprovePageAdmin />
         </View>
       </ScrollView>
     </SafeAreaView>

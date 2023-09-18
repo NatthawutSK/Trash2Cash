@@ -9,7 +9,7 @@ import MapViewComponent from "@/components/MapComponent";
 export default function fullMap() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Full Map</Text>
+      {/* <Text style={styles.title}>Full Map</Text> */}
       {/* <DialogDemo />
       <SpinnerDemo /> */}
       {/* <EditScreenInfo path="app/(tabs)/two.tsx" /> */}

@@ -174,10 +174,12 @@ export default function home() {
         onPress={() => router.push("/(admin)/adminApprove")}
       >
         only for admin
+
       </Button> */}
 
         {/* <Link href={"/(thirds)/history"} asChild> */}
         {/* <Button
+
 
         alignSelf="center"
         size="$6"

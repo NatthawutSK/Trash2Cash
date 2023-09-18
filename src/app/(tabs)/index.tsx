@@ -24,6 +24,10 @@ export default function home() {
   return (
     <ScrollView bg={"$green5Light"} f={1}>
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
+      <Button onPress={() => router.push("/(admin)/adminApprove")}>
+        go to 3rd
+      </Button>
+      <Button onPress={() => router.push("/FormApprove")}>go to 3rd</Button>
       <Stack space={"$8"} pb={"$8"} pt={"$8"}>
         {/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">
           Trash2Cash
@@ -188,15 +192,14 @@ export default function home() {
         go to admin Approve
       </Button> */}
         {/* </Link> */}
+        <Button
+          alignSelf="center"
+          size="$6"
+          onPress={() => router.push("/detailStore/66")}
+        >
+          go to detail Store
+        </Button>
         {/* <Button
-
-        alignSelf="center"
-        size="$6"
-        onPress={() => router.push("/detailStore/66")}
-      >
-        go to detail Store
-      </Button>
-      <Button
         alignSelf="center"
         size="$6"
         onPress={() => router.push("/detailStore/66")}
@@ -220,18 +223,18 @@ export default function home() {
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: "bold",
-	},
-	separator: {
-		marginVertical: 30,
-		height: 1,
-		width: "80%",
-	},
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
 });

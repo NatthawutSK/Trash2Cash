@@ -11,6 +11,7 @@ import { useColorScheme } from "react-native";
 import { TamaguiProvider, Text, Theme } from "tamagui";
 import config from "../../tamagui.config";
 import { MySafeAreaView } from "../components/MySafeAreaView";
+import { LocationProvider } from "@/provider/LocationProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -56,11 +57,11 @@ function RootLayoutNav() {
 
   return (
     <TamaguiProvider config={config}>
-      <Suspense fallback={<Text>Loading...</Text>}>
-        <Theme name={colorScheme}>
-          <ThemeProvider
-            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-          >
+      <Theme name={colorScheme}>
+        <ThemeProvider
+          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+        >
+          <LocationProvider>
             {/* <MySafeAreaView> */}
             <Stack>
               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -109,9 +110,9 @@ function RootLayoutNav() {
               />
             </Stack>
             {/* </MySafeAreaView> */}
-          </ThemeProvider>
-        </Theme>
-      </Suspense>
+          </LocationProvider>
+        </ThemeProvider>
+      </Theme>
     </TamaguiProvider>
   );
 }

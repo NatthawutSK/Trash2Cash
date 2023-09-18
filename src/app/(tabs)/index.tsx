@@ -178,6 +178,7 @@ export default function home() {
 
         {/* <Link href={"/(thirds)/history"} asChild> */}
         {/* <Button
+
         alignSelf="center"
         size="$6"
         onPress={() => router.push("/(thirds)/history")}
@@ -186,6 +187,7 @@ export default function home() {
       </Button> */}
         {/* </Link> */}
         {/* <Button
+
         alignSelf="center"
         size="$6"
         onPress={() => router.push("/detailStore/66")}
@@ -206,6 +208,7 @@ export default function home() {
       >
         go to detail Store
       </Button> */}
+
         {/* </Link> */}
         {/* <SwitchDemo /> */}
         {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
@@ -215,18 +218,18 @@ export default function home() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
+	container: {
+		flex: 1,
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	title: {
+		fontSize: 20,
+		fontWeight: "bold",
+	},
+	separator: {
+		marginVertical: 30,
+		height: 1,
+		width: "80%",
+	},
 });

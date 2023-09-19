@@ -239,6 +239,20 @@ export default function home() {
 				>
 					go to form seller
 				</Button>
+				<Button
+					alignSelf="center"
+					size="$6"
+					onPress={() => router.push("/(admin)/adminApprove")}
+				>
+					Approve ADmin
+				</Button>
+				<Button
+					alignSelf="center"
+					size="$6"
+					onPress={() => router.push("/FormApprove")}
+				>
+					Form Approve
+				</Button>
 				{/* <Button
         alignSelf="center"
         size="$6"

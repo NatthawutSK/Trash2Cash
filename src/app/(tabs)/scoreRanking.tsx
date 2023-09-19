@@ -19,10 +19,12 @@ import {
 import { FlatList } from "react-native";
 import { router } from "expo-router";
 import RankingUser, { RankingUserProps } from "./../../components/RankingUser";
+import FlatlistRanking from "@/components/FlatlistRanking";
+import RankTabs from "@/components/RankTab";
 
 type Props = {};
 
-export const DATA: RankingUserProps[] = [
+export const DATARank: RankingUserProps[] = [
 	{
 		id: 1,
 		name: "test1 surr1",
@@ -85,15 +87,16 @@ export const DATA: RankingUserProps[] = [
 	},
 ];
 
-const DATA2 = DATA.filter((item) => item.id < 5);
-const renderRankingUser = (item: RankingUserProps) => {
-	return <RankingUser {...item} />;
-};
 const Ranking = (props: Props) => {
-	const [isNow, setNow] = useState(DATA);
 	return (
-		<YStack ai={"stretch"} jc={"center"} w={"100%"} h={"100%"}>
-			<XStack pt={30} ac={"center"} ai={"center"} jc={"space-evenly"}>
+		<YStack
+			ai={"stretch"}
+			jc={"center"}
+			w={"100%"}
+			h={"100%"}
+			bc={"$green5Light"}
+		>
+			{/* <XStack pt={30} ac={"center"} ai={"center"} jc={"space-evenly"}>
 				<Button
 					bc={"#1cb60e"}
 					color={"#daffd6"}
@@ -116,12 +119,13 @@ const Ranking = (props: Props) => {
 					keyExtractor={(item, index) => index.toString()}
 					// Performance settings
 					removeClippedSubviews={true} // Unmount components when outside of window
-					initialNumToRender={7} // Reduce initial render amount
+					initialNumToRender={1} // Reduce initial render amount
 					maxToRenderPerBatch={1} // Reduce number in each render batch
-					windowSize={7} // Reduce the window size
-				/>
-				<RankingUser {...DATA[5]} />
-			</YStack>
+					windowSize={2} // Reduce the window size
+				/> */}
+			<RankTabs data={DATARank} />
+			<RankingUser {...DATARank[5]} isMe={true} />
+			{/* </YStack> */}
 		</YStack>
 	);
 };

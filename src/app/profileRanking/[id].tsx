@@ -13,13 +13,14 @@ import {
 	Square,
 	Text,
 } from "tamagui";
-import { DATA } from "./../(tabs)/scoreRanking";
+import { DATARank } from "./../(tabs)/scoreRanking";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Leaf, Trash, Trees, Users } from "@tamagui/lucide-icons";
+
 type Props = {};
 const detailProfile = (props: Props) => {
 	const { id } = useLocalSearchParams();
-	const user = DATA.find((user) => user.id === Number(id));
+	const user = DATARank.find((user) => user.id === Number(id));
 	return (
 		<YStack jc={"center"} als={"center"} ai={"center"} space={30} mt={50}>
 			<Stack

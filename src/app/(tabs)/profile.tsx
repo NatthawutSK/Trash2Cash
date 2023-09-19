@@ -108,7 +108,7 @@ export default function three() {
 				iconAfter={<ChevronRight size="$2" />}
 				onPress={() => router.push("/(profile)/history")}
 			>
-				Histiry
+				History
 			</Button>
 		</YStack>
 	);

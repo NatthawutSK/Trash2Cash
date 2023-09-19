@@ -14,6 +14,7 @@ import {
 	H2,
 	Adapt,
 	Fieldset,
+	Square,
 } from "tamagui";
 
 import { styled } from "nativewind";
@@ -42,7 +43,7 @@ const FormApprove = (props: Props) => {
 	];
 	return (
 		<ScrollView bc={"$green10Light"}>
-			<StyledY flex={1} space={"$5"} pt={30} px={20}>
+			<StyledY flex={1} space={"$7"} pt={30} px={20}>
 				<Label
 					ta={"left"}
 					fow={"800"}
@@ -193,68 +194,75 @@ const FormApprove = (props: Props) => {
 						</Text>
 					</XStack>
 				</YStack>
-				<Button
-					bc={""}
-					onPress={() => {
-						setList([
-							...list,
-							{ name: select, weight: parseFloat(weight) },
-						]);
-						setSelect("");
-						setWeight("");
-					}}
-				>
-					เพิ่มรายการ
-				</Button>
-				<StyledS
+				<Stack marginBottom={"10%"} jc={"center"} ai={"center"}>
+					<Button
+						bc={"#66b55d"}
+						color={"$green5Light"}
+						fow={800}
+						w={"50%"}
+						onPress={() => {
+							setList([
+								...list,
+								{ name: select, weight: parseFloat(weight) },
+							]);
+							setSelect("");
+							setWeight("");
+						}}
+					>
+						เพิ่มรายการ
+					</Button>
+				</Stack>
+				<StyledY
 					space={"$3"}
 					w={"100%"}
-					f={1}
+					flex={1}
 					jc={"center"}
 					ac={"center"}
 					ai={"center"}
 					className=""
+					paddingBottom={20}
 				>
 					{/* <H2>{JSON.stringify(list)}</H2> */}
 					<Stack p={20} bc={"#66b55d"} br={20}>
 						<H2>Detail</H2>
-						{list.map((item: Detail, i: number) => {
-							return (
-								<XStack
-									key={i}
-									space={"$4"}
-									flex={1}
-									jc={"space-between"}
-								>
-									<Text>{item.name}</Text>
-									<Text>{item.weight} กก.</Text>
-									<Button
-										bc={"red"}
-										onPress={() => {
-											setList(
-												list.filter((val, index) => {
-													return index != i;
-												})
-											);
-										}}
-									>
-										Del
-									</Button>
-								</XStack>
-							);
-						})}
 					</Stack>
-					<StyledY
-						space={"$3"}
-						w={"100%"}
-						f={1}
-						jc={"center"}
-						ac={"center"}
-						ai={"center"}
-					></StyledY>
-				</StyledS>
-				<Stack flex={1} ai={"flex-end"} jc={"center"} pb={40}>
-					<Button w={"25%"}>ส่ง</Button>
+					<Stack bc={"$green8Dark"} p={20} px={40} br={20} space>
+						{list.length != 0 ? (
+							list.map((item: Detail, i: number) => {
+								return (
+									<XStack
+										key={i}
+										space={"$2"}
+										jc={"space-between"}
+									>
+										<Text als={"center"}>{item.name}</Text>
+										<Text als={"center"}>
+											{item.weight} กก.
+										</Text>
+										<Button
+											bc={"red"}
+											onPress={() => {
+												setList(
+													list.filter(
+														(val, index) => {
+															return index != i;
+														}
+													)
+												);
+											}}
+										>
+											Del
+										</Button>
+									</XStack>
+								);
+							})
+						) : (
+							<Text fos={"$4"}>ไม่มีข้อมูล</Text>
+						)}
+					</Stack>
+				</StyledY>
+				<Stack flex={1} als={"center"} pb={"$4"}>
+					<Button size={"$4"}>ส่ง</Button>
 				</Stack>
 			</StyledY>
 		</ScrollView>

@@ -4,38 +4,38 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { getDistance, convertDistance, orderByDistance } from "geolib";
 import { useLocation } from "@/provider/LocationProvider";
-import { Button } from "tamagui";
+import { Button, Image } from "tamagui";
 import { useRouter } from "expo-router";
 import { MySafeAreaView } from "./MySafeAreaView";
 import { SafeAreaView } from "react-native-safe-area-context";
 type Props = {};
 
 const MapViewComponent = (props: Props) => {
-	const { location } = useLocation();
-	const router = useRouter();
-	return (
-		// <SafeAreaView >
-		<View
-			style={{
-				width: "100%",
-				height: "100%",
-				overflow: "hidden",
-			}}
-		>
-			<MapView
-				style={{ width: "100%", height: "100%" }}
-				region={{
-					latitude: location?.coords.latitude!,
-					longitude: location?.coords.longitude!,
-					latitudeDelta: 0.0211,
-					longitudeDelta: 0.0121,
-				}}
-				zoomEnabled={true}
-				rotateEnabled={true}
-				provider={PROVIDER_GOOGLE}
-				showsUserLocation={true}
-			>
-				<Marker
+  const { location } = useLocation();
+  const router = useRouter();
+  return (
+    // <SafeAreaView >
+    <View
+      style={{
+        width: "100%",
+        height: "100%",
+        overflow: "hidden",
+      }}
+    >
+      <MapView
+        style={{ width: "100%", height: "100%" }}
+        region={{
+          latitude: location?.coords.latitude!,
+          longitude: location?.coords.longitude!,
+          latitudeDelta: 0.0211,
+          longitudeDelta: 0.0121,
+        }}
+        zoomEnabled={true}
+        rotateEnabled={true}
+        provider={PROVIDER_GOOGLE}
+        showsUserLocation={true}
+      >
+        {/* <Marker
 					draggable={true}
 					coordinate={{
 						latitude: location?.coords.latitude!,
@@ -46,19 +46,58 @@ const MapViewComponent = (props: Props) => {
 					onDragEnd={(e) => {
 						console.log(e.nativeEvent.coordinate);
 					}}
-				/>
-			</MapView>
-			<Button
-				bg={"$green10Light"}
-				color={"$green1Light"}
-				w={"80%"}
-				alignSelf={"center"}
-				style={{ position: "absolute", bottom: 25 }}
-				onPress={() => router.back()}
-			>
-				ใช้ตำแหน่งนี้
-			</Button>
-			{/* <Text>
+				/> */}
+        <Marker
+          coordinate={{
+            latitude: location?.coords.latitude! - 0.002,
+            longitude: location?.coords.longitude! - 0.0005,
+          }}
+          title="ร้านพานิช"
+          description="รับหมดไม่สนขยะไหน"
+        >
+          <Image
+            source={require("../../assets/images/icons8-recycle-64.png")}
+            style={{ width: 40, height: 40 }}
+          />
+        </Marker>
+        <Marker
+          coordinate={{
+            latitude: location?.coords.latitude! + 0.001,
+            longitude: location?.coords.longitude! + 0.0005,
+          }}
+          title="Marker Title"
+          description="Marker Description"
+        >
+          <Image
+            source={require("../../assets/images/icons8-recycle-64.png")}
+            style={{ width: 40, height: 40 }}
+          />
+        </Marker>
+        <Marker
+          coordinate={{
+            latitude: location?.coords.latitude! - 0.00005,
+            longitude: location?.coords.longitude! - 0.001,
+          }}
+          title="Marker Title"
+          description="Marker Description"
+        >
+          <Image
+            source={require("../../assets/images/icons8-recycle-64.png")}
+            style={{ width: 40, height: 40 }}
+          />
+        </Marker>
+      </MapView>
+      {/* <Button
+        bg={"$green10Light"}
+        color={"$green1Light"}
+        w={"80%"}
+        alignSelf={"center"}
+        style={{ position: "absolute", bottom: 25 }}
+        onPress={() => router.back()}
+      >
+        ใช้ตำแหน่งนี้
+      </Button> */}
+      {/* <Text>
         {convertDistance(
           getDistance(
             { latitude: 13.756331, longitude: 100.501762 },
@@ -85,9 +124,9 @@ const MapViewComponent = (props: Props) => {
             )
             )}
           </Text> */}
-		</View>
-		// </SafeAreaView>
-	);
+    </View>
+    // </SafeAreaView>
+  );
 };
 
 export default MapViewComponent;

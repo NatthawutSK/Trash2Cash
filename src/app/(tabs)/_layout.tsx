@@ -35,7 +35,7 @@ export default function TabLayout() {
                 )}
               </Pressable>
             </Link>
-            <Link href="/(map)/nearbyRanking" asChild>
+            <Link href="/(map)/fullMap" asChild>
               <Pressable>
                 {({ pressed }) => (
                   <FontAwesome

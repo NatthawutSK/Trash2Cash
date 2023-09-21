@@ -10,15 +10,15 @@ const DetailPurchaseComponent = () => {
       return text.substring(0, maxLength) + "...";
     }
   };
-  
+
   const [showDetails, setShowDetails] = useState(false);
-  
+
   const toggleDetails = () => {
     setShowDetails(!showDetails);
   };
-  
+
   let p = 5;
-  
+
   return (
     <View
       style={{
@@ -27,14 +27,14 @@ const DetailPurchaseComponent = () => {
         margin: 15,
         flex: 0,
         flexDirection: "column",
-        borderRadius: 12
+        borderRadius: 12,
       }}
     >
       <TouchableOpacity style={{ flexDirection: "row" }}>
         <Image
           style={styles.tinyLogo}
           source={{
-            uri: "https://reactnative.dev/img/tiny_logo.png",
+            uri: "https://lh3.googleusercontent.com/p/AF1QipMHwiWLlOgA_oJEQUB4YTuRt4gdv1uXzfYioTBW=w768-h768-n-o-v1",
           }}
         />
         <View

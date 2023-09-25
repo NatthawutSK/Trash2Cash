@@ -22,6 +22,8 @@ export default function TabLayout() {
     <Tabs
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+        // headerStyle: {},
+        // headerTransparent: true,
         headerRight: () => (
           <Stack f={1} flexDirection="row" ai={"center"} space={"$3"}>
             <Link href="/search" asChild>

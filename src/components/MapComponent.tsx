@@ -11,7 +11,33 @@ import { SafeAreaView } from "react-native-safe-area-context";
 type Props = {};
 
 const MapViewComponent = (props: Props) => {
-  const { location } = useLocation();
+  const [location, setLocation] = useState<Location.LocationObject>({
+    coords: {
+      latitude: 0,
+      longitude: 0,
+      altitude: null,
+      accuracy: null,
+      altitudeAccuracy: null,
+      heading: null,
+      speed: null,
+    },
+    timestamp: 0,
+    mocked: false,
+  });
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+  // const { location } = useLocation();
   const router = useRouter();
   return (
     // <SafeAreaView >

@@ -18,11 +18,13 @@ import { Link, useRouter } from "expo-router";
 import MapViewComponent from "@/components/MapComponent";
 import MiniMap from "@/components/MiniMap";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import DialogDemo from "@/components/DialogDemo";
 
 export default function home() {
   const router = useRouter();
   return (
     <ScrollView bg={"$green5Light"} f={1}>
+      <DialogDemo />
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
       <Button onPress={() => router.push("/(auth)/login")}>go to loggin</Button>
       {/* <Button onPress={() => router.push("/FormApprove")}>go to 3rd</Button> */}
@@ -31,7 +33,7 @@ export default function home() {
           Trash2Cash
         </Text> */}
         <Stack space={"$4"}>
-          {/* <View
+          <View
             style={{
               alignSelf: "center",
               width: "90%",
@@ -41,7 +43,7 @@ export default function home() {
             }}
           >
             <MiniMap />
-          </View> */}
+          </View>
           <Stack jc={"center"} ai={"center"}>
             <Button
               w={"90%"}

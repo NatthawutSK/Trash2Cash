@@ -61,16 +61,16 @@ function RootLayoutNav() {
         <ThemeProvider
           value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
         >
-          <LocationProvider>
-            {/* <MySafeAreaView> */}
-            <Stack>
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-              {/* <Stack.Screen name="(admin)" options={{ headerShown: false }} /> */}
-              {/* <Stack.Screen
+          {/* <LocationProvider> */}
+          {/* <MySafeAreaView> */}
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            {/* <Stack.Screen name="(admin)" options={{ headerShown: false }} /> */}
+            {/* <Stack.Screen
                   name="(thirds)"
                   options={{ headerShown: false }}
                 /> */}
-              {/* <Stack.Screen
+            {/* <Stack.Screen
                 name="(thirds)/adminApprove"
                 options={{ headerShown: false }}
               />
@@ -79,63 +79,57 @@ function RootLayoutNav() {
                 options={{ headerShown: false }}
               /> */}
 
-              <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-              <Stack.Screen
-                name="(auth)/login"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="(auth)/signup"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="(admin)/adminApprove"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="(map)/fullMap"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="(map)/nearbyRanking"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen name="formStore" options={{ headerShown: false }} />
-              <Stack.Screen
-                name="formSeller"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="chooseRole"
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="detailStore/[id]"
-                options={{ title: "Detail Store" }}
-              />
-              <Stack.Screen
-                name="detailTrash/[id]"
-                options={{ title: "Detail Trash" }}
-              />
-              <Stack.Screen
-                name="(profile)/editProfile"
-                options={{ title: "Edit Profile" }}
-              />
-              <Stack.Screen
-                name="(profile)/changePassword"
-                options={{ title: "Change Password" }}
-              />
-              <Stack.Screen
-                name="(profile)/history"
-                options={{ title: "History" }}
-              />
-              <Stack.Screen
-                name="profileRanking/[id]"
-                options={{ title: "User Stat" }}
-              />
-            </Stack>
-            {/* </MySafeAreaView> */}
-          </LocationProvider>
+            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+            <Stack.Screen
+              name="(auth)/login"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="(auth)/signup"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="(admin)/adminApprove"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="(map)/fullMap"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="(map)/nearbyRanking"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="formStore" options={{ headerShown: false }} />
+            <Stack.Screen name="formSeller" options={{ headerShown: false }} />
+            <Stack.Screen name="chooseRole" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="detailStore/[id]"
+              options={{ title: "Detail Store" }}
+            />
+            <Stack.Screen
+              name="detailTrash/[id]"
+              options={{ title: "Detail Trash" }}
+            />
+            <Stack.Screen
+              name="(profile)/editProfile"
+              options={{ title: "Edit Profile" }}
+            />
+            <Stack.Screen
+              name="(profile)/changePassword"
+              options={{ title: "Change Password" }}
+            />
+            <Stack.Screen
+              name="(profile)/history"
+              options={{ title: "History" }}
+            />
+            <Stack.Screen
+              name="profileRanking/[id]"
+              options={{ title: "User Stat" }}
+            />
+          </Stack>
+          {/* </MySafeAreaView> */}
+          {/* </LocationProvider> */}
         </ThemeProvider>
       </Theme>
     </TamaguiProvider>

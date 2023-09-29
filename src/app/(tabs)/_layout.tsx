@@ -1,6 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
-import { Pressable, useColorScheme } from "react-native";
+import { Pressable, View, useColorScheme } from "react-native";
 
 import Colors from "@/constants/Colors";
 import { Input, Stack, Text } from "tamagui";
@@ -77,8 +77,13 @@ export default function TabLayout() {
         name="scoreRanking"
         options={{
           title: "Ranking",
-          tabBarIcon: ({ color }) => (
-            <TabBarIcon name="stack-overflow" color={color} />
+          // tabBarIcon: ({ color }) => (
+          //   <TabBarIcon name="stack-overflow" color={color} />
+          // ),
+          tabBarButton: () => (
+            <View className="-mt-6 bg-red-500 rounded-full w-16 h-16 items-center justify-center">
+              <FontAwesome name="stack-overflow" size={28} color="green" />
+            </View>
           ),
         }}
       />

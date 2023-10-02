@@ -2,9 +2,14 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
 import { Pressable, View, useColorScheme } from "react-native";
 
-import Colors from "@/constants/Colors";
+import Colors, { colors } from "@/constants/Colors";
 import { Input, Stack, Text } from "tamagui";
-
+import {
+  MaterialIcons,
+  SimpleLineIcons,
+  FontAwesome5,
+  Fontisto,
+} from "@expo/vector-icons";
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -21,9 +26,12 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-        // headerStyle: {},
-        // headerTransparent: true,
+        tabBarActiveTintColor: colors.green2,
+        tabBarInactiveTintColor: "white",
+        tabBarLabelStyle: { fontSize: 12, top: -5 },
+        // tabBarBadgeStyle: { backgroundColor: colors.green1 },
+        tabBarStyle: { backgroundColor: colors.green3, height: 60 },
+        headerTransparent: true,
         headerRight: () => (
           <Stack f={1} flexDirection="row" ai={"center"} space={"$3"}>
             <Link href="/search" asChild>
@@ -69,31 +77,48 @@ export default function TabLayout() {
         name="index"
         options={{
           title: "Home",
-
-          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="scoreRanking"
-        options={{
-          title: "Ranking",
-          // tabBarIcon: ({ color }) => (
-          //   <TabBarIcon name="stack-overflow" color={color} />
-          // ),
-          tabBarButton: () => (
-            <View className="-mt-6 bg-red-500 rounded-full w-16 h-16 items-center justify-center">
-              <FontAwesome name="stack-overflow" size={28} color="green" />
-            </View>
+          tabBarIcon: ({ color }) => (
+            <Fontisto name="home" size={24} color={color} />
           ),
         }}
       />
-      {/* <Tabs.Screen
+
+      <Tabs.Screen
+        name="scoreRanking"
+        options={{
+          // tabBarLabelStyle: { right: 6 },
+          title: "Rank",
+          tabBarIcon: ({ color }) => (
+            <FontAwesome5 name="medal" size={24} color={color} />
+          ),
+        }}
+      />
+
+      <Tabs.Screen
+        name="qrCode"
+        options={{
+          title: "qrCode",
+          tabBarButton: () => (
+            <Link href="/qrCode" asChild>
+              <Pressable
+                className="-mt-6 rounded-full w-16 h-16 items-center justify-center"
+                style={{ backgroundColor: colors.green2 }}
+              >
+                <MaterialIcons name="qr-code-scanner" size={35} color="white" />
+              </Pressable>
+            </Link>
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="stats"
         options={{
           title: "Stats",
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="pie-chart" color={color} />
+          ),
         }}
-      /> */}
+      />
       <Tabs.Screen
         name="profile"
         options={{

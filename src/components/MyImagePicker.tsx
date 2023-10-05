@@ -18,7 +18,7 @@ const PickerImg = () => {
 			quality: 1,
 		});
 		//to remove warning
-
+		delete result.cancelled;
 		console.log(result);
 
 		if (!result.canceled) {
@@ -27,7 +27,7 @@ const PickerImg = () => {
 	};
 
 	return (
-		<View ac={"center"} ai={"center"}>
+		<View ac={"center"} ai={"center"} space>
 			<Avatar
 				size="$14"
 				style={{ borderColor: colors.green4 }}

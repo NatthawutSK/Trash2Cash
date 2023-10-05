@@ -1,24 +1,24 @@
 import React, { useState } from "react";
-import { Sheet, YStack, Image, Button, View, Text } from "tamagui";
+import { Sheet, YStack, Image, Button, View, Text, Avatar } from "tamagui";
 import * as ImagePicker from "expo-image-picker";
+import { colors } from "@/constants/Colors";
 type Props = {};
 
 const PickerImg = () => {
 	const [image, setImage] = useState<string | undefined>(
-		"https://vectips.com/wp-content/uploads/2018/12/tutorial-preview-large-1.png"
+		"http://placekitten.com/200/300"
 	);
 	const [open, setOpen] = useState(false);
 	const pickImage = async () => {
 		// No permissions request is necessary for launching the image library
 		let result = await ImagePicker.launchImageLibraryAsync({
 			mediaTypes: ImagePicker.MediaTypeOptions.All,
-			allowsEditing: false,
+			allowsEditing: true,
 			aspect: [16, 9],
 			quality: 1,
 		});
 		//to remove warning
 		delete result.cancelled;
-
 		console.log(result);
 
 		if (!result.canceled) {
@@ -27,27 +27,25 @@ const PickerImg = () => {
 	};
 
 	return (
-		<View ac={"center"} ai={"center"}>
-			{image && (
-				<Image
-					source={{ uri: image }}
-					style={{ width: 200, height: 200 }}
-					resizeMode="contain"
-					m={10}
-					onPress={() => {
-						setOpen(!open);
-					}}
-				/>
-			)}
+		<View ac={"center"} ai={"center"} space>
+			<Avatar
+				size="$14"
+				style={{ borderColor: colors.green4 }}
+				className="rounded-lg  border-8"
+			>
+				<Avatar.Image src={image} />
+				<Avatar.Fallback bc="red" />
+			</Avatar>
+
 			<Button
 				bc={"#66b55d"}
 				color={"$green5Light"}
-				fow={800}
+				className="font-bold"
 				onPress={pickImage}
 			>
 				เลือกรูปหลักฐาน
 			</Button>
-			<Sheet
+			{/* <Sheet
 				modal
 				open={open}
 				onOpenChange={setOpen}
@@ -77,7 +75,7 @@ const PickerImg = () => {
 						)}
 					</YStack>
 				</Sheet.Frame>
-			</Sheet>
+			</Sheet> */}
 		</View>
 	);
 };

@@ -58,7 +58,7 @@ export default function Profile() {
 	};
 
 	return (
-		<YStack padding={"$4"} space={"$4"}>
+		<YStack padding={"$4"} marginTop={"$11"} space={"$4"}>
 			<XStack jc={"space-around"} w={"100%"} space={"$4"} mb={"$2"}>
 				<Avatar br={20} size="$12">
 					<Avatar.Image src={userdata.image} />

@@ -11,7 +11,7 @@ import { useColorScheme } from "react-native";
 import { TamaguiProvider, Text, Theme } from "tamagui";
 import config from "../../tamagui.config";
 import { MySafeAreaView } from "../components/MySafeAreaView";
-import { LocationProvider } from "@/provider/LocationProvider";
+// import { LocationProvider } from "@/provider/LocationProvider";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -88,10 +88,7 @@ function RootLayoutNav() {
               name="(auth)/signup"
               options={{ headerShown: false }}
             />
-            <Stack.Screen
-              name="(admin)/adminApprove"
-              options={{ headerShown: false }}
-            />
+
             <Stack.Screen
               name="(map)/fullMap"
               options={{ headerShown: false }}

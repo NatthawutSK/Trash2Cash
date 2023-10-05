@@ -15,6 +15,7 @@ import {
 } from "tamagui";
 import { Store, Phone, ChevronDown, Newspaper } from "@tamagui/lucide-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+import { FlatList } from "react-native";
 
 type Props = {};
 type TypeStore = {
@@ -83,7 +84,34 @@ const detailStore = (props: Props) => {
 
   return (
     <ScrollView>
-      <Image width={500} h={250} source={{ uri: Mockstore[0].img }} />
+      {/* <Image width={500} h={250} source={{ uri: Mockstore[0].img }} /> */}
+      <FlatList
+        style={{
+          width: 350,
+          alignSelf: "center",
+          marginTop: 20,
+        }}
+        className="rounded-lg"
+        data={Mockstore}
+        keyExtractor={(item: any, index: any) => index.toString()}
+        horizontal
+        pagingEnabled
+        renderItem={({ item }: any) => (
+          <>
+            <Image
+              source={{ uri: item.img }}
+              w={350}
+              h={215}
+              className="rounded-lg"
+            />
+          </>
+        )}
+        getItemLayout={(data: any, index: any) => ({
+          length: 215, // Adjust this to your image height
+          offset: 215 * index,
+          index,
+        })}
+      />
       <YStack ai={"center"}>
         <Square bg="$green5Light" w={370} h={90} br={25} mt={20}>
           <XStack f={1} ai={"center"} m={10} space={"$3"}>

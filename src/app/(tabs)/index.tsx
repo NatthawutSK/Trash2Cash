@@ -1,219 +1,153 @@
-import { StyleSheet } from "react-native";
+import { FlatList, StyleSheet, Image, Pressable } from "react-native";
 
 import SwitchDemo from "@/components/SwitchDemo";
 import { View } from "@/components/Themed";
 import {
-	Button,
-	Circle,
-	H4,
-	Image,
-	ScrollView,
-	Square,
-	Stack,
-	Text,
-	XStack,
-	YStack,
+  Button,
+  Circle,
+  H4,
+  Image,
+  ScrollView,
+  Square,
+  Stack,
+  Text,
+  XStack,
+  YStack,
 } from "tamagui";
 import { Link, useRouter } from "expo-router";
 import MapViewComponent from "@/components/MapComponent";
 import MiniMap from "@/components/MiniMap";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DialogDemo from "@/components/DialogDemo";
+import { colors } from "@/constants/Colors";
+// import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+const BoxTrash = (item: any) => {
+  return (
+    <Pressable onPress={() => router.push("/")}>
+      <View
+        className="h-52 rounded-lg w-52 mx-3 items-center flex justify-center"
+        style={{ backgroundColor: colors.green3 }}
+      >
+        <Image className="w-24 h-24" source={getProperty(imgIcon, item.img)} />
+        <Text ta={"center"} mt={"$3"} fontSize={"$5"} className="text-white">
+          {item.name}
+        </Text>
+      </View>
+    </Pressable>
+  );
+};
 
+const TrashMaterial = [
+  {
+    id: 1,
+    name: "ขวด PET ใส",
+    img: "plastic_bottle",
+  },
+  {
+    id: 2,
+    name: "ขวดแก้ว",
+    img: "glass_bottle",
+  },
+  {
+    id: 3,
+    name: "กระดาษกล่อง",
+    img: "box",
+  },
+  {
+    id: 4,
+    name: "ถุงฟิล์ม/ยืด",
+    img: "plastic_bag",
+  },
+  {
+    id: 5,
+    name: "กระป๋องอลูมิเนียม",
+    img: "can",
+  },
+  {
+    id: 6,
+    name: "กระดาษขาวดำ",
+    img: "paper",
+  },
+];
+
+function getProperty<T, K extends keyof T>(obj: T, key: K) {
+  return obj[key];
+}
+
+const imgIcon = {
+  plastic_bottle: require("../../../assets/images/plastic-bottle.png"),
+  glass_bottle: require("../../../assets/images/glass-bottle.png"),
+  box: require("../../../assets/images/box.png"),
+  plastic_bag: require("../../../assets/images/plastic-bag.png"),
+  can: require("../../../assets/images/can.png"),
+  paper: require("../../../assets/images/paper.png"),
+};
+
+const router = useRouter();
 export default function home() {
-	const router = useRouter();
-	return (
-		<ScrollView bg={"$green5Light"} f={1}>
-			<DialogDemo />
-			{/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
-			<Button onPress={() => router.push("/(auth)/login")}>
-				go to loggin
-			</Button>
-			{/* <Button onPress={() => router.push("/FormApprove")}>go to 3rd</Button> */}
-			<Stack space={"$8"} pb={"$8"} pt={"$8"}>
-				{/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">
+
+  return (
+    <ScrollView bg={"$green5Light"} f={1} pt={"$11"}>
+      {/* <DialogDemo /> */}
+      {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
+      {/* <Button onPress={() => router.push("/(auth)/login")}>go to loggin</Button> */}
+      {/* <Button onPress={() => router.push("/FormApprove")}>go to 3rd</Button> */}
+      <Stack space={"$8"} pb={"$8"} pt={"$8"}>
+        {/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">
           Trash2Cash
         </Text> */}
-				<Stack space={"$4"}>
-					<View
-						style={{
-							alignSelf: "center",
-							width: "90%",
-							height: 250,
-							borderRadius: 10,
-							overflow: "hidden",
-						}}
-					>
-						{/* <MiniMap /> */}
-					</View>
-					<Stack jc={"center"} ai={"center"}>
-						<Button
-							w={"90%"}
-							onPress={() => router.push("/(map)/nearbyRanking")}
-						>
-							<Text
-								fos={"$5"}
-								className="font-bold"
-								color={"$green10Light"}
-							>
-								อันดับร้านใกล้ฉัน
-							</Text>
-						</Button>
-					</Stack>
-				</Stack>
+        <Stack space={"$4"}>
+          {/* <View
+            style={{
+              alignSelf: "center",
+              width: "90%",
+              height: 250,
+              borderRadius: 10,
+              overflow: "hidden",
+            }}
+          >
+            <MiniMap />
+          </View> */}
+          <Stack jc={"center"} ai={"center"}>
+            <Button
+              w={"90%"}
+              onPress={() => router.push("/(map)/nearbyRanking")}
+              style={{ backgroundColor: colors.green4 }}
+            >
+              <Text fos={"$5"} className="font-bold" color={"$green1Light"}>
+                อันดับร้านใกล้ฉัน
+              </Text>
+            </Button>
+          </Stack>
 
-				<Text
-					ta={"center"}
-					className="text-xl font-bold"
-					color={"$green8Dark"}
-				>
-					สถิติรวม
-				</Text>
+          <XStack
+            alignItems="center"
+            jc={"space-between"}
+            marginHorizontal={"$4"}
+          >
+            <H4 className="font-bold">วัสดุรีไซเคิล</H4>
+            <TouchableOpacity onPress={() => router.push("/search")}>
+              <Text>ดูทั้งหมด</Text>
+            </TouchableOpacity>
+          </XStack>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={TrashMaterial}
+            renderItem={({ item }) => BoxTrash(item)}
+          />
+        </Stack>
 
-				<Stack jc={"center"} ai={"center"} space={"$5"}>
-					{/* <H4 fos={20}>สถิติรวม</H4> */}
-					{/* <Text>กู้โลก</Text> */}
-
-					<XStack space={"$4"}>
-						<YStack space="$4">
-							<Square
-								w={180}
-								h={200}
-								br={20}
-								backgroundColor="$green9Dark"
-							>
-								<YStack space={"$3"}>
-									<Text
-										fos={"$6"}
-										color={"$red1Light"}
-										className="font-bold"
-									>
-										ลด co2 ไปแล้ว
-									</Text>
-									<Text
-										color={"$red1Light"}
-										className="font-bold"
-										fos={"$8"}
-										ta={"center"}
-									>
-										90709{"     "}
-										<Text fos={"$5"} color={"$gray5Light"}>
-											kCO2e
-										</Text>
-									</Text>
-
-									<MaterialCommunityIcons
-										name="molecule-co2"
-										size={48}
-										color="white"
-									/>
-									{/* <Image source={{ uri: co2 }} /> */}
-								</YStack>
-							</Square>
-							<Square w={180} h={150} br={20} bg={"$green9Dark"}>
-								<YStack space={"$2"} mt={"$3"}>
-									<Text
-										fos={"$6"}
-										color={"$red1Light"}
-										className="font-bold"
-									>
-										เทียบเท่าปลูกต้นไม้
-									</Text>
-									<Text
-										color={"$red1Light"}
-										ta={"center"}
-										fos={"$8"}
-										className="font-bold"
-									>
-										9070{"     "}
-										<Text fos={"$5"} color={"$gray5Light"}>
-											ต้น
-										</Text>
-									</Text>
-									<MaterialCommunityIcons
-										name="tree-outline"
-										size={48}
-										color="white"
-									/>
-								</YStack>
-							</Square>
-						</YStack>
-
-						<YStack space={"$4"}>
-							<Square w={160} h={150} br={20} bg={"$green9Dark"}>
-								<YStack space={"$2"}>
-									<Text
-										fos={"$6"}
-										color={"$red1Light"}
-										className="font-bold"
-									>
-										ลดขยะ
-									</Text>
-									<Text
-										fos={"$8"}
-										color={"$red1Light"}
-										className="font-bold"
-									>
-										9070{"     "}
-										<Text fos={"$5"} color={"$gray5Light"}>
-											กก.
-										</Text>
-									</Text>
-									<MaterialCommunityIcons
-										name="trash-can-outline"
-										size={48}
-										color="white"
-									/>
-								</YStack>
-							</Square>
-							<Square w={160} h={200} br={20} bg={"$green9Dark"}>
-								<YStack space={"$4"}>
-									<Text
-										fos={"$6"}
-										color={"$red1Light"}
-										className="font-bold"
-									>
-										ผู้ร่วมช่วยโลก
-									</Text>
-									<Text
-										fos={"$8"}
-										color={"$red1Light"}
-										ta={"center"}
-										className="font-bold"
-									>
-										922{"     "}
-										<Text fos={"$5"} color={"$gray5Light"}>
-											คน
-										</Text>
-									</Text>
-									<Stack ml={"$3"}>
-										<MaterialCommunityIcons
-											name="account-group-outline"
-											size={48}
-											color="white"
-										/>
-									</Stack>
-								</YStack>
-							</Square>
-						</YStack>
-					</XStack>
-				</Stack>
-
-				{/* <Image source={require("../../../assets/images/co2.png")} /> */}
-				<Button
-					alignSelf="center"
-					size="$6"
-					onPress={() => router.push("/FormApprove")}
-				>
-					go to form approve
-				</Button>
-				<Button
-					alignSelf="center"
-					size="$6"
-					onPress={() => router.push("/(admin)/adminApprove")}
-				>
-					only for admin
-				</Button>
+        {/* <Image source={require("../../../assets/images/co2.png")} /> */}
+        {/* <Button
+          alignSelf="center"
+          size="$6"
+          onPress={() => router.push("/FormApprove")}
+        >
+          go to form approve
+        </Button> */}
 
 				{/* <Link href={"/(thirds)/history"} asChild> */}
 				{/* <Button

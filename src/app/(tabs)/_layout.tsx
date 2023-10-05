@@ -51,8 +51,12 @@ export default function TabLayout() {
                   <FontAwesome
                     name="map-marker"
                     size={28}
-                    color="green"
-                    style={{ marginRight: 20, opacity: pressed ? 0.5 : 1 }}
+                    // color="green"
+                    style={{
+                      marginRight: 20,
+                      opacity: pressed ? 0.5 : 1,
+                      color: colors.green4,
+                    }}
                   />
                 )}
               </Pressable>
@@ -65,8 +69,7 @@ export default function TabLayout() {
               <FontAwesome
                 name="recycle"
                 size={20}
-                color="green"
-                style={{ marginRight: 20 }}
+                style={{ marginRight: 20, color: colors.green4 }}
               />
             </Link>
           );

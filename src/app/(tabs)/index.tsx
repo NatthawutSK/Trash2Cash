@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { FlatList, StyleSheet, Image, Pressable } from "react-native";
 
 import SwitchDemo from "@/components/SwitchDemo";
 import { View } from "@/components/Themed";
@@ -6,7 +6,6 @@ import {
   Button,
   Circle,
   H4,
-  Image,
   ScrollView,
   Square,
   Stack,
@@ -19,9 +18,74 @@ import MapViewComponent from "@/components/MapComponent";
 import MiniMap from "@/components/MiniMap";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DialogDemo from "@/components/DialogDemo";
+import { colors } from "@/constants/Colors";
+// import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+const BoxTrash = (item: any) => {
+  return (
+    <Pressable onPress={() => router.push("/")}>
+      <View
+        className="h-52 rounded-lg w-52 mx-3 items-center flex justify-center"
+        style={{ backgroundColor: colors.green3 }}
+      >
+        <Image className="w-24 h-24" source={getProperty(imgIcon, item.img)} />
+        <Text ta={"center"} mt={"$3"} fontSize={"$5"} className="text-white">
+          {item.name}
+        </Text>
+      </View>
+    </Pressable>
+  );
+};
 
+const TrashMaterial = [
+  {
+    id: 1,
+    name: "ขวด PET ใส",
+    img: "plastic_bottle",
+  },
+  {
+    id: 2,
+    name: "ขวดแก้ว",
+    img: "glass_bottle",
+  },
+  {
+    id: 3,
+    name: "กระดาษกล่อง",
+    img: "box",
+  },
+  {
+    id: 4,
+    name: "ถุงฟิล์ม/ยืด",
+    img: "plastic_bag",
+  },
+  {
+    id: 5,
+    name: "กระป๋องอลูมิเนียม",
+    img: "can",
+  },
+  {
+    id: 6,
+    name: "กระดาษขาวดำ",
+    img: "paper",
+  },
+];
+
+function getProperty<T, K extends keyof T>(obj: T, key: K) {
+  return obj[key];
+}
+
+const imgIcon = {
+  plastic_bottle: require("../../../assets/images/plastic-bottle.png"),
+  glass_bottle: require("../../../assets/images/glass-bottle.png"),
+  box: require("../../../assets/images/box.png"),
+  plastic_bag: require("../../../assets/images/plastic-bag.png"),
+  can: require("../../../assets/images/can.png"),
+  paper: require("../../../assets/images/paper.png"),
+};
+
+const router = useRouter();
 export default function home() {
-  const router = useRouter();
   return (
     <ScrollView bg={"$green5Light"} f={1} pt={"$11"}>
       {/* <DialogDemo /> */}
@@ -33,7 +97,7 @@ export default function home() {
           Trash2Cash
         </Text> */}
         <Stack space={"$4"}>
-          <View
+          {/* <View
             style={{
               alignSelf: "center",
               width: "90%",
@@ -43,17 +107,35 @@ export default function home() {
             }}
           >
             <MiniMap />
-          </View>
+          </View> */}
           <Stack jc={"center"} ai={"center"}>
             <Button
               w={"90%"}
               onPress={() => router.push("/(map)/nearbyRanking")}
+              style={{ backgroundColor: colors.green4 }}
             >
-              <Text fos={"$5"} className="font-bold" color={"$green10Light"}>
+              <Text fos={"$5"} className="font-bold" color={"$green1Light"}>
                 อันดับร้านใกล้ฉัน
               </Text>
             </Button>
           </Stack>
+
+          <XStack
+            alignItems="center"
+            jc={"space-between"}
+            marginHorizontal={"$4"}
+          >
+            <H4 className="font-bold">วัสดุรีไซเคิล</H4>
+            <TouchableOpacity onPress={() => router.push("/search")}>
+              <Text>ดูทั้งหมด</Text>
+            </TouchableOpacity>
+          </XStack>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={TrashMaterial}
+            renderItem={({ item }) => BoxTrash(item)}
+          />
         </Stack>
 
         {/* <Image source={require("../../../assets/images/co2.png")} /> */}

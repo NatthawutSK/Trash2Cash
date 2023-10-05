@@ -1,6 +1,7 @@
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { XStack, YStack, Square, Text, Stack } from "tamagui";
+import { XStack, YStack, Square, Text, Stack, View } from "tamagui";
+import { Trash2, TreePine } from "@tamagui/lucide-icons";
 
 type Props = {};
 
@@ -24,7 +25,7 @@ const stats = (props: Props) => {
           <YStack space="$4">
             <Square w={180} h={200} br={20} backgroundColor="$green9Dark">
               <YStack space={"$3"}>
-                <Text fos={"$6"} color={"$red1Light"} className="font-bold">
+                <Text fos={"$4"} color={"$red1Light"} className="font-bold">
                   ลด co2 ไปแล้ว
                 </Text>
                 <Text
@@ -49,7 +50,7 @@ const stats = (props: Props) => {
             </Square>
             <Square w={180} h={150} br={20} bg={"$green9Dark"}>
               <YStack space={"$2"} mt={"$3"}>
-                <Text fos={"$6"} color={"$red1Light"} className="font-bold">
+                <Text fos={"$4"} color={"$red1Light"} className="font-bold">
                   เทียบเท่าปลูกต้นไม้
                 </Text>
                 <Text
@@ -63,11 +64,7 @@ const stats = (props: Props) => {
                     ต้น
                   </Text>
                 </Text>
-                <MaterialCommunityIcons
-                  name="tree-outline"
-                  size={48}
-                  color="white"
-                />
+                <TreePine size={45} color="white" />
               </YStack>
             </Square>
           </YStack>
@@ -75,7 +72,7 @@ const stats = (props: Props) => {
           <YStack space={"$4"}>
             <Square w={160} h={150} br={20} bg={"$green9Dark"}>
               <YStack space={"$2"}>
-                <Text fos={"$6"} color={"$red1Light"} className="font-bold">
+                <Text fos={"$4"} color={"$red1Light"} className="font-bold">
                   ลดขยะ
                 </Text>
                 <Text fos={"$8"} color={"$red1Light"} className="font-bold">
@@ -84,16 +81,12 @@ const stats = (props: Props) => {
                     กก.
                   </Text>
                 </Text>
-                <MaterialCommunityIcons
-                  name="trash-can-outline"
-                  size={48}
-                  color="white"
-                />
+                <Trash2 size={40} color="white" />
               </YStack>
             </Square>
             <Square w={160} h={200} br={20} bg={"$green9Dark"}>
               <YStack space={"$4"}>
-                <Text fos={"$6"} color={"$red1Light"} className="font-bold">
+                <Text fos={"$4"} color={"$red1Light"} className="font-bold">
                   ผู้ร่วมช่วยโลก
                 </Text>
                 <Text

@@ -38,7 +38,6 @@ const RankingUser = (item: RankingUserProps) => {
 			px={10}
 			miw={"80%"}
 			space={10}
-			py={5}
 			elevation={5}
 			onPress={() => {
 				router.push(`/profileRanking/${item.id}`);

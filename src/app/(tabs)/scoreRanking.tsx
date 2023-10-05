@@ -90,10 +90,10 @@ export const DATARank: RankingUserProps[] = [
 const Ranking = (props: Props) => {
 	return (
 		<YStack
+			flex={1}
+			mt={90}
 			ai={"stretch"}
 			jc={"center"}
-			w={"100%"}
-			h={"100%"}
 			bc={"$green5Light"}
 		>
 			{/* <XStack pt={30} ac={"center"} ai={"center"} jc={"space-evenly"}>
@@ -123,6 +123,7 @@ const Ranking = (props: Props) => {
 					maxToRenderPerBatch={1} // Reduce number in each render batch
 					windowSize={2} // Reduce the window size
 				/> */}
+
 			<RankTabs data={DATARank} />
 			<RankingUser {...DATARank[5]} isMe={true} />
 			{/* </YStack> */}

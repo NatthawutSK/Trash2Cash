@@ -18,8 +18,7 @@ const PickerImg = () => {
 			quality: 1,
 		});
 		//to remove warning
-		delete result.cancelled;
-		console.log(result);
+		// delete result.canceled;
 
 		if (!result.canceled) {
 			setImage(result.assets[0].uri);

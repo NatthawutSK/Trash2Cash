@@ -8,14 +8,18 @@ import {
   XStack,
   YStack,
   Text,
-  ScrollView,
   H4,
   Accordion,
   Paragraph,
 } from "tamagui";
 import { Store, Phone, ChevronDown, Newspaper } from "@tamagui/lucide-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
+import { ScrollView } from "react-native-virtualized-view";
+import { getProperty, imgIcon } from "../(tabs)";
+import MaterialDropDown from "@/components/MaterialDropDown";
+import { colors } from "@/constants/Colors";
+import Carousel from "@/components/Carousel";
 
 type Props = {};
 type TypeStore = {
@@ -28,6 +32,27 @@ type TypeStore = {
     line?: string;
   };
 };
+
+const MockTrashMaterial = [
+  {
+    name: "ขวด PET ใส",
+    img: "plastic_bottle",
+    recieveAmount: "10 กิโลกรัม",
+    price: "10 บาท/กิโลกรัม",
+  },
+  {
+    name: "ขวดแก้ว",
+    img: "glass_bottle",
+    recieveAmount: "10 กิโลกรัม",
+    price: "20 บาท/กิโลกรัม",
+  },
+  {
+    name: "กระดาษกล่อง",
+    img: "box",
+    recieveAmount: "10 กิโลกรัม",
+    price: "30 บาท/กิโลกรัม",
+  },
+];
 
 const Mockstore: TypeStore[] = [
   {
@@ -50,6 +75,13 @@ const Mockstore: TypeStore[] = [
   },
 ];
 
+const MockImg = [
+  "https://xn--12c7bzakgbj6bza1cbe6b3jwh.com/upload/about/1735775123198501.webp",
+  "http://www.thealami.com/upfile/wongranit1.jpg",
+  "https://mpics.mgronline.com/pics/Images/563000002635602.JPEG",
+  "https://mpics.mgronline.com/pics/Images/563000002635603.JPEG",
+];
+
 const truncateText = (text: string, maxLength: number) => {
   if (text.length <= maxLength) {
     return text;
@@ -58,24 +90,23 @@ const truncateText = (text: string, maxLength: number) => {
   }
 };
 
-const exampleTrash = (
-  typeTrash: string,
-  img: string,
-  recieveAmount: string
-) => {
+const exampleTrash = (item: any) => {
   return (
-    <Stack>
-      <Text fos={"$1"}>{truncateText(typeTrash, 8)}</Text>
-      <Image
-        w={50}
-        h={50}
-        br={10}
-        source={{
-          uri: img,
-        }}
-      />
-      <Text color={"$green8Dark"}>{recieveAmount}</Text>
-    </Stack>
+    <XStack
+      ai={"center"}
+      jc={"center"}
+      columnGap={"$5"}
+      // spaceDirection={"vertical"}
+      // space={"$3"}
+      // gap={"$3"}
+    >
+      <Image className="w-24 h-24" source={getProperty(imgIcon, item.img)} />
+      <YStack ai={"flex-start"} jc={"center"}>
+        <Text>ชื่อวัสดุ : {item.name}</Text>
+        <Text>จำนวนที่รับ : {item.recieveAmount}</Text>
+        <Text>ราคาที่รับซื้อ : {item.price}</Text>
+      </YStack>
+    </XStack>
   );
 };
 
@@ -85,222 +116,18 @@ const detailStore = (props: Props) => {
   return (
     <ScrollView>
       {/* <Image width={500} h={250} source={{ uri: Mockstore[0].img }} /> */}
-      <FlatList
-        style={{
-          width: 350,
-          alignSelf: "center",
-          marginTop: 20,
-        }}
-        className="rounded-lg"
-        data={Mockstore}
-        keyExtractor={(item: any, index: any) => index.toString()}
-        horizontal
-        pagingEnabled
-        renderItem={({ item }: any) => (
-          <>
-            <Image
-              source={{ uri: item.img }}
-              w={350}
-              h={215}
-              className="rounded-lg"
-            />
-          </>
-        )}
-        getItemLayout={(data: any, index: any) => ({
-          length: 215, // Adjust this to your image height
-          offset: 215 * index,
-          index,
-        })}
-      />
-      <YStack ai={"center"}>
-        <Square bg="$green5Light" w={370} h={90} br={25} mt={20}>
-          <XStack f={1} ai={"center"} m={10} space={"$3"}>
-            <Avatar circular size="$5">
-              <Avatar.Image
-                accessibilityLabel="Cam"
-                src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
-              />
-              <Avatar.Fallback backgroundColor="$blue10" />
-            </Avatar>
-            <YStack>
-              <Text className="font-bold" color={"$green8Dark"} fos={"$6"}>
-                ร้านโชคชัย
-              </Text>
-              <XStack ai={"center"} space={"$2"}>
-                <Store size={"$2"} color="green" />
-                <Text color={"$green10Light"}>ร้านรับซื้อ</Text>
-              </XStack>
-            </YStack>
-          </XStack>
-        </Square>
-        <Square bg="$green5Light" w={370} h={60} br={25} mt={10}>
-          <XStack ai={"center"} space={"$3"}>
-            <Phone size={"$2"} color="green" />
-            <Text color={"$green8Dark"}>โทร : 0944215180</Text>
-          </XStack>
-        </Square>
-        <Square bg="$green5Light" w={370} h={60} br={25} mt={10}>
-          <XStack ai={"center"} space={"$3"}>
-            <FontAwesome5 name="line" size={24} color="green" />
-            <Text color={"$green8Dark"}>Natthawut_Sornkhiew</Text>
-          </XStack>
-        </Square>
-        <Square bg="$green5Light" w={370} h={90} br={25} mt={10}>
-          <XStack ai={"center"} space={"$3"}>
-            <FontAwesome5 name="map" size={24} color="green" />
-            <Text color={"$green8Dark"} wordWrap="break-word" w={280}>
-              ซอยรามคำแหง 159/1 ถนนรามคำแหง เขตสะพานสูง แขวงราษฎร์พัฒนา
-              กรุงเทพมหานคร 10240
-            </Text>
-          </XStack>
-        </Square>
+      <Carousel img={MockImg} />
+
+      <YStack ai={"center"} pt={"$10"}>
+        <View
+          className="w-11/12  h-20"
+          style={{ backgroundColor: colors.green3 }}
+        ></View>
       </YStack>
 
       <YStack ai={"center"} pt={"$5"} space={"$4"}>
         <H4 className="font-bold">วัสดุที่รับ</H4>
-        <Accordion overflow="hidden" width="90%" type="multiple" br={"$8"}>
-          <Accordion.Item value="a1">
-            <Accordion.Trigger
-              flexDirection="row"
-              justifyContent="space-between"
-            >
-              {({ open }: any) => (
-                <>
-                  <Newspaper size={"$2"} color="green" />
-                  <H4>หมวดกระดาษ</H4>
-                  <Square animation="quick" rotate={open ? "180deg" : "0deg"}>
-                    <ChevronDown size="$1" />
-                  </Square>
-                </>
-              )}
-            </Accordion.Trigger>
-            <Accordion.Content>
-              <XStack
-                ai={"center"}
-                jc={"center"}
-                // space={"$2"}
-                rowGap={"$3"}
-                columnGap={"$3"}
-                w={300}
-                display="flex"
-                flexWrap="wrap"
-                // className="flex flex-wrap "
-              >
-                {exampleTrash(
-                  "กล่องกระดาษลัง",
-                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "กล่องกระดาษลัง",
-                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "กล่องกระดาษลัง",
-                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "กล่องกระดาษลัง",
-                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "หนังสือพิมพ์เก่า",
-                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "หนังสือพิมพ์เก่า",
-                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "หนังสือพิมพ์เก่า",
-                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "หนังสือพิมพ์เก่า",
-                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                  "ไม่จำกัด"
-                )}
-              </XStack>
-            </Accordion.Content>
-          </Accordion.Item>
-
-          <Accordion.Item value="a2">
-            <Accordion.Trigger
-              flexDirection="row"
-              justifyContent="space-between"
-            >
-              {({ open }: any) => (
-                <>
-                  <FontAwesome5 name="wine-bottle" size={24} color="green" />
-                  <H4>หมวดขวดพลาสติก</H4>
-                  <Square animation="quick" rotate={open ? "180deg" : "0deg"}>
-                    <ChevronDown size="$1" />
-                  </Square>
-                </>
-              )}
-            </Accordion.Trigger>
-            <Accordion.Content>
-              <XStack
-                ai={"center"}
-                jc={"center"}
-                // space={"$2"}
-                rowGap={"$3"}
-                columnGap={"$3"}
-                w={300}
-                display="flex"
-                flexWrap="wrap"
-                // className="flex flex-wrap "
-              >
-                {exampleTrash(
-                  "กล่องกระดาษลัง",
-                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "กล่องกระดาษลัง",
-                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "กล่องกระดาษลัง",
-                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "กล่องกระดาษลัง",
-                  "https://www.fastboxs.com/wp-content/uploads/2017/12/corrugated.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "หนังสือพิมพ์เก่า",
-                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "หนังสือพิมพ์เก่า",
-                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "หนังสือพิมพ์เก่า",
-                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                  "ไม่จำกัด"
-                )}
-                {exampleTrash(
-                  "หนังสือพิมพ์เก่า",
-                  "https://cx.lnwfile.com/_/cx/_raw/ub/7u/av.jpg",
-                  "ไม่จำกัด"
-                )}
-              </XStack>
-            </Accordion.Content>
-          </Accordion.Item>
-        </Accordion>
+        <MaterialDropDown data={MockTrashMaterial} renderFunc={exampleTrash} />
       </YStack>
     </ScrollView>
   );

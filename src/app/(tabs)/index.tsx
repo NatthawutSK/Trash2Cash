@@ -26,7 +26,7 @@ const BoxTrash = (item: any) => {
   return (
     <Pressable onPress={() => router.push("/")}>
       <View
-        className="h-52 rounded-lg w-52 mx-3 items-center flex justify-center"
+        className="h-52 rounded-lg w-52  items-center flex justify-center"
         style={{ backgroundColor: colors.green3 }}
       >
         <Image className="w-24 h-24" source={getProperty(imgIcon, item.img)} />
@@ -71,11 +71,11 @@ const TrashMaterial = [
   },
 ];
 
-function getProperty<T, K extends keyof T>(obj: T, key: K) {
+export function getProperty<T, K extends keyof T>(obj: T, key: K) {
   return obj[key];
 }
 
-const imgIcon = {
+export const imgIcon = {
   plastic_bottle: require("../../../assets/images/plastic-bottle.png"),
   glass_bottle: require("../../../assets/images/glass-bottle.png"),
   box: require("../../../assets/images/box.png"),
@@ -131,6 +131,7 @@ export default function home() {
             </TouchableOpacity>
           </XStack>
           <FlatList
+            contentContainerStyle={{ gap: 20, paddingHorizontal: 20 }}
             horizontal
             showsHorizontalScrollIndicator={false}
             data={TrashMaterial}

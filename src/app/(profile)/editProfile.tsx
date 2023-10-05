@@ -1,4 +1,11 @@
-import { View, Text } from "react-native";
+import {
+	View,
+	Text,
+	TextInput,
+	KeyboardAvoidingView,
+	Platform,
+	ScrollView,
+} from "react-native";
 import React from "react";
 import {
 	Avatar,
@@ -13,28 +20,54 @@ import {
 	ZStack,
 } from "tamagui";
 import { H4 } from "tamagui";
-
+import { colors } from "@/constants/Colors";
+import PickerImg from "@/components/MyImagePicker";
 type Props = {};
 
 const editProfile = (props: Props) => {
 	return (
-		<YStack jc={"center"} ai={"center"} padding={"$4"} space={"$3"}>
-			<Avatar br={20} size="$11">
-				<Avatar.Image src="http://placekitten.com/200/300" />
-				<Avatar.Fallback bc="red" />
-			</Avatar>
-			<Button>อัพโหลด</Button>
+		<ScrollView>
+			<KeyboardAvoidingView
+				style={{ flex: 1, padding: 15 }}
+				behavior={Platform.OS === "ios" ? "padding" : "height"}
+			>
+				<YStack jc={"center"} ai={"center"} padding={"$4"} space={"$3"}>
+					<PickerImg />
 
-			<XStack jc={"space-evenly"} ai={"center"} space={"$3"}>
-				<Input flex={1} h={"$4"} placeholder="ชื่อ" />
-				<Input flex={1} h={"$4"} placeholder="นามสกุล" />
-			</XStack>
+					<XStack
+						w={"100%"}
+						space={"$5"}
+						marginTop={15}
+						ac={"center"}
+						ai={"center"}
+					>
+						<TextInput
+							className="border-2 rounded-lg border-[#3C6255] flex-auto h-[50px] px-3 py-3"
+							placeholder="ชื่อ"
+						></TextInput>
 
-			<Input w={"100%"} h={"$4"} placeholder="เบอร์โทรศัพท์" />
-			<Input w={"100%"} h={"$4"} placeholder="อีเมล" />
-			<TextArea w={"100%"} h={"$10"} placeholder="ที่อยู่"></TextArea>
-			<Button w={"100%"}>บันทึก</Button>
-		</YStack>
+						<TextInput
+							className="border-2 rounded-lg border-[#3C6255] flex-auto h-[50px] px-3 py-3"
+							placeholder="นามสกุล"
+						></TextInput>
+					</XStack>
+					<TextInput
+						className="border-2 rounded-lg border-[#3C6255] w-[100%] h-[50px] px-3 py-3"
+						placeholder="เบอร์โทรศัพท์"
+					></TextInput>
+
+					<TextArea
+						w={"100%"}
+						className="border-2 rounded-lg border-[#3C6255] w-[100%] h-[150px] px-3 py-3"
+						placeholder="ที่อยู่"
+						style={{ textAlignVertical: "top" }}
+					></TextArea>
+					<Button w={"50%"} bc={colors.green3} color={"white"}>
+						บันทึก
+					</Button>
+				</YStack>
+			</KeyboardAvoidingView>
+		</ScrollView>
 	);
 };
 

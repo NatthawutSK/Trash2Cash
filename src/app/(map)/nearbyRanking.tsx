@@ -1,39 +1,100 @@
 import { ScrollView, StyleSheet } from "react-native";
 
-import EditScreenInfo from "@/components/EditScreenInfo";
 import { Text, View } from "@/components/Themed";
-import DialogDemo from "@/components/DialogDemo";
-import SpinnerDemo from "@/components/SpinnerDemo";
-import MapViewComponent from "@/components/MapComponent";
-import MapRanking from "@/components/MapRanking";
-import LocationRankingComponent from "@/components/LocationRankingComponent";
 import { router } from "expo-router";
 import { Button } from "tamagui";
 import { SafeAreaView } from "react-native-safe-area-context";
+import FlatListNearbyStore from "@/components/FlatListNearbyStore";
+import { Stack, XStack, YStack } from "tamagui";
+
+type Props = {};
+const DATA = [
+  {
+    img: "https://picsum.photos/200",
+    name: "ร้าน รี",
+    mat: [
+      "wine-bottle",
+      "box",
+      "file",
+      "glass-whiskey",
+      "file",
+      "glass-whiskey",
+    ],
+  },
+  {
+    img: "https://picsum.photos/203",
+    name: "ร้าน รีไซ",
+    mat: ["box", "glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/204",
+    name: "ร้าน รีเคิลเคิลเคิลเคิลเคิลเติลเต",
+    mat: ["glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/205",
+    name: "ร้าน รี",
+    mat: ["wine-bottle", "box", "file", "glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/206",
+    name: "ร้าน ไซ",
+    mat: ["file", "glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/206",
+    name: "ร้าน ไซ",
+    mat: ["file", "glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/206",
+    name: "ร้าน ไซ",
+    mat: ["file", "glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/206",
+    name: "ร้าน ไซ",
+    mat: ["file", "glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/206",
+    name: "ร้าน ไซ",
+    mat: ["file", "glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/206",
+    name: "ร้าน ไซ",
+    mat: ["file", "glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/206",
+    name: "ร้าน ไซ",
+    mat: ["file", "glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/206",
+    name: "ร้าน ไซ",
+    mat: ["file", "glass-whiskey"],
+  },
+  {
+    img: "https://picsum.photos/206",
+    name: "Peter",
+    mat: ["file", "glass-whiskey"],
+  },
+];
 
 export default function nearbyRanking() {
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <View>
-          {/* <Text style={styles.title}>Tab Four</Text> */}
-          {/* <DialogDemo />
-      <SpinnerDemo /> */}
-          {/* <EditScreenInfo path="app/(tabs)/two.tsx" /> */}
-          {/* <MapViewComponent /> */}
-          <View>
-            <MapRanking />
-          </View>
+    <Stack ac={"center"} h={"95%"}>
+      <FlatListNearbyStore data={DATA} />
 
-          <View style={{ margin: "10%" }}>
-            <Button onPress={() => router.push("/(map)/fullMap")}>
-              Go Full Map
-            </Button>
-          </View>
-          {/* <LocationRankingComponent /> */}
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+      <View>
+        <Button onPress={() => router.push("/(map)/fullMap")}>
+          Go Full Map
+        </Button>
+      </View>
+      {/* <LocationRankingComponent /> */}
+    </Stack>
   );
 }
 

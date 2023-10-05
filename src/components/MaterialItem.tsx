@@ -12,7 +12,10 @@ const MaterialItem = (item: MatProps) => {
 					alignItems="center"
 					space="$6"
 					p={10}
-					bg={"$green8Light"}
+					// bg={"$green8Light"}
+					bc={"$green2Light"}
+          			borderWidth={2}
+          			borderColor={"$green8Dark"}
 					w={"100%"}
 					br={20}
 				>
@@ -21,7 +24,7 @@ const MaterialItem = (item: MatProps) => {
 						<Avatar.Fallback bc="red" />
 					</Avatar>
 					<YStack>
-						<Text fow={"800"} color={"white"}>
+						<Text fow={"800"}>
 							{item.name}
 						</Text>
 						<Text>{item.description}</Text>

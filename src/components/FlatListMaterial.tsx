@@ -12,7 +12,7 @@ const renderMaterial = (item: { item: MatProps }) => {
 
 const FlatListMaterial = ({ data }: { data: MatProps[] }) => {
 	return (
-		<Stack p={20} bc={"$green7Dark"}>
+		<Stack p={20}>
 			<FlatList
 				contentContainerStyle={{
 					gap: 10,

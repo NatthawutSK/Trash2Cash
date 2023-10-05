@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { getDistance, convertDistance, orderByDistance } from "geolib";
-import { useLocation } from "@/provider/LocationProvider";
+// import { useLocation } from "@/provider/LocationProvider";
 import { Button, Image } from "tamagui";
 import { useRouter } from "expo-router";
 import { MySafeAreaView } from "./MySafeAreaView";
@@ -40,15 +40,20 @@ const MapViewComponent = (props: Props) => {
   // const { location } = useLocation();
   const router = useRouter();
   return (
-    // <SafeAreaView >
+    <SafeAreaView className=" justify-center items-center">
     <View
       style={{
-        width: "100%",
-        height: "100%",
+        width: "85%",
+        height: "95%",
         overflow: "hidden",
       }}
+      
+
     >
+      <View className="border-4 border-cyan-600 rounded-md">
+
       <MapView
+        
         style={{ width: "100%", height: "100%" }}
         region={{
           latitude: location?.coords.latitude!,
@@ -113,6 +118,7 @@ const MapViewComponent = (props: Props) => {
           />
         </Marker>
       </MapView>
+      </View>
       {/* <Button
         bg={"$green10Light"}
         color={"$green1Light"}
@@ -151,7 +157,7 @@ const MapViewComponent = (props: Props) => {
             )}
           </Text> */}
     </View>
-    // </SafeAreaView>
+    </SafeAreaView>
   );
 };
 

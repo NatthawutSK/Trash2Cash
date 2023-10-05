@@ -16,16 +16,6 @@ const DATA = [
 		star: 4.3,
 	},
 	{
-		name: "ร้าน เคิ้ล",
-		mat: ["wine-bottle", "box"],
-		star: 3.3,
-	},
-	{
-		name: "ร้าน รีไซ",
-		mat: ["box", "glass-whiskey"],
-		star: 2.3,
-	},
-	{
 		name: "ร้าน รีเคิล",
 		mat: ["glass-whiskey"],
 		star: 3.7,
@@ -40,27 +30,13 @@ const DATA = [
 		mat: ["file", "glass-whiskey"],
 		star: 4.3,
 	},
-	{
-		name: "ร้าน เคิ้ล",
-		mat: ["wine-bottle", "box"],
-		star: 3.3,
-	},
-	{
-		name: "ร้าน รีไซ",
-		mat: ["box", "glass-whiskey"],
-		star: 2.3,
-	},
-	{
-		name: "ร้าน รีเคิล",
-		mat: ["glass-whiskey"],
-		star: 3.7,
-	},
+
 ];
 const renderStore = (item: { item: StoreProps }) => {
 	return <StoreItem {...item.item} />;
 };
 
-const FlatListStore = ({ data }: { data: StoreProps[] }) => {
+const FlatListNearbyStore = ({ data }: { data: StoreProps[] }) => {
 	return (
 		<Stack p={20}>
 			<FlatList
@@ -79,4 +55,4 @@ const FlatListStore = ({ data }: { data: StoreProps[] }) => {
 	);
 };
 
-export default FlatListStore;
+export default FlatListNearbyStore;

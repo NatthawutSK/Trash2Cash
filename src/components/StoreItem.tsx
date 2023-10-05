@@ -26,16 +26,18 @@ const StoreItem = ({ img, name, mat }: StoreProps) => {
           alignItems="center"
           py={10}
           px={20}
-          bc={"$green8Light"}
+          bc={"$green2Light"}
+          borderWidth={2}
+          borderColor={"$green8Dark"}
           jc={"space-between"}
         >
           <XStack ai={"center"} ac={"center"} space={"$4"} w={"50%"}>
-            <Avatar circular size="$6">
+            <Avatar size="$6" radiused>
               <Avatar.Image src={img} />
               <Avatar.Fallback bc="red" />
             </Avatar>
             <YStack space={"$1"}>
-              <Text fow={"800"} color={"white"}>
+              <Text fow={"800"} >
                 {name}
               </Text>
               <Text>วัสดุที่รับ</Text>

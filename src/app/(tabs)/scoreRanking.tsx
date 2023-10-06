@@ -21,6 +21,7 @@ import { router } from "expo-router";
 import RankingUser, { RankingUserProps } from "./../../components/RankingUser";
 import FlatlistRanking from "@/components/FlatlistRanking";
 import RankTabs from "@/components/RankTab";
+import { colors } from "@/constants/Colors";
 
 type Props = {};
 
@@ -28,73 +29,114 @@ export const DATARank: RankingUserProps[] = [
 	{
 		id: 1,
 		name: "test1 surr1",
-
-		point: 500,
+		img: "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=0",
+		point: {
+			score_trash: 500,
+			score_carbon: 500,
+			score_tree: 500,
+		},
 	},
 	{
 		id: 2,
 		name: "test2 surr2",
 
-		point: 200,
+		point: {
+			score_trash: 500,
+			score_carbon: 500,
+			score_tree: 500,
+		},
 	},
 	{
 		id: 3,
 		name: "test3 surr3",
 
-		point: 200,
+		point: {
+			score_trash: 500,
+			score_carbon: 500,
+			score_tree: 500,
+		},
 	},
 	{
 		id: 4,
 		name: "test4",
 
-		point: 200,
+		point: {
+			score_trash: 500,
+			score_carbon: 500,
+			score_tree: 500,
+		},
 	},
 	{
 		id: 5,
 		name: "Aaaaaaa Gggggg",
 
-		point: 200,
+		point: {
+			score_trash: 500,
+			score_carbon: 500,
+			score_tree: 500,
+		},
 	},
 	{
 		id: 6,
 		name: "test5 surr5",
 
-		point: 200,
+		point: {
+			score_trash: 500,
+			score_carbon: 500,
+			score_tree: 500,
+		},
 	},
 	{
 		id: 7,
 		name: "test6",
 
-		point: 200,
+		point: {
+			score_trash: 500,
+			score_carbon: 500,
+			score_tree: 500,
+		},
 	},
 	{
 		id: 8,
 		name: "test7 surr7",
 
-		point: 200,
+		point: {
+			score_trash: 500,
+			score_carbon: 500,
+			score_tree: 500,
+		},
 	},
 	{
 		id: 9,
 		name: "tes8 surr8",
 
-		point: 200,
+		point: {
+			score_trash: 500,
+			score_carbon: 500,
+			score_tree: 500,
+		},
 	},
 	{
 		id: 10,
 		name: "test9",
 
-		point: 200,
+		point: {
+			score_trash: 500,
+			score_carbon: 500,
+			score_tree: 500,
+		},
 	},
 ];
 
 const Ranking = (props: Props) => {
 	return (
 		<YStack
-			flex={1}
+			f={1}
 			mt={90}
+			pb={20}
 			ai={"stretch"}
 			jc={"center"}
-			bc={"$green5Light"}
+			bc={colors.green3}
 		>
 			{/* <XStack pt={30} ac={"center"} ai={"center"} jc={"space-evenly"}>
 				<Button

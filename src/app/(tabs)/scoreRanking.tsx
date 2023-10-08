@@ -1,102 +1,105 @@
 import React, { useState } from "react";
 import {
-	H5,
-	Separator,
-	SizableText,
-	Tabs,
-	YStack,
-	TabsContentProps,
-	Avatar,
-	Stack,
-	SizeTokens,
-	Text,
-	H4,
-	View,
-	Button,
-	XStack,
-	ColorTokens,
+  H5,
+  Separator,
+  SizableText,
+  Tabs,
+  YStack,
+  TabsContentProps,
+  Avatar,
+  Stack,
+  SizeTokens,
+  Text,
+  H4,
+  View,
+  Button,
+  XStack,
+  ColorTokens,
 } from "tamagui";
 import { FlatList } from "react-native";
 import { router } from "expo-router";
 import RankingUser, { RankingUserProps } from "./../../components/RankingUser";
 import FlatlistRanking from "@/components/FlatlistRanking";
 import RankTabs from "@/components/RankTab";
+import { useHeaderHeight } from "@react-navigation/elements";
 
 type Props = {};
 
 export const DATARank: RankingUserProps[] = [
-	{
-		id: 1,
-		name: "test1 surr1",
+  {
+    id: 1,
+    name: "test1 surr1",
 
-		point: 500,
-	},
-	{
-		id: 2,
-		name: "test2 surr2",
+    point: 500,
+  },
+  {
+    id: 2,
+    name: "test2 surr2",
 
-		point: 200,
-	},
-	{
-		id: 3,
-		name: "test3 surr3",
+    point: 200,
+  },
+  {
+    id: 3,
+    name: "test3 surr3",
 
-		point: 200,
-	},
-	{
-		id: 4,
-		name: "test4",
+    point: 200,
+  },
+  {
+    id: 4,
+    name: "test4",
 
-		point: 200,
-	},
-	{
-		id: 5,
-		name: "Aaaaaaa Gggggg",
+    point: 200,
+  },
+  {
+    id: 5,
+    name: "Aaaaaaa Gggggg",
 
-		point: 200,
-	},
-	{
-		id: 6,
-		name: "test5 surr5",
+    point: 200,
+  },
+  {
+    id: 6,
+    name: "test5 surr5",
 
-		point: 200,
-	},
-	{
-		id: 7,
-		name: "test6",
+    point: 200,
+  },
+  {
+    id: 7,
+    name: "test6",
 
-		point: 200,
-	},
-	{
-		id: 8,
-		name: "test7 surr7",
+    point: 200,
+  },
+  {
+    id: 8,
+    name: "test7 surr7",
 
-		point: 200,
-	},
-	{
-		id: 9,
-		name: "tes8 surr8",
+    point: 200,
+  },
+  {
+    id: 9,
+    name: "tes8 surr8",
 
-		point: 200,
-	},
-	{
-		id: 10,
-		name: "test9",
+    point: 200,
+  },
+  {
+    id: 10,
+    name: "test9",
 
-		point: 200,
-	},
+    point: 200,
+  },
 ];
 
 const Ranking = (props: Props) => {
-	return (
-		<YStack
-			ai={"stretch"}
-			jc={"center"}
-			w={"100%"}
-			h={"100%"}
-			bc={"$green5Light"}
-		>
-			{/* <XStack pt={30} ac={"center"} ai={"center"} jc={"space-evenly"}>
+  const headerHeight = useHeaderHeight();
+  return (
+    <YStack
+      ai={"stretch"}
+      jc={"center"}
+      w={"100%"}
+      h={"100%"}
+      bc={"$green5Light"}
+      pt={headerHeight}
+    >
+      {/* <XStack pt={30} ac={"center"} ai={"center"} jc={"space-evenly"}>
 				<Button
 					bc={"#1cb60e"}
 					color={"#daffd6"}
@@ -123,11 +126,11 @@ const Ranking = (props: Props) => {
 					maxToRenderPerBatch={1} // Reduce number in each render batch
 					windowSize={2} // Reduce the window size
 				/> */}
-			<RankTabs data={DATARank} />
-			<RankingUser {...DATARank[5]} isMe={true} />
-			{/* </YStack> */}
-		</YStack>
-	);
+      <RankTabs data={DATARank} />
+      <RankingUser {...DATARank[5]} isMe={true} />
+      {/* </YStack> */}
+    </YStack>
+  );
 };
 
 export default Ranking;

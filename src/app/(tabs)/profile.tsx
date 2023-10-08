@@ -27,6 +27,9 @@ import {
 import { MyStack } from "@/components/MyStack";
 import { Icon, IconButtonProps } from "@expo/vector-icons/build/createIconSet";
 export default function three() {
+  // this screen will change to navigate to the profile page depend on role user
+  // if not understand ask Ri
+
   const router = useRouter();
 
   type notBtnProp = {

@@ -34,9 +34,11 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     marginHorizontal: 2,
+    borderColor: colors.green4,
+    borderWidth: 1,
   },
   paginationDotActive: { backgroundColor: colors.green4 },
-  paginationDotInactive: { backgroundColor: colors.green2 },
+  paginationDotInactive: { backgroundColor: "white" },
 
   carousel: { flex: 1 },
 });

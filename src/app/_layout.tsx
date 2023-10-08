@@ -124,6 +124,10 @@ function RootLayoutNav() {
               name="profileRanking/[id]"
               options={{ title: "User Stat" }}
             />
+            <Stack.Screen
+              name="(store)/editImageStore"
+              options={{ title: "แก้ไขรูปร้านค้า" }}
+            />
           </Stack>
           {/* </MySafeAreaView> */}
           {/* </LocationProvider> */}

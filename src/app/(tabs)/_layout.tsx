@@ -10,6 +10,7 @@ import {
   FontAwesome5,
   Fontisto,
 } from "@expo/vector-icons";
+
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -22,6 +23,7 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  let role = "store";
 
   return (
     <Tabs
@@ -89,6 +91,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="scoreRanking"
         options={{
+          // headerShown: false,
           // tabBarLabelStyle: { right: 6 },
           title: "Rank",
           tabBarIcon: ({ color }) => (
@@ -122,9 +125,22 @@ export default function TabLayout() {
           ),
         }}
       />
+
+      <Tabs.Screen
+        name="storeProfile"
+        options={{
+          href: role === "store" ? "/(tabs)/storeProfile" : null,
+          title: "Store",
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="store" size={35} color={color} />
+          ),
+        }}
+      />
+
       <Tabs.Screen
         name="profile"
         options={{
+          href: role === "store" ? null : "/(tabs)/profile",
           title: "Profile",
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}

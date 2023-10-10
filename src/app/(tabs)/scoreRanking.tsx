@@ -89,6 +89,7 @@ export const DATARank: RankingUserProps[] = [
 ];
 
 const Ranking = (props: Props) => {
+
   const headerHeight = useHeaderHeight();
   return (
     <YStack
@@ -100,6 +101,7 @@ const Ranking = (props: Props) => {
       pt={headerHeight}
     >
       {/* <XStack pt={30} ac={"center"} ai={"center"} jc={"space-evenly"}>
+
 				<Button
 					bc={"#1cb60e"}
 					color={"#daffd6"}
@@ -126,11 +128,13 @@ const Ranking = (props: Props) => {
 					maxToRenderPerBatch={1} // Reduce number in each render batch
 					windowSize={2} // Reduce the window size
 				/> */}
-      <RankTabs data={DATARank} />
-      <RankingUser {...DATARank[5]} isMe={true} />
-      {/* </YStack> */}
-    </YStack>
-  );
+
+			<RankTabs data={DATARank} />
+			<RankingUser {...DATARank[5]} isMe={true} />
+			{/* </YStack> */}
+		</YStack>
+	);
+
 };
 
 export default Ranking;

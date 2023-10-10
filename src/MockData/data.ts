@@ -33,6 +33,19 @@ export const TrashMaterial = [
   },
 ];
 
+export const userdata = {
+  username: "Cat Cuteyysad",
+  address: "address",
+  phone: "0123456789",
+  line_id: "line_id",
+  image: "https://picsum.photos/200/300",
+  score: {
+    co2: 9999,
+    tree: 9999,
+    trash: 9999,
+  },
+};
+
 export const imgIcon = {
   plastic_bottle: require("../../assets/images/plastic-bottle.png"),
   glass_bottle: require("../../assets/images/glass-bottle.png"),

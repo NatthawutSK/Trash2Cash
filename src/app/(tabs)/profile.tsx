@@ -25,28 +25,7 @@ import {
 } from "tamagui";
 import { MyStack } from "@/components/MyStack";
 import { Icon, IconButtonProps } from "@expo/vector-icons/build/createIconSet";
-import { colors } from "@/constants/Colors";
-import StatUser from "@/components/StatsUser";
-import { UserType } from "@/types";
-import StatsUser from "@/components/StatsUser";
-import { FontAwesome, Foundation, MaterialIcons } from "@expo/vector-icons";
 
-const userdata = {
-	username: "Cat Cuteyysad",
-	address: "address",
-	phone: "0123456789",
-	line_id: "line_id",
-	image: "https://picsum.photos/200/300",
-	score: {
-		co2: 9999,
-		tree: 9999,
-		trash: 9999,
-	},
-};
-
-type ProfileProps = {
-	user: UserType;
-};
 
 export default function Profile() {
 	const router = useRouter();

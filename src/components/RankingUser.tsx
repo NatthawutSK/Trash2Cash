@@ -1,25 +1,26 @@
 import { router } from "expo-router";
 import {
-	Avatar,
-	ColorTokens,
-	H5,
-	SizeTokens,
-	Stack,
-	View,
-	Text,
-	YStack,
-	H6,
+  Avatar,
+  ColorTokens,
+  H5,
+  SizeTokens,
+  Stack,
+  View,
+  Text,
+  YStack,
+  H6,
 } from "tamagui";
 
 export type RankingUserProps = {
-	id: number;
-	name: string;
-	point: number;
-	index?: number;
-	isMe?: boolean;
+  id: number;
+  name: string;
+  point: number;
+  index?: number;
+  isMe?: boolean;
 };
 
 const RankingUser = (item: RankingUserProps) => {
+
 	return (
 		<YStack
 			fd={"row"}
@@ -69,6 +70,7 @@ const RankingUser = (item: RankingUserProps) => {
 			</H5>
 		</YStack>
 	);
+
 };
 
 export default RankingUser;

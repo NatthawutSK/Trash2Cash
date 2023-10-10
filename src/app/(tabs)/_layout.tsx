@@ -15,17 +15,15 @@ import {
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
 function TabBarIcon(props: {
-	name: React.ComponentProps<typeof FontAwesome>["name"];
-	color: string;
+  name: React.ComponentProps<typeof FontAwesome>["name"];
+  color: string;
 }) {
-	return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
 
 export default function TabLayout() {
-
   const colorScheme = useColorScheme();
   let role = "store";
-
 
   return (
     <Tabs
@@ -73,7 +71,10 @@ export default function TabLayout() {
               <FontAwesome
                 name="recycle"
                 size={20}
-                style={{ marginRight: 20, color: colors.green4 }}
+                style={{
+                  marginRight: 20,
+                  color: colors.green4,
+                }}
               />
             </Link>
           );
@@ -93,7 +94,6 @@ export default function TabLayout() {
       <Tabs.Screen
         name="scoreRanking"
         options={{
-          // headerShown: false,
           // tabBarLabelStyle: { right: 6 },
           title: "Rank",
           tabBarIcon: ({ color }) => (
@@ -102,7 +102,7 @@ export default function TabLayout() {
         }}
       />
 
-      <Tabs.Screen
+      {/* <Tabs.Screen
         name="qrCode"
         options={{
           title: "qrCode",
@@ -117,9 +117,24 @@ export default function TabLayout() {
             </Link>
           ),
         }}
+      /> */}
+      <Tabs.Screen
+        name="qrCodeSeller"
+        options={{
+          title: "qrCode",
+          tabBarButton: () => (
+            <Link href="/qrCodeSeller" asChild>
+              <Pressable
+                className="-mt-6 rounded-full w-16 h-16 items-center justify-center"
+                style={{ backgroundColor: colors.green2 }}
+              >
+                <MaterialIcons name="qr-code-scanner" size={35} color="white" />
+              </Pressable>
+            </Link>
+          ),
+        }}
       />
       <Tabs.Screen
-
         name="stats"
         options={{
           title: "Stats",
@@ -127,9 +142,7 @@ export default function TabLayout() {
             <TabBarIcon name="pie-chart" color={color} />
           ),
         }}
-
       />
-
       <Tabs.Screen
         name="storeProfile"
         options={{
@@ -151,5 +164,4 @@ export default function TabLayout() {
       />
     </Tabs>
   );
-
 }

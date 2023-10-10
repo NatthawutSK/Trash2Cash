@@ -3,15 +3,15 @@ import { FlatList, StyleSheet, Image, Pressable } from "react-native";
 import SwitchDemo from "@/components/SwitchDemo";
 import { View } from "@/components/Themed";
 import {
-	Button,
-	Circle,
-	H4,
-	ScrollView,
-	Square,
-	Stack,
-	Text,
-	XStack,
-	YStack,
+  Button,
+  Circle,
+  H4,
+  ScrollView,
+  Square,
+  Stack,
+  Text,
+  XStack,
+  YStack,
 } from "tamagui";
 import { Link, useRouter } from "expo-router";
 import MapViewComponent from "@/components/MapComponent";
@@ -26,7 +26,6 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { getProperty } from "@/utils/util";
 import { TrashMaterial, imgIcon } from "@/MockData/data";
 const BoxTrash = (item: any) => {
-
   return (
     <Pressable onPress={() => router.push("/")}>
       <View
@@ -58,8 +57,8 @@ export default function home() {
 
           Trash2Cash
         </Text> */}
-				<Stack space={"$4"}>
-					{/* <View
+        <Stack space={"$4"}>
+          {/* <View
             style={{
               alignSelf: "center",
               width: "90%",
@@ -70,22 +69,17 @@ export default function home() {
           >
             <MiniMap />
           </View> */}
-					<Stack jc={"center"} ai={"center"}>
-						<Button
-							w={"90%"}
-							onPress={() => router.push("/(map)/nearbyRanking")}
-							style={{ backgroundColor: colors.green4 }}
-						>
-							<Text
-								fos={"$5"}
-								className="font-bold"
-								color={"$green1Light"}
-							>
-								อันดับร้านใกล้ฉัน
-							</Text>
-						</Button>
-					</Stack>
-
+          <Stack jc={"center"} ai={"center"}>
+            <Button
+              w={"90%"}
+              onPress={() => router.push("/(map)/nearbyRanking")}
+              style={{ backgroundColor: colors.green4 }}
+            >
+              <Text fos={"$5"} className="font-bold" color={"$green1Light"}>
+                อันดับร้านใกล้ฉัน
+              </Text>
+            </Button>
+          </Stack>
 
           <XStack
             alignItems="center"
@@ -106,9 +100,8 @@ export default function home() {
           />
         </Stack>
 
-
-				{/* <Image source={require("../../../assets/images/co2.png")} /> */}
-				{/* <Button
+        {/* <Image source={require("../../../assets/images/co2.png")} /> */}
+        {/* <Button
           alignSelf="center"
           size="$6"
           onPress={() => router.push("/FormApprove")}
@@ -116,8 +109,8 @@ export default function home() {
           go to form approve
         </Button> */}
 
-				{/* <Link href={"/(thirds)/history"} asChild> */}
-				{/* <Button
+        {/* <Link href={"/(thirds)/history"} asChild> */}
+        {/* <Button
 
 
         alignSelf="center"
@@ -126,8 +119,8 @@ export default function home() {
       >
         go to admin Approve
       </Button> */}
-				{/* </Link> */}
-				{/* <Button
+        {/* </Link> */}
+        {/* <Button
           alignSelf="center"
           size="$6"
           onPress={() => router.push("/formStore")}
@@ -155,7 +148,7 @@ export default function home() {
         >
           Form Approve
         </Button> */}
-				{/* <Button
+        {/* <Button
         alignSelf="center"
         size="$6"
         onPress={() => router.push("/detailStore/66")}
@@ -170,27 +163,27 @@ export default function home() {
         go to detail Store
       </Button> */}
 
-				{/* </Link> */}
-				{/* <SwitchDemo /> */}
-				{/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
-			</Stack>
-		</ScrollView>
-	);
+        {/* </Link> */}
+        {/* <SwitchDemo /> */}
+        {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
+      </Stack>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: "bold",
-	},
-	separator: {
-		marginVertical: 30,
-		height: 1,
-		width: "80%",
-	},
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
 });

@@ -3,15 +3,15 @@ import { FlatList, StyleSheet, Image, Pressable } from "react-native";
 import SwitchDemo from "@/components/SwitchDemo";
 import { View } from "@/components/Themed";
 import {
-	Button,
-	Circle,
-	H4,
-	ScrollView,
-	Square,
-	Stack,
-	Text,
-	XStack,
-	YStack,
+  Button,
+  Circle,
+  H4,
+  ScrollView,
+  Square,
+  Stack,
+  Text,
+  XStack,
+  YStack,
 } from "tamagui";
 import { Link, useRouter } from "expo-router";
 import MapViewComponent from "@/components/MapComponent";
@@ -22,90 +22,43 @@ import { colors } from "@/constants/Colors";
 // import { FontAwesome } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { getProperty } from "@/utils/util";
+import { TrashMaterial, imgIcon } from "@/MockData/data";
 const BoxTrash = (item: any) => {
-	return (
-		<Pressable onPress={() => router.push("/")}>
-			<View
-				className="h-52 rounded-lg w-52 mx-3 items-center flex justify-center"
-				style={{ backgroundColor: colors.green3 }}
-			>
-				<Image
-					className="w-24 h-24"
-					source={getProperty(imgIcon, item.img)}
-				/>
-				<Text
-					ta={"center"}
-					mt={"$3"}
-					fontSize={"$5"}
-					className="text-white"
-				>
-					{item.name}
-				</Text>
-			</View>
-		</Pressable>
-	);
-};
-
-const TrashMaterial = [
-	{
-		id: 1,
-		name: "ขวด PET ใส",
-		img: "plastic_bottle",
-	},
-	{
-		id: 2,
-		name: "ขวดแก้ว",
-		img: "glass_bottle",
-	},
-	{
-		id: 3,
-		name: "กระดาษกล่อง",
-		img: "box",
-	},
-	{
-		id: 4,
-		name: "ถุงฟิล์ม/ยืด",
-		img: "plastic_bag",
-	},
-	{
-		id: 5,
-		name: "กระป๋องอลูมิเนียม",
-		img: "can",
-	},
-	{
-		id: 6,
-		name: "กระดาษขาวดำ",
-		img: "paper",
-	},
-];
-
-function getProperty<T, K extends keyof T>(obj: T, key: K) {
-	return obj[key];
-}
-
-const imgIcon = {
-	plastic_bottle: require("../../../assets/images/plastic-bottle.png"),
-	glass_bottle: require("../../../assets/images/glass-bottle.png"),
-	box: require("../../../assets/images/box.png"),
-	plastic_bag: require("../../../assets/images/plastic-bag.png"),
-	can: require("../../../assets/images/can.png"),
-	paper: require("../../../assets/images/paper.png"),
+  return (
+    <Pressable onPress={() => router.push("/")}>
+      <View
+        className="h-52 rounded-lg w-52  items-center flex justify-center"
+        style={{ backgroundColor: colors.green3 }}
+      >
+        <Image className="w-24 h-24" source={getProperty(imgIcon, item.img)} />
+        <Text ta={"center"} mt={"$3"} fontSize={"$5"} className="text-white">
+          {item.name}
+        </Text>
+      </View>
+    </Pressable>
+  );
 };
 
 const router = useRouter();
 export default function home() {
-	return (
-		<ScrollView bg={"$green5Light"} f={1} pt={"$11"}>
-			{/* <DialogDemo /> */}
-			{/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
-			{/* <Button onPress={() => router.push("/(auth)/login")}>go to loggin</Button> */}
-			{/* <Button onPress={() => router.push("/FormApprove")}>go to 3rd</Button> */}
-			<Stack space={"$8"} pb={"$8"} pt={"$8"}>
-				{/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">
+  const headerHeight = useHeaderHeight();
+  return (
+    <ScrollView bg={"$green5Light"} f={1} pt={headerHeight}>
+      {/* <DialogDemo /> */}
+      {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
+      {/* <Button onPress={() => router.push("/detailStore/66")}>
+        go to detail store
+      </Button> */}
+      {/* <Button onPress={() => router.push("/FormApprove")}>go to 3rd</Button> */}
+      <Stack space={"$8"} pb={"$8"} pt={"$5"}>
+        {/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">
+
           Trash2Cash
         </Text> */}
-				<Stack space={"$4"}>
-					{/* <View
+        <Stack space={"$4"}>
+          {/* <View
             style={{
               alignSelf: "center",
               width: "90%",
@@ -116,50 +69,39 @@ export default function home() {
           >
             <MiniMap />
           </View> */}
-					<Stack jc={"center"} ai={"center"}>
-						<Button
-							w={"90%"}
-							onPress={() => router.push("/(map)/nearbyRanking")}
-							style={{ backgroundColor: colors.green4 }}
-						>
-							<Text
-								fos={"$5"}
-								className="font-bold"
-								color={"$green1Light"}
-							>
-								อันดับร้านใกล้ฉัน
-							</Text>
-						</Button>
-					</Stack>
+          <Stack jc={"center"} ai={"center"}>
+            <Button
+              w={"90%"}
+              onPress={() => router.push("/(map)/nearbyRanking")}
+              style={{ backgroundColor: colors.green4 }}
+            >
+              <Text fos={"$5"} className="font-bold" color={"$green1Light"}>
+                อันดับร้านใกล้ฉัน
+              </Text>
+            </Button>
+          </Stack>
 
-					<XStack
-						alignItems="center"
-						jc={"space-between"}
-						marginHorizontal={"$4"}
-					>
-						<H4 className="font-bold">วัสดุรีไซเคิล</H4>
-						<TouchableOpacity
-							onPress={() => router.push("/search")}
-						>
-							<Text>ดูทั้งหมด</Text>
-						</TouchableOpacity>
-					</XStack>
-					<FlatList
-						horizontal
-						showsHorizontalScrollIndicator={false}
-						data={TrashMaterial}
-						renderItem={({ item }) => BoxTrash(item)}
-					/>
-				</Stack>
-				<Button
-					onPress={() => {
-						router.push("/qrCodeBuyer");
-					}}
-				>
-					Qr Buyer
-				</Button>
-				{/* <Image source={require("../../../assets/images/co2.png")} /> */}
-				{/* <Button
+          <XStack
+            alignItems="center"
+            jc={"space-between"}
+            marginHorizontal={"$4"}
+          >
+            <H4 className="font-bold">วัสดุรีไซเคิล</H4>
+            <TouchableOpacity onPress={() => router.push("/search")}>
+              <Text>ดูทั้งหมด</Text>
+            </TouchableOpacity>
+          </XStack>
+          <FlatList
+            contentContainerStyle={{ gap: 20, paddingHorizontal: 20 }}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={TrashMaterial}
+            renderItem={({ item }) => BoxTrash(item)}
+          />
+        </Stack>
+
+        {/* <Image source={require("../../../assets/images/co2.png")} /> */}
+        {/* <Button
           alignSelf="center"
           size="$6"
           onPress={() => router.push("/FormApprove")}
@@ -167,8 +109,8 @@ export default function home() {
           go to form approve
         </Button> */}
 
-				{/* <Link href={"/(thirds)/history"} asChild> */}
-				{/* <Button
+        {/* <Link href={"/(thirds)/history"} asChild> */}
+        {/* <Button
 
 
         alignSelf="center"
@@ -177,8 +119,8 @@ export default function home() {
       >
         go to admin Approve
       </Button> */}
-				{/* </Link> */}
-				{/* <Button
+        {/* </Link> */}
+        {/* <Button
           alignSelf="center"
           size="$6"
           onPress={() => router.push("/formStore")}
@@ -206,7 +148,7 @@ export default function home() {
         >
           Form Approve
         </Button> */}
-				{/* <Button
+        {/* <Button
         alignSelf="center"
         size="$6"
         onPress={() => router.push("/detailStore/66")}
@@ -221,27 +163,27 @@ export default function home() {
         go to detail Store
       </Button> */}
 
-				{/* </Link> */}
-				{/* <SwitchDemo /> */}
-				{/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
-			</Stack>
-		</ScrollView>
-	);
+        {/* </Link> */}
+        {/* <SwitchDemo /> */}
+        {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
+      </Stack>
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		alignItems: "center",
-		justifyContent: "center",
-	},
-	title: {
-		fontSize: 20,
-		fontWeight: "bold",
-	},
-	separator: {
-		marginVertical: 30,
-		height: 1,
-		width: "80%",
-	},
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
 });

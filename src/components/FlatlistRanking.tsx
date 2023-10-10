@@ -112,7 +112,7 @@ const FlatlistRanking = ({ data }: { data: RankingUserProps[] }) => {
 						<Avatar als={"center"} circular size={"$7"}>
 							<Avatar.Image
 								accessibilityLabel="Cam"
-								src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
+								src={data[1].img}
 							/>
 
 							<Avatar.Fallback backgroundColor="$blue10" />
@@ -160,7 +160,7 @@ const FlatlistRanking = ({ data }: { data: RankingUserProps[] }) => {
 						<Avatar als={"center"} circular size={"$7"}>
 							<Avatar.Image
 								accessibilityLabel="Cam"
-								src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
+								src={data[0].img}
 							/>
 
 							<Avatar.Fallback backgroundColor="$blue10" />
@@ -207,7 +207,10 @@ const FlatlistRanking = ({ data }: { data: RankingUserProps[] }) => {
 						<Avatar als={"center"} circular size={"$7"}>
 							<Avatar.Image
 								accessibilityLabel="Cam"
-								src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
+								src={
+									data[2].img ||
+									"https://picsum.photos/300/300"
+								}
 							/>
 
 							<Avatar.Fallback backgroundColor="$blue10" />

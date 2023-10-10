@@ -60,7 +60,7 @@ const RankingUser = (item: RankingUserProps) => {
 				<Avatar als={"center"} circular size={"$4"}>
 					<Avatar.Image
 						accessibilityLabel="Cam"
-						src="https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80"
+						src={item.img || "https://picsum.photos/200"}
 					/>
 					<Avatar.Fallback backgroundColor="$blue10" />
 				</Avatar>

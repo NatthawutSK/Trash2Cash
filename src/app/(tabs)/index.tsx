@@ -151,7 +151,13 @@ export default function home() {
 						renderItem={({ item }) => BoxTrash(item)}
 					/>
 				</Stack>
-
+				<Button
+					onPress={() => {
+						router.push("/qrCodeBuyer");
+					}}
+				>
+					Qr Buyer
+				</Button>
 				{/* <Image source={require("../../../assets/images/co2.png")} /> */}
 				{/* <Button
           alignSelf="center"

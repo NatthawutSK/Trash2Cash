@@ -39,7 +39,7 @@ export const DATARank: RankingUserProps[] = [
 	{
 		id: 2,
 		name: "test2 surr2",
-
+		img: "https://picsum.photos/200",
 		point: {
 			score_trash: 500,
 			score_carbon: 500,
@@ -69,7 +69,7 @@ export const DATARank: RankingUserProps[] = [
 	{
 		id: 5,
 		name: "Aaaaaaa Gggggg",
-
+		img: "https://picsum.photos/300",
 		point: {
 			score_trash: 500,
 			score_carbon: 500,

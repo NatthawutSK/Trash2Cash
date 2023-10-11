@@ -60,19 +60,19 @@ export const MockTrashMaterial = [
     name: "ขวด PET ใส",
     img: "plastic_bottle",
     recieveAmount: "10 กก.",
-    price: "10 บาท/กก.",
+    price: 10,
   },
   {
     name: "ขวดแก้ว",
     img: "glass_bottle",
     recieveAmount: "10 กก.",
-    price: "20 บาท/กก.",
+    price: 20,
   },
   {
     name: "กระดาษกล่อง",
     img: "box",
     recieveAmount: "10 กก.",
-    price: "30 บาท/กก.",
+    price: 30,
   },
 ];
 
@@ -87,4 +87,18 @@ export const MockImg: string[] = [
   "https://xn--12c7bzakgbj6bza1cbe6b3jwh.com/upload/about/1735775123198501.webp",
   "http://www.thealami.com/upfile/wongranit1.jpg",
   "https://mpics.mgronline.com/pics/Images/563000002635602.JPEG",
+];
+
+export const recieveAmount = [
+  "น้อยกว่า 10 กก.",
+  "10 - 20 กก.",
+  "20 - 30 กก.",
+  "30 - 40 กก.",
+  "40 - 50 กก.",
+  "50 - 60 กก.",
+  "60 - 70 กก.",
+  "70 - 80 กก.",
+  "80 - 90 กก.",
+  "90 - 100 กก.",
+  "ไม่จำกัด",
 ];

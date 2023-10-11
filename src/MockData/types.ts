@@ -4,3 +4,10 @@ export type TypeStore = {
   phone: string;
   line: string;
 };
+
+export type TypeTrashMaterial = {
+  name: string;
+  img: string;
+  recieveAmount: string;
+  price: number;
+};

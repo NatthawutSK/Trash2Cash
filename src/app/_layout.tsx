@@ -10,6 +10,7 @@ import { Suspense, useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { TamaguiProvider, Text, Theme } from "tamagui";
 import config from "../../tamagui.config";
+
 import { MySafeAreaView } from "../components/MySafeAreaView";
 // import { LocationProvider } from "@/provider/LocationProvider";
 
@@ -135,6 +136,10 @@ function RootLayoutNav() {
             <Stack.Screen
               name="(store)/editImageStore"
               options={{ title: "แก้ไขรูปร้านค้า" }}
+            />
+            <Stack.Screen
+              name="(store)/editMaterialStore"
+              options={{ title: "แก้ไขวัสดุที่รับ" }}
             />
           </Stack>
           {/* </MySafeAreaView> */}

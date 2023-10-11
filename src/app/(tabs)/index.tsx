@@ -25,6 +25,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { getProperty } from "@/utils/util";
 import { TrashMaterial, imgIcon } from "@/MockData/data";
+import SelectTrashMaterial from "@/components/SelectTrashMaterial";
 const BoxTrash = (item: any) => {
   return (
     <Pressable onPress={() => router.push("/")}>
@@ -46,6 +47,7 @@ export default function home() {
   const headerHeight = useHeaderHeight();
   return (
     <ScrollView bg={"$green5Light"} f={1} pt={headerHeight}>
+      {/* <SelectTrashMaterial /> */}
       {/* <DialogDemo /> */}
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
       {/* <Button onPress={() => router.push("/detailStore/66")}>

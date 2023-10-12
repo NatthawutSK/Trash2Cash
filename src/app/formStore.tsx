@@ -63,12 +63,26 @@ const formStore = (props: Props) => {
           <Input id="name" placeholder="ชื่อร้านค้า" />
         </Stack>
         <Stack>
+          <Label width={100} htmlFor="line">
+            ไลน์ไอดี
+          </Label>
+
+          <Input id="line" placeholder="ไลน์ไอดี" />
+        </Stack>
+        <Stack>
+          <Label width={100} htmlFor="phone">
+            เบอร์โทร
+          </Label>
+
+          <Input id="phone" placeholder="เบอร์โทร" />
+        </Stack>
+        <Stack>
           <Label width={100} htmlFor="address">
             ที่อยู่ร้านค้า
           </Label>
           <TextArea id="address" placeholder="ที่อยู่ร้านค้า" />
         </Stack>
-        <Fieldset>
+        {/* <Fieldset>
           <Label htmlFor="type">เลือกประเภทวัสดุ</Label>
           <Select id="type" value={TypeTrash} onValueChange={setTypeTrash}>
             <Select.Trigger id="type" iconAfter={ChevronDown}>
@@ -130,9 +144,9 @@ const formStore = (props: Props) => {
               </Select.ScrollDownButton>
             </Select.Content>
           </Select>
-        </Fieldset>
+        </Fieldset> */}
 
-        <Fieldset>
+        {/* <Fieldset>
           <Label htmlFor="type">ประเภทวัสดุ</Label>
           <Select id="type" value={trash} onValueChange={setTrash}>
             <Select.Trigger id="type" iconAfter={ChevronDown}>
@@ -195,7 +209,7 @@ const formStore = (props: Props) => {
               </Select.ScrollDownButton>
             </Select.Content>
           </Select>
-        </Fieldset>
+        </Fieldset> */}
 
         <Button onPress={() => addListTrash()}>เพิ่มวัสดุที่รับ</Button>
 
@@ -206,7 +220,7 @@ const formStore = (props: Props) => {
             </Text>
           ))}
 
-        <Button onPress={() => router.push("/fullMap")}>
+        <Button onPress={() => router.push("/(map)/storeMap")}>
           เพิ่มตำแหน่งที่ตั้ง
         </Button>
         <Button onPress={() => router.push("/")}>ยืนยันข้อมูล</Button>

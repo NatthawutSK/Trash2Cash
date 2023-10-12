@@ -1,13 +1,19 @@
+import { StyleSheet } from "react-native";
+
+import EditScreenInfo from "@/components/EditScreenInfo";
+// import { Text, View } from "@/components/Themed";
+import DialogDemo from "@/components/DialogDemo";
+import SpinnerDemo from "@/components/SpinnerDemo";
+import MapViewComponent from "@/components/MapComponent";
+import { SafeAreaView } from "react-native-safe-area-context";
 import * as Location from "expo-location";
 import React, { useEffect, useState } from "react";
 import { View } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 // import { useLocation } from "@/provider/LocationProvider";
 import { useRouter } from "expo-router";
-import { Image } from "tamagui";
-type Props = {};
-
-const MapViewComponent = (props: Props) => {
+import { Button, Image } from "tamagui";
+export default function storeMap() {
   const [location, setLocation] = useState<Location.LocationObject>({
     coords: {
       latitude: 0,
@@ -58,18 +64,18 @@ const MapViewComponent = (props: Props) => {
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
       >
-        {/* <Marker
-					draggable={true}
-					coordinate={{
-						latitude: location?.coords.latitude!,
-						longitude: location?.coords.longitude!,
-					}}
-					title="Marker Title"
-					description="Marker Description"
-					onDragEnd={(e) => {
-						console.log(e.nativeEvent.coordinate);
-					}}
-				/> */}
+        <Marker
+          draggable={true}
+          coordinate={{
+            latitude: location?.coords.latitude!,
+            longitude: location?.coords.longitude!,
+          }}
+          title="Marker Title"
+          description="Marker Description"
+          onDragEnd={(e) => {
+            console.log(e.nativeEvent.coordinate);
+          }}
+        />
         <Marker
           coordinate={{
             latitude: location?.coords.latitude! - 0.002,
@@ -79,7 +85,7 @@ const MapViewComponent = (props: Props) => {
           description="รับหมดไม่สนขยะไหน"
         >
           <Image
-            source={require("../../assets/images/icons8-recycle-64.png")}
+            source={require("../../../assets/images/icons8-recycle-64.png")}
             style={{ width: 40, height: 40 }}
           />
         </Marker>
@@ -92,7 +98,7 @@ const MapViewComponent = (props: Props) => {
           description="Marker Description"
         >
           <Image
-            source={require("../../assets/images/icons8-recycle-64.png")}
+            source={require("../../../assets/images/icons8-recycle-64.png")}
             style={{ width: 40, height: 40 }}
           />
         </Marker>
@@ -105,12 +111,12 @@ const MapViewComponent = (props: Props) => {
           description="Marker Description"
         >
           <Image
-            source={require("../../assets/images/icons8-recycle-64.png")}
+            source={require("../../../assets/images/icons8-recycle-64.png")}
             style={{ width: 40, height: 40 }}
           />
         </Marker>
       </MapView>
-      {/* <Button
+      <Button
         bg={"$green10Light"}
         color={"$green1Light"}
         w={"80%"}
@@ -119,37 +125,52 @@ const MapViewComponent = (props: Props) => {
         onPress={() => router.back()}
       >
         ใช้ตำแหน่งนี้
-      </Button> */}
+      </Button>
       {/* <Text>
-        {convertDistance(
-          getDistance(
-            { latitude: 13.756331, longitude: 100.501762 },
-            {
-              latitude: location?.coords.latitude!,
-              longitude: location?.coords.longitude!,
-            }
-          ),
-          "km"
-        )}
-      </Text>
-      <Text>
-        {JSON.stringify(
-          orderByDistance(
-            {
-              latitude: location?.coords.latitude!,
-              longitude: location?.coords.longitude!,
-            },
-            [
-              { latitude: 13.756331, longitude: 100.501762 },
-              { latitude: 13.361143, longitude: 100.984673 },
-              { latitude: 13.70038, longitude: 100.72752 },
-            ]
-            )
+            {convertDistance(
+              getDistance(
+                { latitude: 13.756331, longitude: 100.501762 },
+                {
+                  latitude: location?.coords.latitude!,
+                  longitude: location?.coords.longitude!,
+                }
+              ),
+              "km"
             )}
-          </Text> */}
+          </Text>
+          <Text>
+            {JSON.stringify(
+              orderByDistance(
+                {
+                  latitude: location?.coords.latitude!,
+                  longitude: location?.coords.longitude!,
+                },
+                [
+                  { latitude: 13.756331, longitude: 100.501762 },
+                  { latitude: 13.361143, longitude: 100.984673 },
+                  { latitude: 13.70038, longitude: 100.72752 },
+                ]
+                )
+                )}
+              </Text> */}
     </View>
     // </SafeAreaView>
   );
-};
+}
 
-export default MapViewComponent;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  separator: {
+    marginVertical: 30,
+    height: 1,
+    width: "80%",
+  },
+});

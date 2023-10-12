@@ -97,7 +97,7 @@ const DialogEditStoreInfo = ({ info }: Props) => {
                 <Input id="line" defaultValue={info.line} />
               </Fieldset>
               <Fieldset>
-                <Label htmlFor="address">เบอร์โทร</Label>
+                <Label htmlFor="address">ที่อยู่ร้านค้า</Label>
                 <TextArea id="address" defaultValue={info.address} />
               </Fieldset>
             </Stack>

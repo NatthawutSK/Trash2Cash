@@ -98,6 +98,10 @@ function RootLayoutNav() {
               name="(map)/nearbyRanking"
               options={{ headerShown: false }}
             />
+            <Stack.Screen
+              name="(map)/storeMap"
+              options={{ title: "เพิ่มตำแหน่งที่ตั้ง" }}
+            />
             <Stack.Screen name="formStore" options={{ headerShown: false }} />
             <Stack.Screen name="formSeller" options={{ headerShown: false }} />
             <Stack.Screen name="chooseRole" options={{ headerShown: false }} />

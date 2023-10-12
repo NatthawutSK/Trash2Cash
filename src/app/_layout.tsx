@@ -131,6 +131,18 @@ function RootLayoutNav() {
               name="profileRanking/[id]"
               options={{ title: "User Stat" }}
             />
+            <Stack.Screen
+              name="qrCodeBuyer"
+              options={{ title: "แสกน QR Code คนขาย" }}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="ApproveDetail"
+              options={{ title: "XD" }}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="(store)/editImageStore"
+              options={{ title: "แก้ไขรูปร้านค้า" }}
+            />
           </Stack>
           {/* </MySafeAreaView> */}
           {/* </LocationProvider> */}

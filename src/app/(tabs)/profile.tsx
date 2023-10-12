@@ -12,7 +12,7 @@ import {
 } from "@tamagui/lucide-icons";
 import { Link, useRouter } from "expo-router";
 import type { IconProps } from "@tamagui/helpers-icon";
-import { ButtonIcon, H6, ScrollView, Text } from "tamagui";
+import { ButtonIcon, H6, ScrollView, Text, View } from "tamagui";
 import { Avatar, H2, H3, H4, H5, Stack, XStack, ZStack } from "tamagui";
 import {
   Button,
@@ -23,10 +23,14 @@ import {
   YGroup,
   YStack,
 } from "tamagui";
-
 import { MyStack } from "@/components/MyStack";
 import { Icon, IconButtonProps } from "@expo/vector-icons/build/createIconSet";
-export default function three() {
+import StatsUser from "@/components/StatsUser";
+import { colors } from "@/constants/Colors";
+import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
+import { userdata } from "@/MockData/data";
+
+export default function Profile() {
   const router = useRouter();
 
   type notBtnProp = {
@@ -34,79 +38,86 @@ export default function three() {
     text1: string;
     text2: string;
   };
-  const NotBtn = (props: notBtnProp) => {
-    return (
-      <>
-        <YStack
-          maw={"$12"}
-          justifyContent="center"
-          ac={"center"}
-          ai={"center"}
-          alignSelf="center"
-          space={"$2"}
-        >
-          <Button icon={props.icon} size="$7" mx={10}></Button>
-          <H5 size={"$5"}>{props.text1}</H5>
-          <H5 size={"$3"}>{props.text2}</H5>
-        </YStack>
-      </>
-    );
-  };
+
   return (
-    <YStack flex={1} padding="$4" space={"$3"}>
-      <Avatar size="$10" br={10}>
-        <Avatar.Image src="http://placekitten.com/200/300" />
-        <Avatar.Fallback bc="gray" />
-      </Avatar>
-      <H2 fow="900">Name Surname</H2>
-      <Text>ID: 93129832109832</Text>
-      <XStack jc={"space-evenly"} space={"$2"}>
-        <NotBtn icon={Cloudy} text1="10 kCO2e" text2="ลด Co2 ไปแล้ว"></NotBtn>
-        <NotBtn
-          icon={Leaf}
-          text1="10000 ต้น"
-          text2="เท่ากับปลูกต้นไม้"
-        ></NotBtn>
-        <NotBtn icon={Leaf} text1="10000 กก." text2="ลดขยะ"></NotBtn>
+    <YStack padding={"$4"} marginTop={"$11"} space={"$4"}>
+      <XStack jc={"space-around"} w={"100%"} space={"$4"} mb={"$2"}>
+        <Avatar br={20} size="$12">
+          <Avatar.Image src={userdata.image} />
+          <Avatar.Fallback bc="red" />
+        </Avatar>
+        <Stack
+          jc={"center"}
+          ai={"center"}
+          br={20}
+          bc={colors.green4}
+          px={20}
+          h={"$9"}
+          als={"center"}
+        >
+          <Text
+            color={"white"}
+            maw={"$14"}
+            fontSize={22}
+            ww={"break-word"}
+            className="text-center font-bold max-h-30"
+          >
+            {userdata.username}
+          </Text>
+        </Stack>
       </XStack>
-      <H5>ข้อมูลส่วนตัว</H5>
+      <StatsUser
+        tree={userdata.score.tree}
+        trash={userdata.score.trash}
+        co2={userdata.score.co2}
+      />
 
       <Button
+        bg={colors.green4}
+        icon={() => <FontAwesome name="user" color={"white"} size={40} />}
+        iconAfter={<ChevronRight size="$2" color={"white"} />}
+        h={"$6"}
         jc={"space-between"}
-        icon={<User size="$2" />}
-        iconAfter={<ChevronRight size="$2" />}
-        onPress={() => {
-          router.push("/editProfile");
-        }}
+        onPress={() => router.push("/(profile)/editProfile")}
       >
-        แก้ไขข้อมูลส่วนตัว
+        <Text color={"white"} fos={20}>
+          แก้ไขข้อมูลส่วนตัว
+        </Text>
       </Button>
-
       <Button
+        bg={colors.green4}
+        icon={() => <FontAwesome name="lock" color={"white"} size={40} />}
+        iconAfter={<ChevronRight size="$2" color={"white"} />}
+        h={"$6"}
         jc={"space-between"}
-        icon={<Lock size="$2" />}
-        iconAfter={<ChevronRight size="$2" />}
-        onPress={() => router.push("/changePassword")}
+        onPress={() => router.push("/(profile)/changePassword")}
       >
-        เปลี่ยนรหัสผ่าน
+        <Text color={"white"} fos={20}>
+          เปลี่ยนรหัสผ่าน
+        </Text>
       </Button>
-
       <Button
+        bg={colors.green4}
+        icon={() => <FontAwesome name="history" color={"white"} size={40} />}
+        iconAfter={<ChevronRight size="$2" color={"white"} />}
+        h={"$6"}
         jc={"space-between"}
-        icon={<Lock size="$2" />}
-        iconAfter={<ChevronRight size="$2" />}
         onPress={() => router.push("/(profile)/history")}
       >
-        History
+        <Text color={"white"} fos={20}>
+          ประวัติการซื้อขาย
+        </Text>
       </Button>
       <Button
+        bg={colors.green4}
+        icon={() => <MaterialIcons name="logout" color={"white"} size={40} />}
+        iconAfter={<ChevronRight size="$2" color={"white"} />}
+        h={"$6"}
         jc={"space-between"}
-        color={"white"}
-        icon={<LogOut size="$2" />}
-        iconAfter={<ChevronRight size="$2" />}
-        bc={"#b23b3b"}
       >
-        ล็อกเอาท์
+        <Text color={"white"} fos={20}>
+          ออกจากระบบ
+        </Text>
       </Button>
     </YStack>
   );

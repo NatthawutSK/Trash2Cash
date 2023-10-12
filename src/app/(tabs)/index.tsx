@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { FlatList, StyleSheet, Image, Pressable } from "react-native";
 
 import SwitchDemo from "@/components/SwitchDemo";
 import { View } from "@/components/Themed";
@@ -6,7 +6,6 @@ import {
   Button,
   Circle,
   H4,
-  Image,
   ScrollView,
   Square,
   Stack,
@@ -19,20 +18,49 @@ import MapViewComponent from "@/components/MapComponent";
 import MiniMap from "@/components/MiniMap";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import DialogDemo from "@/components/DialogDemo";
-
-export default function home() {
-  const router = useRouter();
+import { colors } from "@/constants/Colors";
+// import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { getProperty } from "@/utils/util";
+import { TrashMaterial, imgIcon } from "@/MockData/data";
+const BoxTrash = (item: any) => {
   return (
-    <ScrollView bg={"$green5Light"} f={1}>
+    <Pressable onPress={() => router.push("/")}>
+      <View
+        className="h-52 rounded-lg w-52  items-center flex justify-center"
+        style={{ backgroundColor: colors.green3 }}
+      >
+        <Image className="w-24 h-24" source={getProperty(imgIcon, item.img)} />
+        <Text ta={"center"} mt={"$3"} fontSize={"$5"} className="text-white">
+          {item.name}
+        </Text>
+      </View>
+    </Pressable>
+  );
+};
+
+const router = useRouter();
+export default function home() {
+  const headerHeight = useHeaderHeight();
+  return (
+
+    <ScrollView bg={"$green5Light"} f={1} pt={headerHeight}>
       {/* <DialogDemo /> */}
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
+      {/* <Button onPress={() => router.push("/detailStore/66")}>
+        go to detail store
+      </Button> */}
+
       {/* <Button onPress={() => router.push("/FormApprove")}>go to 3rd</Button> */}
-      <Stack space={"$8"} pb={"$8"} pt={"$8"}>
+      <Stack space={"$8"} pb={"$8"} pt={"$5"}>
         {/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">
+
           Trash2Cash
         </Text> */}
         <Stack space={"$4"}>
-          <View
+          {/* <View
             style={{
               alignSelf: "center",
               width: "90%",
@@ -42,18 +70,38 @@ export default function home() {
             }}
           >
             <MiniMap />
-          </View>
+          </View> */}
           <Stack jc={"center"} ai={"center"}>
             <Button
               w={"90%"}
               onPress={() => router.push("/(map)/nearbyRanking")}
+              style={{ backgroundColor: colors.green4 }}
             >
-              <Text fos={"$5"} className="font-bold" color={"$green10Light"}>
+              <Text fos={"$5"} className="font-bold" color={"$green1Light"}>
                 อันดับร้านใกล้ฉัน
               </Text>
             </Button>
           </Stack>
-          <Button onPress={() => router.push("/(auth)/login")}>go to loggin</Button>
+
+
+          <XStack
+            alignItems="center"
+            jc={"space-between"}
+            marginHorizontal={"$4"}
+          >
+            <H4 className="font-bold">วัสดุรีไซเคิล</H4>
+            <TouchableOpacity onPress={() => router.push("/search")}>
+              <Text>ดูทั้งหมด</Text>
+            </TouchableOpacity>
+          </XStack>
+          <FlatList
+            contentContainerStyle={{ gap: 20, paddingHorizontal: 20 }}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            data={TrashMaterial}
+            renderItem={({ item }) => BoxTrash(item)}
+          />
+
         </Stack>
 
         <Text ta={"center"} className="text-xl font-bold" color={"$green8Dark"}>

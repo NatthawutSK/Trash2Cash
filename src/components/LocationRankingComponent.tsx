@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "tamagui";
 import { router } from "expo-router";
 
+
 export const truncateText = (text: string, maxLength: number) => {
   if (text.length <= maxLength) {
     return text;
@@ -16,24 +17,25 @@ const LocationRankingComponent = () => {
       style={{
         padding: 20,
         paddingVertical: 40,
-        backgroundColor: "#8ECDDD",
         margin: 15,
         flex: 0,
         flexDirection: "column",
         borderRadius: 12,
       }}
+      className="border-4 border-green-800"
     >
-      <TouchableOpacity
+      <View
         style={{ flexDirection: "row" }}
-        onPress={() => {
-          router.push("/detailStore/99");
-        }}
+        // onPress={() => {
+        //   router.push("/detailStore/99");
+        // }}
       >
         <Image
           style={styles.tinyLogo}
           source={{
             uri: "https://xn--12c7bzakgbj6bza1cbe6b3jwh.com/upload/about/1735775123198501.webp",
           }}
+          className=" rounded-md"
         />
         <View
           style={{
@@ -45,9 +47,11 @@ const LocationRankingComponent = () => {
           <Text style={{ fontSize: 14 }}>
             Name : {truncateText("วงษ์พาณิชย์", 10)}
           </Text>
-          <Text style={{ fontSize: 14 }}>Distance : 1 KM</Text>
+          <Text style={{ fontSize: 14 }}>ประเภทขยะรับซื้อ</Text>
+          <Text style={{ fontSize: 14 }}>ประเภทขยะรับซื้อ</Text>
+          
         </View>
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };

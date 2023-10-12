@@ -13,14 +13,12 @@ import {
 } from "tamagui";
 import { Link, useRouter } from "expo-router";
 
-export type StoreProps = { img: string; name: string; mat: string[]};
+export type StoreMaterialProps = { img: string; name: string; mat: string[], transport: string[], price: number  };
 
-const StoreItem = ({ img, name, mat }: StoreProps) => {
+const StoreMaterial = ({ img, name, mat, price, transport }: StoreMaterialProps) => {
   const router = useRouter();
   return (
     //   <Link href="/detailStore/66" asChild>
-    <>
-    
     <Pressable onPress={() => router.push("/detailStore/66")}>
       <YStack flex={1}>
         <XStack
@@ -34,33 +32,34 @@ const StoreItem = ({ img, name, mat }: StoreProps) => {
           jc={"space-between"}
         >
           <XStack ai={"center"} ac={"center"} space={"$4"} w={"50%"}>
-            <Avatar size="$6" radiused>
+            <Avatar size="$5" radiused>
               <Avatar.Image src={img} />
               <Avatar.Fallback bc="red" />
             </Avatar>
             <YStack space={"$1"}>
-              <Text fow={"800"} >
+              <Text fow={"800"} fontSize={"$1"}>
                 {name}
               </Text>
-              <Text>วัสดุที่รับ</Text>
-              <XStack maw={"80%"} space={"$2"} fw={"wrap"}>
-                {mat.map((m, i) => {
-                  return <FontAwesome5 key={i} name={m} size={18} />;
-                })}
-              </XStack>
+              <Text>ราคาขั้นต่ำ : {price} ฿</Text>
             </YStack>
           </XStack>
           <YStack ai={"flex-end"} space={"$1"} w={"30%"}>
-            <Store size={24} />
-            <Text fos={"$2"}>ระยะห่าง</Text>
+            <XStack space={"$2"}>
+
+            {
+                transport.map((x, index) => {
+                    return <FontAwesome5 key={index} name={x} size={18} />;
+                })
+            }
+            </XStack>
+            {/* <Text>{transport[0]}</Text> */}
             <Text>1.5 กม.</Text>
           </YStack>
         </XStack>
       </YStack>
     </Pressable>
-    </>
     //   </Link>
   );
 };
 
-export default StoreItem;
+export default StoreMaterial;

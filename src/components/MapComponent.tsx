@@ -40,15 +40,20 @@ const MapViewComponent = (props: Props) => {
   // const { location } = useLocation();
   const router = useRouter();
   return (
-    // <SafeAreaView >
+    <SafeAreaView className=" justify-center items-center">
     <View
       style={{
-        width: "100%",
-        height: "100%",
+        width: "85%",
+        height: "95%",
         overflow: "hidden",
       }}
+      
+
     >
+      <View className="border-4 border-cyan-600 rounded-md">
+
       <MapView
+        
         style={{ width: "100%", height: "100%" }}
         region={{
           latitude: location?.coords.latitude!,
@@ -113,6 +118,7 @@ const MapViewComponent = (props: Props) => {
           />
         </Marker>
       </MapView>
+      </View>
       {/* <Button
         bg={"$green10Light"}
         color={"$green1Light"}
@@ -151,7 +157,7 @@ const MapViewComponent = (props: Props) => {
             )}
           </Text> */}
     </View>
-    // </SafeAreaView>
+    </SafeAreaView>
   );
 };
 

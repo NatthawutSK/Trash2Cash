@@ -1,6 +1,6 @@
 import { View, Text, FlatList } from "react-native";
 import React from "react";
-import StoreItem, { StoreProps } from "./StoreItem";
+import StoreMaterialItem, { StoreMaterialProps } from "./StoreMaterialItem";
 import { Stack } from "tamagui";
 
 type Props = { name: string };
@@ -56,17 +56,17 @@ const DATA = [
 		star: 3.7,
 	},
 ];
-const renderStore = (item: { item: StoreProps }) => {
-	return <StoreItem {...item.item} />;
+const renderStoreMaterial = (item: { item: StoreMaterialProps }) => {
+	return <StoreMaterialItem {...item.item} />;
 };
 
-const FlatListStore = ({ data }: { data: StoreProps[] }) => {
+const FlatListStoreMaterial = ({ data }: { data: StoreMaterialProps[] }) => {
 	return (
 		<Stack p={20}>
 			<FlatList
 				showsVerticalScrollIndicator={false}
 				data={data}
-				renderItem={renderStore}
+				renderItem={renderStoreMaterial}
 				keyExtractor={(item, index) => index.toString()}
 				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
 				// Performance settings
@@ -79,4 +79,4 @@ const FlatListStore = ({ data }: { data: StoreProps[] }) => {
 	);
 };
 
-export default FlatListStore;
+export default FlatListStoreMaterial;

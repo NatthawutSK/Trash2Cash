@@ -3,11 +3,47 @@ import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import { View } from "@/components/Themed";
 // import SearchBar from "@/components/SearchBar";
 import DetailPurchaseComponent from "@/components/DetailPurchaseComponent";
+import FlatListHistory from "@/components/FlatListHistory";
+import { Stack } from "tamagui";
+
+type Props = {};
+const DATA = [
+  {
+    img: "https://picsum.photos/200",
+    name: "ร้าน รี",
+    date: "01/02/2575",
+    info: [
+      ["box", "1"],
+      ["bottle", "2"]
+  ],
+  },
+  {
+    img: "https://picsum.photos/203",
+    name: "ร้าน รีไซ",
+    date: "01/02/2575",
+    info: [
+      ["box", "1"],
+      ["bottle", "2"]
+  ],
+  },
+  {
+    img: "https://picsum.photos/204",
+    name: "ร้าน รีเคิลเคิลเคิลเคิลเคิลเติลเต",
+    date: "01/02/2575",
+    info: [
+      ["box", "1"],
+      ["bottle", "2"]
+  ],
+  },
+
+
+];
+
 
 export default function history() {
   return (
-    <SafeAreaView>
-      <ScrollView>
+    <Stack ac={"center"} h={"95%"}>
+
         <View>
           {/* <Text style={styles.title}>Tab One</Text>
       <Button alignSelf="center" size="$6">
@@ -18,17 +54,10 @@ export default function history() {
       } } />
       <SwitchDemo /> */}
           {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
-          <View>
-            <DetailPurchaseComponent />
-            <DetailPurchaseComponent />
-            <DetailPurchaseComponent />
-            <DetailPurchaseComponent />
-            <DetailPurchaseComponent />
-            <DetailPurchaseComponent />
-          </View>
+          <FlatListHistory data={DATA} />
         </View>
-      </ScrollView>
-    </SafeAreaView>
+    </Stack>
+    
   );
 }
 

@@ -29,7 +29,7 @@ const login = (props: Props) => {
 			{/* <StatusBar style="light" /> */}
 			<Image
 				className="h-full w-full absolute"
-				source={require("../../../assets/images/background.png")}
+				source={require("../../../assets/images/background3.png")}
 			/>
 
 			{/* lights */}
@@ -90,7 +90,7 @@ const login = (props: Props) => {
 					>
 						<TouchableOpacity
 							onPress={() => router.push("/")}
-							className="w-full bg-sky-400 p-3 rounded-2xl mb-3"
+							className="w-full bg-green-700 p-3 rounded-2xl mb-3"
 						>
 							<Text className="text-xl font-bold text-white text-center">
 								เข้าสู่ระบบ

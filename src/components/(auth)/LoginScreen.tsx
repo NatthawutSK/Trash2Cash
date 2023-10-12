@@ -19,12 +19,35 @@ import Animated, {
   FadeInUp,
 } from "react-native-reanimated";
 import { useRouter } from "expo-router";
+import { useSignIn } from "@clerk/clerk-expo";
 
 type Props = {
   toggle: () => void;
 };
 
 const LoginScreen = ({ toggle }: Props) => {
+  const { signIn, setActive, isLoaded } = useSignIn();
+
+  const [emailAddress, setEmailAddress] = React.useState("");
+  const [password, setPassword] = React.useState("");
+
+  const onSignInPress = async () => {
+    if (!isLoaded) {
+      return;
+    }
+
+    try {
+      const completeSignIn = await signIn.create({
+        identifier: emailAddress,
+        password,
+      });
+      // This is an important step,
+      // This indicates the user is signed in
+      await setActive({ session: completeSignIn.createdSessionId });
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
   // const router = useRouter();
   return (
     <View className="bg-white h-full w-full">
@@ -66,7 +89,14 @@ const LoginScreen = ({ toggle }: Props) => {
             entering={FadeInDown.duration(1000).springify()}
             className="bg-black/5 p-5 rounded-2xl w-full"
           >
-            <TextInput placeholder="อีเมลล์" placeholderTextColor={"gray"} />
+            <TextInput
+              placeholder="อีเมลล์"
+              placeholderTextColor={"gray"}
+              onChangeText={(emailAddress) => setEmailAddress(emailAddress)}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              value={emailAddress}
+            />
           </Animated.View>
           <Animated.View
             entering={FadeInDown.delay(200).duration(1000).springify()}
@@ -75,7 +105,9 @@ const LoginScreen = ({ toggle }: Props) => {
             <TextInput
               placeholder="รหัสผ่าน"
               placeholderTextColor={"gray"}
-              secureTextEntry
+              value={password}
+              secureTextEntry={true}
+              onChangeText={(password) => setPassword(password)}
             />
           </Animated.View>
 
@@ -84,7 +116,7 @@ const LoginScreen = ({ toggle }: Props) => {
             entering={FadeInDown.delay(400).duration(1000).springify()}
           >
             <TouchableOpacity
-              onPress={() => console.log("login")}
+              onPress={() => onSignInPress()}
               className="w-full bg-sky-400 p-3 rounded-2xl mb-3"
             >
               <Text className="text-xl font-bold text-white text-center">

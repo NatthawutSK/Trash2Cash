@@ -29,9 +29,11 @@ import StatsUser from "@/components/StatsUser";
 import { colors } from "@/constants/Colors";
 import { FontAwesome, MaterialIcons } from "@expo/vector-icons";
 import { userdata } from "@/MockData/data";
+import { useAuth } from "@clerk/clerk-expo";
 
 export default function Profile() {
   const router = useRouter();
+  const { signOut } = useAuth();
 
   type notBtnProp = {
     icon: any;
@@ -109,6 +111,7 @@ export default function Profile() {
         </Text>
       </Button>
       <Button
+        onPress={() => signOut()}
         bg={colors.green4}
         icon={() => <MaterialIcons name="logout" color={"white"} size={40} />}
         iconAfter={<ChevronRight size="$2" color={"white"} />}

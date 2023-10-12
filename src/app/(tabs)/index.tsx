@@ -55,7 +55,6 @@ export default function home() {
       {/* <SelectTrashMaterial /> */}
       {/* <DialogDemo /> */}
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
-      <Button onPress={() => router.push("/(auth)/login")}>go to login</Button>
       {/* <Button onPress={() => router.push("/FormApprove")}>go to 3rd</Button> */}
       <Stack space={"$8"} pb={"$8"} pt={"$5"}>
         {/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">

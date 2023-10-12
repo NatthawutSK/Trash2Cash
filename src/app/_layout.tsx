@@ -12,6 +12,8 @@ import { TamaguiProvider, Text, Theme } from "tamagui";
 import config from "../../tamagui.config";
 
 import { MySafeAreaView } from "../components/MySafeAreaView";
+import { ApolloProvider } from "@apollo/client";
+import client from "@/apollo/Client";
 // import { LocationProvider } from "@/provider/LocationProvider";
 
 export {
@@ -57,95 +59,89 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <TamaguiProvider config={config}>
-      <Theme name={colorScheme}>
-        <ThemeProvider
-          value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
-        >
-          {/* <LocationProvider> */}
-          {/* <MySafeAreaView> */}
-          <Stack>
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            {/* <Stack.Screen name="(admin)" options={{ headerShown: false }} /> */}
-            {/* <Stack.Screen
-                  name="(thirds)"
-                  options={{ headerShown: false }}
-                /> */}
-            {/* <Stack.Screen
-                name="(thirds)/adminApprove"
+    <ApolloProvider client={client}>
+      <TamaguiProvider config={config}>
+        <Theme name={colorScheme}>
+          <ThemeProvider
+            value={colorScheme === "dark" ? DarkTheme : DefaultTheme}
+          >
+            {/* <LocationProvider> */}
+            {/* <MySafeAreaView> */}
+            <Stack>
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              <Stack.Screen name="modal" options={{ presentation: "modal" }} />
+              <Stack.Screen
+                name="(auth)/login"
                 options={{ headerShown: false }}
               />
               <Stack.Screen
-                name="(thirds)/history"
+                name="(auth)/signup"
                 options={{ headerShown: false }}
-              /> */}
+              />
 
-            <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-            <Stack.Screen
-              name="(auth)/login"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="(auth)/signup"
-              options={{ headerShown: false }}
-            />
-
-            <Stack.Screen
-              name="(map)/fullMap"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="(map)/nearbyRanking"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen name="formStore" options={{ headerShown: false }} />
-            <Stack.Screen name="formSeller" options={{ headerShown: false }} />
-            <Stack.Screen name="chooseRole" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="detailStore/[id]"
-              options={{ title: "Detail Store" }}
-            />
-            <Stack.Screen
-              name="detailTrash/[id]"
-              options={{ title: "Detail Trash" }}
-            />
-            <Stack.Screen
-              name="(profile)/editProfile"
-              options={{ title: "Edit Profile" }}
-            />
-            <Stack.Screen
-              name="(profile)/changePassword"
-              options={{ title: "Change Password" }}
-            />
-            <Stack.Screen
-              name="(profile)/history"
-              options={{ title: "History" }}
-            />
-            <Stack.Screen
-              name="profileRanking/[id]"
-              options={{ title: "User Stat" }}
-            />
-            <Stack.Screen
-              name="qrCodeBuyer"
-              options={{ title: "แสกน QR Code คนขาย" }}
-            ></Stack.Screen>
-            <Stack.Screen
-              name="ApproveDetail"
-              options={{ title: "XD" }}
-            ></Stack.Screen>
-            <Stack.Screen
-              name="(store)/editImageStore"
-              options={{ title: "แก้ไขรูปร้านค้า" }}
-            />
-            <Stack.Screen
-              name="(store)/editMaterialStore"
-              options={{ title: "แก้ไขวัสดุที่รับ" }}
-            />
-          </Stack>
-          {/* </MySafeAreaView> */}
-          {/* </LocationProvider> */}
-        </ThemeProvider>
-      </Theme>
-    </TamaguiProvider>
+              <Stack.Screen
+                name="(map)/fullMap"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="(map)/nearbyRanking"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen name="formStore" options={{ headerShown: false }} />
+              <Stack.Screen
+                name="formSeller"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="chooseRole"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="detailStore/[id]"
+                options={{ title: "Detail Store" }}
+              />
+              <Stack.Screen
+                name="detailTrash/[id]"
+                options={{ title: "Detail Trash" }}
+              />
+              <Stack.Screen
+                name="(profile)/editProfile"
+                options={{ title: "Edit Profile" }}
+              />
+              <Stack.Screen
+                name="(profile)/changePassword"
+                options={{ title: "Change Password" }}
+              />
+              <Stack.Screen
+                name="(profile)/history"
+                options={{ title: "History" }}
+              />
+              <Stack.Screen
+                name="profileRanking/[id]"
+                options={{ title: "User Stat" }}
+              />
+              <Stack.Screen
+                name="qrCodeBuyer"
+                options={{ title: "แสกน QR Code คนขาย" }}
+              ></Stack.Screen>
+              <Stack.Screen
+                name="ApproveDetail"
+                options={{ title: "XD" }}
+              ></Stack.Screen>
+              <Stack.Screen
+                name="(store)/editImageStore"
+                options={{ title: "แก้ไขรูปร้านค้า" }}
+              />
+              <Stack.Screen
+                name="(store)/editMaterialStore"
+                options={{ title: "แก้ไขวัสดุที่รับ" }}
+              />
+            </Stack>
+            {/* </MySafeAreaView> */}
+            {/* </LocationProvider> */}
+          </ThemeProvider>
+        </Theme>
+      </TamaguiProvider>
+    </ApolloProvider>
   );
 }

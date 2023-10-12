@@ -45,7 +45,6 @@ const router = useRouter();
 export default function home() {
   const headerHeight = useHeaderHeight();
   return (
-
     <ScrollView bg={"$green5Light"} f={1} pt={headerHeight}>
       {/* <DialogDemo /> */}
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
@@ -83,7 +82,6 @@ export default function home() {
             </Button>
           </Stack>
 
-
           <XStack
             alignItems="center"
             jc={"space-between"}
@@ -101,7 +99,6 @@ export default function home() {
             data={TrashMaterial}
             renderItem={({ item }) => BoxTrash(item)}
           />
-
         </Stack>
 
         <Text ta={"center"} className="text-xl font-bold" color={"$green8Dark"}>
@@ -110,7 +107,7 @@ export default function home() {
 
         {/* <Stack jc={"center"} ai={"center"} space={"$5"}>
           <XStack space={"$4"}> */}
-            {/* <YStack space="$4">
+        {/* <YStack space="$4">
               <Square w={180} h={200} br={20} backgroundColor="$green9Dark">
                 <YStack space={"$3"}>
                   <Text fos={"$6"} color={"$red1Light"} className="font-bold">
@@ -160,7 +157,7 @@ export default function home() {
               </Square>
             </YStack> */}
 
-            {/* <YStack space={"$4"}>
+        {/* <YStack space={"$4"}>
               <Square w={160} h={150} br={20} bg={"$green9Dark"}>
                 <YStack space={"$2"}>
                   <Text fos={"$6"} color={"$red1Light"} className="font-bold">
@@ -205,11 +202,11 @@ export default function home() {
                 </YStack>
               </Square>
             </YStack> */}
-          {/* </XStack>
+        {/* </XStack>
         </Stack> */}
 
         {/* <Image source={require("../../../assets/images/co2.png")} /> */}
-        <Button
+        {/* <Button
           alignSelf="center"
           size="$6"
           onPress={() => router.push("/FormApprove")}
@@ -222,7 +219,7 @@ export default function home() {
           // onPress={() => router.push("/(admin)/adminApprove")}
         >
           only for admin
-        </Button>
+        </Button> */}
 
         {/* <Link href={"/(thirds)/history"} asChild> */}
         {/* <Button

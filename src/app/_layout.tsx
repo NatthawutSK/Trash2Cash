@@ -8,7 +8,13 @@ import { useFonts } from "expo-font";
 import { Link, SplashScreen, Stack } from "expo-router";
 import React, { Suspense, useEffect } from "react";
 import { Pressable, useColorScheme } from "react-native";
-import { Input, TamaguiProvider, Text, Theme, Stack as TamaStack } from "tamagui";
+import {
+  Input,
+  TamaguiProvider,
+  Text,
+  Theme,
+  Stack as TamaStack,
+} from "tamagui";
 import config from "../../tamagui.config";
 import { MySafeAreaView } from "../components/MySafeAreaView";
 // import { LocationProvider } from "@/provider/LocationProvider";
@@ -88,22 +94,7 @@ function RootLayoutNav() {
               name="(auth)/signup"
               options={{ headerShown: false }}
             />
-            <Stack.Screen
-              name="(admin)/adminApprove"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="(tabs)/(map)/fullMap.tsx"
-              options={{
-                // tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
-                // headerStyle: {},
-                // headerTransparent: true,
-              }}
-            />
-            <Stack.Screen
-              name="(tabs)/(map)/nearbyRanking"
-              options={{ headerShown: false }}
-            />
+
             <Stack.Screen name="formStore" options={{ headerShown: false }} />
             <Stack.Screen name="formSeller" options={{ headerShown: false }} />
             <Stack.Screen name="chooseRole" options={{ headerShown: false }} />

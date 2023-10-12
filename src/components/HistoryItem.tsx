@@ -71,24 +71,21 @@ const HistoryItem = ({ img, name, date, info }: HistoryProps) => {
           borderWidth={2}
           borderColor={"$green8Dark"}
         >
-             <XStack jc={"space-between"}>
-
+          <XStack jc={"space-between"}>
             <Text>ประเภท</Text>
             <Text>กิโลกรัม</Text>
-             </XStack>
-            <Separator marginVertical={15} />
-            {info.map((x, index) => (
-
-                <XStack jc={"space-between"} px={5}>
-                    <YStack>
-                    <Text fow={"800"}>{x[0]}</Text>
-                    </YStack>
-                    <XStack>
-                    <Text fow={"800"}>X {x[1]}</Text>
-                    </XStack>
-                </XStack>
-
-            ))}
+          </XStack>
+          <Separator marginVertical={15} />
+          {info.map((x, index) => (
+            <XStack jc={"space-between"} px={5} key={index}>
+              <YStack>
+                <Text fow={"800"}>{x[0]}</Text>
+              </YStack>
+              <XStack>
+                <Text fow={"800"}>X {x[1]}</Text>
+              </XStack>
+            </XStack>
+          ))}
 
           {/* <Text fow={"800"}>Date : {info}</Text> */}
         </Stack>

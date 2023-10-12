@@ -1,8 +1,8 @@
 import { View, Text, FlatList } from "react-native";
 import React from "react";
 import StoreItem, { StoreProps } from "./StoreItem";
-import { Button, Stack } from "tamagui";
-import { router } from "expo-router";
+import MaterialInfoItem, {MatProps2} from "./MaterialInfoItem";
+import { Stack } from "tamagui";
 
 type Props = { name: string };
 const DATA = [
@@ -33,28 +33,27 @@ const DATA = [
 	},
 
 ];
-const renderStore = (item: { item: StoreProps }) => {
-	return <StoreItem {...item.item} />;
+const renderMaterialInfo = (item: { item: MatProps2}) => {
+	return <MaterialInfoItem {...item.item} />;
 };
 
-const FlatListNearbyStore = ({ data }: { data: StoreProps[] }) => {
+const FlatListMaterialInfo = ({ data }: { data: MatProps2[] }) => {
 	return (
-
+		<Stack p={20}>
 			<FlatList
 				showsVerticalScrollIndicator={false}
 				data={data}
-				renderItem={renderStore}
+				renderItem={renderMaterialInfo}
 				keyExtractor={(item, index) => index.toString()}
-				ItemSeparatorComponent={() => <View style={{ height: 15 }} />}
+				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
 				// Performance settings
 				removeClippedSubviews={true}
 				initialNumToRender={7}
 				maxToRenderPerBatch={10}
 				windowSize={10}
 			/>
-			
-
+		</Stack>
 	);
 };
 
-export default FlatListNearbyStore;
+export default FlatListMaterialInfo;

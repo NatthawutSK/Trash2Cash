@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "tamagui";
 import { router } from "expo-router";
 
+
 export const truncateText = (text: string, maxLength: number) => {
   if (text.length <= maxLength) {
     return text;

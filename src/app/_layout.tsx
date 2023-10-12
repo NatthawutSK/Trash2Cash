@@ -5,10 +5,10 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { SplashScreen, Stack } from "expo-router";
-import { Suspense, useEffect } from "react";
-import { useColorScheme } from "react-native";
-import { TamaguiProvider, Text, Theme } from "tamagui";
+import { Link, SplashScreen, Stack } from "expo-router";
+import React, { Suspense, useEffect } from "react";
+import { Pressable, useColorScheme } from "react-native";
+import { Input, TamaguiProvider, Text, Theme, Stack as TamaStack } from "tamagui";
 import config from "../../tamagui.config";
 import { MySafeAreaView } from "../components/MySafeAreaView";
 // import { LocationProvider } from "@/provider/LocationProvider";
@@ -88,13 +88,20 @@ function RootLayoutNav() {
               name="(auth)/signup"
               options={{ headerShown: false }}
             />
-
             <Stack.Screen
-              name="(map)/fullMap"
+              name="(admin)/adminApprove"
               options={{ headerShown: false }}
             />
             <Stack.Screen
-              name="(map)/nearbyRanking"
+              name="(tabs)/(map)/fullMap.tsx"
+              options={{
+                // tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
+                // headerStyle: {},
+                // headerTransparent: true,
+              }}
+            />
+            <Stack.Screen
+              name="(tabs)/(map)/nearbyRanking"
               options={{ headerShown: false }}
             />
             <Stack.Screen name="formStore" options={{ headerShown: false }} />

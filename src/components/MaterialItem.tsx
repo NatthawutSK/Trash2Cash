@@ -3,10 +3,11 @@ import React from "react";
 import { YStack, XStack, Avatar, Separator, Text } from "tamagui";
 import { router } from "expo-router";
 
-export type MatProps = { img?: string; name: string; description: string };
+export type MatProps = { img?: string; name: string; description: string, picture: string[], id: string, typeM: string, reduce: number, avgprice: number, submat: string[]};
+// export type MatProps = { img?: string; name: string; description: string };
 const MaterialItem = (item: MatProps) => {
 	return (
-		<Pressable onPress={() => router.push("/detailTrash/1")}>
+		<Pressable onPress={() => router.push({pathname:`/detailTrash/${item.id}`} )}>
 			<YStack w={"100%"}>
 				<XStack
 					alignItems="center"

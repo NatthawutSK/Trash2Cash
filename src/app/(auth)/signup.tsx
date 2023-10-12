@@ -27,7 +27,7 @@ const signup = (props: Props) => {
 			<StatusBar style="light" />
 			<Image
 				className="h-full w-full absolute"
-				source={require("../../../assets/images/background.png")}
+				source={require("../../../assets/images/background3.png")}
 			/>
 
 			{/* lights */}
@@ -89,7 +89,7 @@ const signup = (props: Props) => {
 							.springify()}
 					>
 						<TouchableOpacity
-							className="w-full bg-sky-400 p-3 rounded-2xl mb-3"
+							className="w-full bg-green-700 p-3 rounded-2xl mb-3"
 							onPress={() => router.push("/chooseRole")}
 						>
 							<Text className="text-xl font-bold text-white text-center">

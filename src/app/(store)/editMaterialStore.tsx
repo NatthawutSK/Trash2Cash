@@ -6,10 +6,12 @@ import { FlatList, Image, View } from "react-native";
 
 import DialogAddTrashMaterial from "@/components/DialogAddTrashMaterial";
 import { Button, H4, Text } from "tamagui";
+import DialogEditTrashMaterial from "@/components/DialogEditTrashMaterial";
+import { TypeTrashMaterial } from "@/MockData/types";
 
 type Props = {};
 
-const renderTrashMaterial = (item: any) => {
+const renderTrashMaterial = (item: TypeTrashMaterial) => {
   return (
     <View
       className="bg-white self-center"
@@ -30,16 +32,7 @@ const renderTrashMaterial = (item: any) => {
         <Text>จำนวนที่รับ : {item.recieveAmount}</Text>
         <Text>ราคาที่รับ : {item.price} บาท/กก.</Text>
         <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
-          <Button
-            color={"white"}
-            bg={"$blue9Light"}
-            style={{
-              width: 80,
-              height: 40,
-            }}
-          >
-            แก้ไข
-          </Button>
+          <DialogEditTrashMaterial item={item} />
           <Button
             color={"white"}
             bg={"$red9Light"}
@@ -61,7 +54,9 @@ const editMaterialStore = (props: Props) => {
     <View style={{ flex: 1 }}>
       <FlatList
         data={MockTrashMaterial}
-        renderItem={({ item }) => renderTrashMaterial(item)}
+        renderItem={({ item }: { item: TypeTrashMaterial }) =>
+          renderTrashMaterial(item)
+        }
         contentContainerStyle={{ gap: 20 }}
         ListHeaderComponent={
           <H4 className="self-center py-5 font-bold">วัสดุที่รับ</H4>

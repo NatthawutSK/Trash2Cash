@@ -1,4 +1,4 @@
-import { TypeStore } from "./types";
+import { TypeStore, TypeTrashMaterial } from "./types";
 
 export const TrashMaterial = [
   {
@@ -55,23 +55,23 @@ export const imgIcon = {
   paper: require("../../assets/images/paper.png"),
 };
 
-export const MockTrashMaterial = [
+export const MockTrashMaterial: TypeTrashMaterial[] = [
   {
     name: "ขวด PET ใส",
     img: "plastic_bottle",
-    recieveAmount: "10 กก.",
+    recieveAmount: "10 - 20 กก.",
     price: 10,
   },
   {
     name: "ขวดแก้ว",
     img: "glass_bottle",
-    recieveAmount: "10 กก.",
+    recieveAmount: "ไม่จำกัด",
     price: 20,
   },
   {
     name: "กระดาษกล่อง",
     img: "box",
-    recieveAmount: "10 กก.",
+    recieveAmount: "30 - 40 กก.",
     price: 30,
   },
 ];
@@ -89,7 +89,7 @@ export const MockImg: string[] = [
   "https://mpics.mgronline.com/pics/Images/563000002635602.JPEG",
 ];
 
-export const recieveAmount = [
+export const recieveAmount: string[] = [
   "น้อยกว่า 10 กก.",
   "10 - 20 กก.",
   "20 - 30 กก.",

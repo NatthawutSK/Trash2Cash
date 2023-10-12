@@ -4,8 +4,14 @@ import { Adapt, Fieldset, Label, Select, Sheet, YStack } from "tamagui";
 import { LinearGradient } from "tamagui/linear-gradient";
 import { TrashMaterial, recieveAmount } from "@/MockData/data";
 
-export default function SelectReceiveTrash() {
-  const [val, setVal] = useState("น้อยกว่า 10 กก.");
+type Props = {
+  amount?: string;
+};
+
+export default function SelectReceiveTrash({
+  amount = "น้อยกว่า 10 กก.",
+}: Props) {
+  const [val, setVal] = useState(amount);
 
   return (
     <Fieldset>

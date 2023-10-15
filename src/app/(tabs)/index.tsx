@@ -41,13 +41,7 @@ const getUserQuery = gql`
 
 const router = useRouter();
 export default function home() {
-  // const {
-  //   data,
-  //   loading: isDbLoading,
-  //   refetch,
-  // } = useQuery(getUserQuery, {
-  //   variables: { authid: "authla" },
-  // });
+
   const headerHeight = useHeaderHeight();
   return (
     <ScrollView bg={"$green5Light"} f={1} pt={headerHeight}>
@@ -55,7 +49,9 @@ export default function home() {
       {/* <SelectTrashMaterial /> */}
       {/* <DialogDemo /> */}
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
-      {/* <Button onPress={() => router.push("/FormApprove")}>go to 3rd</Button> */}
+      <Button onPress={() => router.push("/formSeller")}>
+        go to form seller
+      </Button>
       <Stack space={"$8"} pb={"$8"} pt={"$5"}>
         {/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">
           Trash2Cash

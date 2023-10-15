@@ -1,5 +1,5 @@
 import client from "@/apollo/Client";
-import AuthScreen from "@/components/(auth)/AuthScreen";
+import AuthScreen from "@/components/auth/AuthScreen";
 import { ApolloProvider } from "@apollo/client";
 import { ClerkProvider, SignedIn, SignedOut } from "@clerk/clerk-expo";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -29,7 +29,7 @@ import { Pressable } from "react-native";
 
 import config from "../../tamagui.config";
 import UserContextProvider, { useUserContext } from "@/provider/UserContext";
-import ChooseRole from "@/components/(auth)/ChooseRole";
+import ChooseRole from "@/components/auth/ChooseRole";
 
 // import { LocationProvider } from "@/provider/LocationProvider";
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;

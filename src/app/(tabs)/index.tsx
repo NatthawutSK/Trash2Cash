@@ -41,7 +41,6 @@ const getUserQuery = gql`
 
 const router = useRouter();
 export default function home() {
-
   const headerHeight = useHeaderHeight();
   return (
     <ScrollView bg={"$green5Light"} f={1} pt={headerHeight}>
@@ -49,9 +48,11 @@ export default function home() {
       {/* <SelectTrashMaterial /> */}
       {/* <DialogDemo /> */}
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
+
       <Button onPress={() => router.push("/formSeller")}>
         go to form seller
       </Button>
+
       <Stack space={"$8"} pb={"$8"} pt={"$5"}>
         {/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">
           Trash2Cash
@@ -99,6 +100,110 @@ export default function home() {
           />
         </Stack>
 
+        <Text ta={"center"} className="text-xl font-bold" color={"$green8Dark"}>
+          สถิติรวม
+        </Text>
+
+        {/* <Stack jc={"center"} ai={"center"} space={"$5"}>
+          <XStack space={"$4"}> */}
+        {/* <YStack space="$4">
+              <Square w={180} h={200} br={20} backgroundColor="$green9Dark">
+                <YStack space={"$3"}>
+                  <Text fos={"$6"} color={"$red1Light"} className="font-bold">
+                    ลด co2 ไปแล้ว
+                  </Text>
+                  <Text
+                    color={"$red1Light"}
+                    className="font-bold"
+                    fos={"$8"}
+                    ta={"center"}
+                  >
+                    90709{"     "}
+                    <Text fos={"$5"} color={"$gray5Light"}>
+                      kCO2e
+                    </Text>
+                  </Text>
+
+                  <MaterialCommunityIcons
+                    name="molecule-co2"
+                    size={48}
+                    color="white"
+                  />
+                </YStack>
+              </Square>
+              <Square w={180} h={150} br={20} bg={"$green9Dark"}>
+                <YStack space={"$2"} mt={"$3"}>
+                  <Text fos={"$6"} color={"$red1Light"} className="font-bold">
+                    เทียบเท่าปลูกต้นไม้
+                  </Text>
+                  <Text
+                    color={"$red1Light"}
+                    ta={"center"}
+                    fos={"$8"}
+                    className="font-bold"
+                  >
+                    9070{"     "}
+                    <Text fos={"$5"} color={"$gray5Light"}>
+                      ต้น
+                    </Text>
+                  </Text>
+                  <MaterialCommunityIcons
+                    name="tree-outline"
+                    size={48}
+                    color="white"
+                  />
+                </YStack>
+              </Square>
+            </YStack> */}
+
+        {/* <YStack space={"$4"}>
+              <Square w={160} h={150} br={20} bg={"$green9Dark"}>
+                <YStack space={"$2"}>
+                  <Text fos={"$6"} color={"$red1Light"} className="font-bold">
+                    ลดขยะ
+                  </Text>
+                  <Text fos={"$8"} color={"$red1Light"} className="font-bold">
+                    9070{"     "}
+                    <Text fos={"$5"} color={"$gray5Light"}>
+                      กก.
+                    </Text>
+                  </Text>
+                  <MaterialCommunityIcons
+                    name="trash-can-outline"
+                    size={48}
+                    color="white"
+                  />
+                </YStack>
+              </Square>
+              <Square w={160} h={200} br={20} bg={"$green9Dark"}>
+                <YStack space={"$4"}>
+                  <Text fos={"$6"} color={"$red1Light"} className="font-bold">
+                    ผู้ร่วมช่วยโลก
+                  </Text>
+                  <Text
+                    fos={"$8"}
+                    color={"$red1Light"}
+                    ta={"center"}
+                    className="font-bold"
+                  >
+                    922{"     "}
+                    <Text fos={"$5"} color={"$gray5Light"}>
+                      คน
+                    </Text>
+                  </Text>
+                  <Stack ml={"$3"}>
+                    <MaterialCommunityIcons
+                      name="account-group-outline"
+                      size={48}
+                      color="white"
+                    />
+                  </Stack>
+                </YStack>
+              </Square>
+            </YStack> */}
+        {/* </XStack>
+        </Stack> */}
+
         {/* <Image source={require("../../../assets/images/co2.png")} /> */}
         {/* <Button
           alignSelf="center"
@@ -106,6 +211,13 @@ export default function home() {
           onPress={() => router.push("/FormApprove")}
         >
           go to form approve
+        </Button>
+        <Button
+          alignSelf="center"
+          size="$6"
+          // onPress={() => router.push("/(admin)/adminApprove")}
+        >
+          only for admin
         </Button> */}
 
         {/* <Link href={"/(thirds)/history"} asChild> */}

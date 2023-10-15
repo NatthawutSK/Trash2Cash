@@ -105,7 +105,6 @@ export default function TabLayout() {
           ),
         }}
       />
-
       {/* <Tabs.Screen
         name="qrCode"
         options={{
@@ -154,6 +153,7 @@ export default function TabLayout() {
         name="storeProfile"
         options={{
           href: dbUser.roles === "store" ? "/(tabs)/storeProfile" : null,
+
           title: "Store",
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="store" size={35} color={color} />
@@ -165,6 +165,7 @@ export default function TabLayout() {
         name="profile"
         options={{
           href: dbUser.roles === "store" ? null : "/(tabs)/profile",
+
           title: "Profile",
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}

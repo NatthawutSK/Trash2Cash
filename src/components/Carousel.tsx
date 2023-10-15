@@ -138,4 +138,6 @@ export default function Carousel({ img }: any) {
       <Pagination index={index}></Pagination>
     </>
   );
+
 }
+

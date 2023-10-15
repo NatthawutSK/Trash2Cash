@@ -1,6 +1,7 @@
 import { View, Text, FlatList } from "react-native";
 import React from "react";
 import StoreItem, { StoreProps } from "./StoreItem";
+import MaterialInfoItem, {MatProps2} from "./MaterialInfoItem";
 import { Stack } from "tamagui";
 
 type Props = { name: string };
@@ -16,16 +17,6 @@ const DATA = [
 		star: 4.3,
 	},
 	{
-		name: "ร้าน เคิ้ล",
-		mat: ["wine-bottle", "box"],
-		star: 3.3,
-	},
-	{
-		name: "ร้าน รีไซ",
-		mat: ["box", "glass-whiskey"],
-		star: 2.3,
-	},
-	{
 		name: "ร้าน รีเคิล",
 		mat: ["glass-whiskey"],
 		star: 3.7,
@@ -40,33 +31,19 @@ const DATA = [
 		mat: ["file", "glass-whiskey"],
 		star: 4.3,
 	},
-	{
-		name: "ร้าน เคิ้ล",
-		mat: ["wine-bottle", "box"],
-		star: 3.3,
-	},
-	{
-		name: "ร้าน รีไซ",
-		mat: ["box", "glass-whiskey"],
-		star: 2.3,
-	},
-	{
-		name: "ร้าน รีเคิล",
-		mat: ["glass-whiskey"],
-		star: 3.7,
-	},
+
 ];
-const renderStore = (item: { item: StoreProps }) => {
-	return <StoreItem {...item.item} />;
+const renderMaterialInfo = (item: { item: MatProps2}) => {
+	return <MaterialInfoItem {...item.item} />;
 };
 
-const FlatListStore = ({ data }: { data: StoreProps[] }) => {
+const FlatListMaterialInfo = ({ data }: { data: MatProps2[] }) => {
 	return (
 		<Stack p={20}>
 			<FlatList
 				showsVerticalScrollIndicator={false}
 				data={data}
-				renderItem={renderStore}
+				renderItem={renderMaterialInfo}
 				keyExtractor={(item, index) => index.toString()}
 				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
 				// Performance settings
@@ -79,4 +56,4 @@ const FlatListStore = ({ data }: { data: StoreProps[] }) => {
 	);
 };
 
-export default FlatListStore;
+export default FlatListMaterialInfo;

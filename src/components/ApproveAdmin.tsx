@@ -53,7 +53,7 @@ const ApprovePageAdmin = () => {
 					theme="active"
 					borderRadius="$10"
 					p={10}
-					onPress={() => router.push("/(admin)/ApproveMain")}
+					// onPress={() => router.push("/(admin)/ApproveMain")}
 				>
 					Approve
 				</Button>

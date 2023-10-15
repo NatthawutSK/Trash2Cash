@@ -9,11 +9,24 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+
 import { SplashScreen, Stack } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { useEffect } from "react";
 import { ActivityIndicator, useColorScheme } from "react-native";
 import { TamaguiProvider, Theme } from "tamagui";
+
+// import { Link, SplashScreen, Stack } from "expo-router";
+// import React, { Suspense, useEffect } from "react";
+import { Pressable } from "react-native";
+// import {
+//   Input,
+//   TamaguiProvider,
+//   Text,
+//   Theme,
+//   Stack as TamaStack,
+// } from "tamagui";
+
 import config from "../../tamagui.config";
 import UserContextProvider, { useUserContext } from "@/provider/UserContext";
 import ChooseRole from "@/components/(auth)/ChooseRole";

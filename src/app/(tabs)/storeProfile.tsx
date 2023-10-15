@@ -1,47 +1,22 @@
-import React from "react";
 import Carousel from "@/components/Carousel";
+import React from "react";
 // import { ScrollView } from "react-native-virtualized-view";
-import { useHeaderHeight } from "@react-navigation/elements";
-import {
-  Button,
-  H4,
-  Separator,
-  Stack,
-  Text,
-  XStack,
-  YStack,
-  Adapt,
-  Dialog,
-  Fieldset,
-  Input,
-  Label,
-  Sheet,
-  Unspaced,
-  TextArea,
-} from "tamagui";
-import { colors } from "@/constants/Colors";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { ScrollView } from "react-native-virtualized-view";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { Store, Phone, X } from "@tamagui/lucide-icons";
-import StoreInfo from "@/components/StoreInfo";
-import ButtonStore from "@/components/ButtonStore";
-import SelectDemo from "@/components/SelectDemo";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
-import DialogEditStoreInfo from "@/components/DialogEditStoreInfo";
 import { MockImg, MockTrashMaterial, Mockstore } from "@/MockData/data";
+import ButtonStore from "@/components/ButtonStore";
+import DialogEditStoreInfo from "@/components/DialogEditStoreInfo";
 import MaterialDropDown from "@/components/MaterialDropDown";
+import StoreInfo from "@/components/StoreInfo";
+import { useAuth } from "@clerk/clerk-expo";
+import { useHeaderHeight } from "@react-navigation/elements";
 import { useRouter } from "expo-router";
+import { ScrollView } from "react-native-virtualized-view";
+import { Stack, YStack } from "tamagui";
 type Props = {};
 
 const storeProfile = (props: Props) => {
   const headerHeight = useHeaderHeight();
   const router = useRouter();
+  const { signOut } = useAuth();
 
   // console.log(headerHeight);
 
@@ -67,6 +42,8 @@ const storeProfile = (props: Props) => {
           </YStack>
 
           <ButtonStore title="ประวัติการซื้อ" />
+
+          <ButtonStore title="ออกจากระบบ" func={() => signOut()} />
         </Stack>
       </Stack>
     </ScrollView>

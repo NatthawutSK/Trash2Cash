@@ -1,30 +1,15 @@
-import { FlatList, StyleSheet, Image, Pressable } from "react-native";
+import { FlatList, Image, Pressable, StyleSheet } from "react-native";
 
-import SwitchDemo from "@/components/SwitchDemo";
 import { View } from "@/components/Themed";
-import {
-  Button,
-  Circle,
-  H4,
-  ScrollView,
-  Square,
-  Stack,
-  Text,
-  XStack,
-  YStack,
-} from "tamagui";
-import { Link, useRouter } from "expo-router";
-import MapViewComponent from "@/components/MapComponent";
-import MiniMap from "@/components/MiniMap";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import DialogDemo from "@/components/DialogDemo";
 import { colors } from "@/constants/Colors";
+import { useRouter } from "expo-router";
+import { Button, H4, ScrollView, Stack, Text, XStack } from "tamagui";
 // import { FontAwesome } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { useHeaderHeight } from "@react-navigation/elements";
-import { getProperty } from "@/utils/util";
 import { TrashMaterial, imgIcon } from "@/MockData/data";
+import { getProperty } from "@/utils/util";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { gql, useQuery } from "@apollo/client";
 const BoxTrash = (item: any) => {
   return (
     <Pressable onPress={() => router.push("/")}>
@@ -41,21 +26,35 @@ const BoxTrash = (item: any) => {
   );
 };
 
+const getUserQuery = gql`
+  query MyQuery($authid: String!) {
+    usersUsingusers_auth_user_key(auth_user: $authid) {
+      address
+      auth_user
+      line_id
+      phone_number
+      roles
+      user_name
+    }
+  }
+`;
+
 const router = useRouter();
 export default function home() {
   const headerHeight = useHeaderHeight();
   return (
     <ScrollView bg={"$green5Light"} f={1} pt={headerHeight}>
+      {/* <Text>{JSON.stringify(data)}</Text> */}
+      {/* <SelectTrashMaterial /> */}
       {/* <DialogDemo /> */}
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
-      {/* <Button onPress={() => router.push("/detailStore/66")}>
-        go to detail store
-      </Button> */}
 
-      {/* <Button onPress={() => router.push("/FormApprove")}>go to 3rd</Button> */}
+      <Button onPress={() => router.push("/formSeller")}>
+        go to form seller
+      </Button>
+
       <Stack space={"$8"} pb={"$8"} pt={"$5"}>
         {/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">
-
           Trash2Cash
         </Text> */}
         <Stack space={"$4"}>

@@ -1,0 +1,517 @@
+type Location_store {
+  latitude: String
+  location_id: ID!
+  longtitude: String
+  user_id: ID
+  users: Users @materializer(query: "usersUsingLocation_store_user_id_fkey")
+}
+
+type Orders {
+  created_at: DateTime
+  current_user_id: ID
+  material_name: String
+  material_weight: ID
+  order_id: ID!
+  trade_user_id: ID
+  usersUsingOrders_current_user_id_fkey: Users
+    @materializer(query: "usersUsingOrders_current_user_id_fkey")
+  usersUsingOrders_trade_user_id_fkey: Users
+    @materializer(query: "usersUsingOrders_trade_user_id_fkey")
+}
+
+type Score {
+  score_carbon: ID
+  score_id: ID!
+  score_trash: ID
+  score_tree: ID
+  user_id: ID
+  users: Users @materializer(query: "usersUsingScore_user_id_fkey")
+}
+
+type Store {
+  material_name: String
+  material_price: ID
+  receive_amount: String
+  store_user_id: ID!
+  user_id: ID
+  users: Users @materializer(query: "usersUsingStore_user_id_fkey")
+}
+
+type Users {
+  address: String
+  auth_user: String
+  line_id: String
+  location_store: [Location_store]
+    @materializer(query: "location_storeUsingLocation_store_user_id_fkey")
+  ordersUsingOrders_current_user_id_fkey: [Orders]
+    @materializer(query: "ordersUsingOrders_current_user_id_fkey")
+  ordersUsingOrders_trade_user_id_fkey: [Orders]
+    @materializer(query: "ordersUsingOrders_trade_user_id_fkey")
+  phone_number: String
+  roles: String
+  score: [Score] @materializer(query: "scoreUsingScore_user_id_fkey")
+  store: [Store] @materializer(query: "storeUsingStore_user_id_fkey")
+  user_id: ID!
+  user_name: String
+}
+
+"""
+The following queries are just a set of examples of how to access your schema.
+Feel free to modify them or aggregate more.
+"""
+type Query {
+  " Queries for type 'Location_store' "
+  location_store(location_id: ID!): Location_store
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "location_store"
+      configuration: "postgresql_config"
+    )
+  location_storeList: [Location_store]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "location_store"
+      configuration: "postgresql_config"
+    )
+  location_storePaginatedList(first: Int, after: Int): [Location_store]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "latitude", "location_id", "longtitude", "user_id" FROM "location_store" ORDER BY "location_id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  location_storeUsingLocation_store_user_id_fkey(
+    user_id: ID!
+  ): [Location_store]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "latitude", "location_id", "longtitude", "user_id" FROM "location_store" WHERE "user_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'Orders' "
+  orders(order_id: ID!): Orders
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "orders"
+      configuration: "postgresql_config"
+    )
+  ordersList: [Orders]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "orders"
+      configuration: "postgresql_config"
+    )
+  ordersPaginatedList(first: Int, after: Int): [Orders]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "current_user_id", "material_name", "material_weight", "order_id", "trade_user_id" FROM "orders" ORDER BY "order_id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  ordersUsingOrders_current_user_id_fkey(user_id: ID!): [Orders]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "current_user_id", "material_name", "material_weight", "order_id", "trade_user_id" FROM "orders" WHERE "current_user_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  ordersUsingOrders_trade_user_id_fkey(user_id: ID!): [Orders]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "created_at", "current_user_id", "material_name", "material_weight", "order_id", "trade_user_id" FROM "orders" WHERE "trade_user_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'Score' "
+  score(score_id: ID!): Score
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "score"
+      configuration: "postgresql_config"
+    )
+  scoreList: [Score]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "score"
+      configuration: "postgresql_config"
+    )
+  scorePaginatedList(first: Int, after: Int): [Score]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "score_carbon", "score_id", "score_trash", "score_tree", "user_id" FROM "score" ORDER BY "score_id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  scoreUsingScore_user_id_fkey(user_id: ID!): [Score]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "score_carbon", "score_id", "score_trash", "score_tree", "user_id" FROM "score" WHERE "user_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'Store' "
+  store(store_user_id: ID!): Store
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "store"
+      configuration: "postgresql_config"
+    )
+  storeList: [Store]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "store"
+      configuration: "postgresql_config"
+    )
+  storePaginatedList(first: Int, after: Int): [Store]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "material_name", "material_price", "receive_amount", "store_user_id", "user_id" FROM "store" ORDER BY "store_user_id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  storeUsingStore_user_id_fkey(user_id: ID!): [Store]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "material_name", "material_price", "receive_amount", "store_user_id", "user_id" FROM "store" WHERE "user_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  " Queries for type 'Users' "
+  users(user_id: ID!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      configuration: "postgresql_config"
+    )
+  usersList: [Users]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      configuration: "postgresql_config"
+    )
+  usersPaginatedList(first: Int, after: Int): [Users]
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "address", "auth_user", "line_id", "phone_number", "roles", "user_id", "user_name" FROM "users" ORDER BY "user_id" LIMIT $1 OFFSET $2
+      """
+      configuration: "postgresql_config"
+    )
+  usersUsingLocation_store_user_id_fkey(user_id: ID!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "address", "auth_user", "line_id", "phone_number", "roles", "user_id", "user_name" FROM "users" WHERE "user_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  usersUsingOrders_current_user_id_fkey(current_user_id: ID!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "address", "auth_user", "line_id", "phone_number", "roles", "user_id", "user_name" FROM "users" WHERE "user_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  usersUsingOrders_trade_user_id_fkey(trade_user_id: ID!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "address", "auth_user", "line_id", "phone_number", "roles", "user_id", "user_name" FROM "users" WHERE "user_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  usersUsingScore_user_id_fkey(user_id: ID!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "address", "auth_user", "line_id", "phone_number", "roles", "user_id", "user_name" FROM "users" WHERE "user_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  usersUsingStore_user_id_fkey(user_id: ID!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "address", "auth_user", "line_id", "phone_number", "roles", "user_id", "user_name" FROM "users" WHERE "user_id" = $1
+      """
+      configuration: "postgresql_config"
+    )
+  usersUsingusers_auth_user_key(auth_user: String!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      SELECT "address", "auth_user", "line_id", "phone_number", "roles", "user_id", "user_name" FROM "users" WHERE "auth_user" = $1
+      """
+      configuration: "postgresql_config"
+    )
+}
+
+"""
+The following mutations are just a set of examples of how to access your schema.
+Feel free to modify them or aggregate more.
+"""
+type Mutation {
+  " Mutations for type 'Location_store' "
+  deleteLocation_store(location_id: ID!): Location_store
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "location_store"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertLocation_store(
+    user_id: ID
+    longtitude: String
+    latitude: String
+  ): Location_store
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "location_store"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateLocation_store(
+    location_id: ID!
+    latitude: String
+    longtitude: String
+    user_id: ID
+  ): Location_store
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "location_store" SET
+        "latitude" = COALESCE($2, "latitude"),
+        "longtitude" = COALESCE($3, "longtitude"),
+        "user_id" = COALESCE($4, "user_id")
+      WHERE
+        "location_id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'Orders' "
+  deleteOrders(order_id: ID!): Orders
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "orders"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertOrders(
+    trade_user_id: ID
+    material_name: String
+    created_at: DateTime
+    material_weight: ID
+    current_user_id: ID
+  ): Orders
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "orders"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateOrders(
+    order_id: ID!
+    created_at: DateTime
+    current_user_id: ID
+    material_name: String
+    material_weight: ID
+    trade_user_id: ID
+  ): Orders
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "orders" SET
+        "created_at" = COALESCE($2, "created_at"),
+        "current_user_id" = COALESCE($3, "current_user_id"),
+        "material_name" = COALESCE($4, "material_name"),
+        "material_weight" = COALESCE($5, "material_weight"),
+        "trade_user_id" = COALESCE($6, "trade_user_id")
+      WHERE
+        "order_id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'Score' "
+  deleteScore(score_id: ID!): Score
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "score"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertScore(
+    score_tree: ID
+    score_carbon: ID
+    user_id: ID
+    score_trash: ID
+  ): Score
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "score"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateScore(
+    score_id: ID!
+    score_carbon: ID
+    score_trash: ID
+    score_tree: ID
+    user_id: ID
+  ): Score
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "score" SET
+        "score_carbon" = COALESCE($2, "score_carbon"),
+        "score_trash" = COALESCE($3, "score_trash"),
+        "score_tree" = COALESCE($4, "score_tree"),
+        "user_id" = COALESCE($5, "user_id")
+      WHERE
+        "score_id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'Store' "
+  deleteStore(store_user_id: ID!): Store
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "store"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertStore(
+    material_price: ID
+    user_id: ID
+    receive_amount: String
+    material_name: String
+  ): Store
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "store"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateStore(
+    store_user_id: ID!
+    material_name: String
+    material_price: ID
+    receive_amount: String
+    user_id: ID
+  ): Store
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "store" SET
+        "material_name" = COALESCE($2, "material_name"),
+        "material_price" = COALESCE($3, "material_price"),
+        "receive_amount" = COALESCE($4, "receive_amount"),
+        "user_id" = COALESCE($5, "user_id")
+      WHERE
+        "store_user_id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+  " Mutations for type 'Users' "
+  deleteUsers(user_id: ID!): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      dml: DELETE
+      configuration: "postgresql_config"
+    )
+  insertUsers(
+    phone_number: String
+    auth_user: String
+    roles: String
+    address: String
+    line_id: String
+    user_name: String
+  ): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      table: "users"
+      dml: INSERT
+      configuration: "postgresql_config"
+    )
+  updateUsers(
+    user_id: ID!
+    address: String
+    auth_user: String
+    line_id: String
+    phone_number: String
+    roles: String
+    user_name: String
+  ): Users
+    @dbquery(
+      type: "postgresql"
+      schema: "public"
+      query: """
+      UPDATE "users" SET
+        "address" = COALESCE($2, "address"),
+        "auth_user" = COALESCE($3, "auth_user"),
+        "line_id" = COALESCE($4, "line_id"),
+        "phone_number" = COALESCE($5, "phone_number"),
+        "roles" = COALESCE($6, "roles"),
+        "user_name" = COALESCE($7, "user_name")
+      WHERE
+        "user_id" = $1
+      RETURNING *
+      """
+      configuration: "postgresql_config"
+    )
+}

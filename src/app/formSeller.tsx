@@ -1,46 +1,60 @@
-import React from "react";
-import { MySafeAreaView } from "@/components/MySafeAreaView";
-import {
-	Button,
-	H4,
-	Input,
-	Label,
-	Stack,
-	Text,
-	TextArea,
-	XStack,
-	YStack,
-} from "tamagui";
-import { useRouter } from "expo-router";
+// import { MySafeAreaView } from "@/components/MySafeAreaView";
+// import { useUserContext } from "@/provider/UserContext";
+// import { gql, useMutation } from "@apollo/client";
+// import { useRouter } from "expo-router";
+// import React, { useState } from "react";
+// import { Button, H4, Input, XStack, YStack } from "tamagui";
 
-type Props = {};
+// type Props = {};
+// const createSellerMutation = gql`
+//   mutation CreateSeller($user_name: String!, $auth_user: String!) {
+//     insertUsers(user_name: $user_name, auth_user: $auth_user) {
+//       user_name
+//       user_id
+//       auth_user
+//     }
+//   }
+// `;
 
-const formSeller = (props: Props) => {
-	const router = useRouter();
-	return (
-		<MySafeAreaView>
-			<YStack
-				jc={"center"}
-				ai={"center"}
-				padding={"$4"}
-				space={"$4"}
-				f={1}
-			>
-				<H4 className="text-2xl">เพิ่มข้อมูลส่วนตัว</H4>
-				<XStack jc={"space-evenly"} ai={"center"} space={"$3"}>
-					<Input flex={1} h={"$4"} placeholder="ชื่อ" />
-					<Input flex={1} h={"$4"} placeholder="นามสกุล" />
-				</XStack>
+// const formSeller = (props: Props) => {
+//   const [userName, setUserName] = useState("");
+//   const router = useRouter();
+//   const [handleMutation, { loading }] = useMutation(createSellerMutation);
+//   const { authUser, reloadDbUser }: any = useUserContext();
+//   const onSave = async () => {
+//     try {
+//       await handleMutation({
+//         variables: {
+//           user_name: userName,
+//           auth_user: authUser?.id,
+//         },
+//       });
+//       reloadDbUser();
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   };
 
-				<Input w={"100%"} h={"$4"} placeholder="เบอร์โทรศัพท์" />
-				<Input w={"100%"} h={"$4"} placeholder="อีเมล" />
-				<TextArea w={"100%"} h={"$10"} placeholder="ที่อยู่"></TextArea>
-				<Button w={"100%"} onPress={() => router.push("/")}>
-					บันทึก
-				</Button>
-			</YStack>
-		</MySafeAreaView>
-	);
-};
+//   return (
+//     <MySafeAreaView>
+//       <YStack jc={"center"} ai={"center"} padding={"$4"} space={"$4"} f={1}>
+//         <H4 className="text-2xl">ชื่อผู้ใช้</H4>
+//         <XStack ai={"center"} space={"$3"}>
+//           <Input
+//             flex={1}
+//             h={"$4"}
+//             placeholder="ชื่อผู้ใช้"
+//             value={userName}
+//             onChangeText={(text) => setUserName(text)}
+//           />
+//         </XStack>
 
-export default formSeller;
+//         <Button w={"100%"} onPress={() => onSave()}>
+//           {loading ? "กำลังบันทึก..." : "บันทึก"}
+//         </Button>
+//       </YStack>
+//     </MySafeAreaView>
+//   );
+// };
+
+// export default formSeller;

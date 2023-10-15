@@ -10,6 +10,7 @@ import {
   FontAwesome5,
   Fontisto,
 } from "@expo/vector-icons";
+import { useUserContext } from "@/provider/UserContext";
 
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
@@ -23,7 +24,10 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-  let role = "seller";
+  const { dbUser }: any = useUserContext();
+  //   console.log(dbUser.roles);
+
+  //   let role = "seller";
 
   return (
     <Tabs
@@ -101,7 +105,6 @@ export default function TabLayout() {
           ),
         }}
       />
-
       {/* <Tabs.Screen
         name="qrCode"
         options={{
@@ -124,7 +127,7 @@ export default function TabLayout() {
           title: "qrCode",
           tabBarButton: () => (
             <Link
-              href={role === "store" ? "/qrCodeBuyer" : "/qrCodeSeller"}
+              href={dbUser.roles === "store" ? "/qrCodeBuyer" : "/qrCodeSeller"}
               asChild
             >
               <Pressable
@@ -149,7 +152,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="storeProfile"
         options={{
-          href: role === "store" ? "/(tabs)/storeProfile" : null,
+          href: dbUser.roles === "store" ? "/(tabs)/storeProfile" : null,
+
           title: "Store",
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="store" size={35} color={color} />
@@ -160,7 +164,8 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          href: role === "store" ? null : "/(tabs)/profile",
+          href: dbUser.roles === "store" ? null : "/(tabs)/profile",
+
           title: "Profile",
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
         }}

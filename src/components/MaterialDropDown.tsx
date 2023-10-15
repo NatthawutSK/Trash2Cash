@@ -31,7 +31,7 @@ const MaterialRender = (item: any) => {
         <YStack ai={"flex-start"} jc={"center"}>
           <Text>ชื่อวัสดุ : {item.name}</Text>
           <Text>จำนวนที่รับ : {item.recieveAmount}</Text>
-          <Text>ราคาที่รับซื้อ : {item.price}</Text>
+          <Text>ราคาที่รับ : {item.price} บาท/กก.</Text>
         </YStack>
       </XStack>
       {/* <Separator borderColor={colors.green4} marginTop={20} /> */}

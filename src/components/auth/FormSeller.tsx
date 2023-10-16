@@ -34,6 +34,7 @@ const FormSeller = (props: Props) => {
         },
       });
       reloadDbUser();
+      // console.log("data", JSON.stringify(data));
     } catch (e) {
       console.log(e);
     }

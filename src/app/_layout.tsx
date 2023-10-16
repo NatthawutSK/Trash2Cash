@@ -30,7 +30,7 @@ import { Pressable } from "react-native";
 import config from "../../tamagui.config";
 import UserContextProvider, { useUserContext } from "@/provider/UserContext";
 import ChooseRole from "@/components/auth/ChooseRole";
-
+import Spinner from "react-native-loading-spinner-overlay";
 // import { LocationProvider } from "@/provider/LocationProvider";
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 export {
@@ -121,7 +121,14 @@ function RootLayoutNav() {
   // console.log(dbUser);
 
   if (loading) {
-    return <ActivityIndicator />;
+    return (
+      <Spinner
+        animation="fade"
+        visible={true}
+        textContent={"Loading..."}
+        textStyle={{ color: "#FFF" }}
+      />
+    );
   }
 
   return (

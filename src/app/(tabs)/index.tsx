@@ -9,7 +9,6 @@ import { TrashMaterial, imgIcon } from "@/MockData/data";
 import { getProperty } from "@/utils/util";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { gql, useQuery } from "@apollo/client";
 const BoxTrash = (item: any) => {
   return (
     <Pressable onPress={() => router.push("/")}>
@@ -26,19 +25,6 @@ const BoxTrash = (item: any) => {
   );
 };
 
-const getUserQuery = gql`
-  query MyQuery($authid: String!) {
-    usersUsingusers_auth_user_key(auth_user: $authid) {
-      address
-      auth_user
-      line_id
-      phone_number
-      roles
-      user_name
-    }
-  }
-`;
-
 const router = useRouter();
 export default function home() {
   const headerHeight = useHeaderHeight();
@@ -48,9 +34,8 @@ export default function home() {
       {/* <SelectTrashMaterial /> */}
       {/* <DialogDemo /> */}
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
-
-      <Button onPress={() => router.push("/formSeller")}>
-        go to form seller
+      <Button onPress={() => router.push("/mockFormStore")}>
+        go to Form Store
       </Button>
 
       <Stack space={"$8"} pb={"$8"} pt={"$5"}>

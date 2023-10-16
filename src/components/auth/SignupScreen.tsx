@@ -76,7 +76,7 @@ const SignupScreen = ({ toggle }: Props) => {
       <StatusBar style="light" />
       <Image
         className="h-full w-full absolute"
-        source={require("../../../assets/images/background.png")}
+        source={require("../../../assets/images/background3.png")}
       />
 
       {/* lights */}
@@ -141,7 +141,7 @@ const SignupScreen = ({ toggle }: Props) => {
                 entering={FadeInDown.delay(600).duration(1000).springify()}
               >
                 <TouchableOpacity
-                  className="w-full bg-sky-400 p-3 rounded-2xl mb-3"
+                  className="w-full bg-green-700 p-3 rounded-2xl mb-3"
                   onPress={() => onSignUpPress()}
                 >
                   <Text className="text-xl font-bold text-white text-center">
@@ -156,7 +156,7 @@ const SignupScreen = ({ toggle }: Props) => {
               >
                 <Text>มีบัญชีอยู่แล้วใช่ไหม? </Text>
                 <TouchableOpacity onPress={() => toggle()}>
-                  <Text className="text-sky-600 underline">เข้าสู่ระบบ</Text>
+                  <Text className="text-green-700 underline">เข้าสู่ระบบ</Text>
                 </TouchableOpacity>
               </Animated.View>
             </View>

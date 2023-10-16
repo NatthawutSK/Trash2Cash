@@ -59,8 +59,19 @@ const FormStore = (props: Props) => {
           <Label width={100} htmlFor="name">
             ชื่อร้านค้า
           </Label>
-
           <Input id="name" placeholder="ชื่อร้านค้า" />
+        </Stack>
+        <Stack>
+          <Label width={100} htmlFor="phone">
+            เบอร์โทรศัพท์
+          </Label>
+          <Input id="phone" placeholder="เบอร์โทรศัพท์" />
+        </Stack>
+        <Stack>
+          <Label width={100} htmlFor="line">
+            ไลน์ไอดี
+          </Label>
+          <Input id="line" placeholder="ไลน์ไอดี" />
         </Stack>
         <Stack>
           <Label width={100} htmlFor="address">
@@ -132,84 +143,12 @@ const FormStore = (props: Props) => {
           </Select>
         </Fieldset>
 
-        <Fieldset>
-          <Label htmlFor="type">ประเภทวัสดุ</Label>
-          <Select id="type" value={trash} onValueChange={setTrash}>
-            <Select.Trigger id="type" iconAfter={ChevronDown}>
-              <Select.Value placeholder="เลือกวัสดุที่รับ" />
-            </Select.Trigger>
-
-            <Adapt when="sm" platform="touch">
-              <Sheet modal dismissOnSnapToBottom>
-                <Sheet.Frame>
-                  <Sheet.ScrollView>
-                    <Adapt.Contents />
-                  </Sheet.ScrollView>
-                </Sheet.Frame>
-                <Sheet.Overlay />
-              </Sheet>
-            </Adapt>
-
-            <Select.Content zIndex={200000}>
-              <Select.ScrollUpButton
-                ai="center"
-                jc="center"
-                pos="relative"
-                w="100%"
-                h="$3"
-              >
-                <YStack zi={10}>
-                  <ChevronUp size={20} />
-                </YStack>
-              </Select.ScrollUpButton>
-
-              <Select.Viewport minWidth={200}>
-                <Select.Group>
-                  <Select.Label>วัสดุ</Select.Label>
-                  {TypeTrash &&
-                    trashItem
-                      .find((item) => item.name === TypeTrash)
-                      ?.sub.map((item, i) => (
-                        <Select.Item index={i} key={item} value={item}>
-                          <Select.ItemText color="$color">
-                            {item}
-                          </Select.ItemText>
-                          <Select.ItemIndicator ml="auto">
-                            <Check size={16} />
-                          </Select.ItemIndicator>
-                        </Select.Item>
-                      ))}
-                </Select.Group>
-              </Select.Viewport>
-
-              <Select.ScrollDownButton
-                ai="center"
-                jc="center"
-                pos="relative"
-                w="100%"
-                h="$3"
-              >
-                <YStack zi={10}>
-                  <ChevronDown size={20} />
-                </YStack>
-              </Select.ScrollDownButton>
-            </Select.Content>
-          </Select>
-        </Fieldset>
-
         <Button onPress={() => addListTrash()}>เพิ่มวัสดุที่รับ</Button>
 
-        {listTrash.length !== 0 &&
-          listTrash.map((item, i) => (
-            <Text key={i}>
-              {item.trash} {item.type}
-            </Text>
-          ))}
-
-        <Button onPress={() => router.push("/fullMap")}>
+        {/* <Button onPress={() => router.push("/fullMap")}>
           เพิ่มตำแหน่งที่ตั้ง
-        </Button>
-        <Button onPress={() => router.push("/")}>ยืนยันข้อมูล</Button>
+        </Button> */}
+        <Button onPress={() => console.log("submit")}>ยืนยันข้อมูล</Button>
       </Stack>
     </MySafeAreaView>
   );

@@ -4,9 +4,9 @@ import { gql, useQuery } from "@apollo/client";
 
 const getUserQuery = gql`
   query MyQuery($authid: String!) {
-    usersUsingusers_auth_user_key(auth_user: $authid) {
+    users(auth_id: $authid) {
       address
-      auth_user
+      auth_id
       line_id
       phone_number
       roles
@@ -28,7 +28,7 @@ const UserContextProvider = ({ children }: any) => {
     variables: { authid: authUser?.id },
   });
 
-  const dbUser = data?.usersUsingusers_auth_user_key;
+  const dbUser = data?.users;
 
   const loading = isDbLoading || !isAuthLoaded;
   return (

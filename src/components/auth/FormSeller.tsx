@@ -9,13 +9,19 @@ type Props = {};
 const createSellerMutation = gql`
   mutation CreateSeller(
     $user_name: String!
-    $auth_user: String!
+    $auth_id: String!
     $roles: String!
   ) {
-    insertUsers(user_name: $user_name, auth_user: $auth_user, roles: $roles) {
+    insertUsers(user_name: $user_name, auth_id: $auth_id, roles: $roles) {
       user_name
-      user_id
-      auth_user
+    }
+    insertScore(
+      auth_id: $auth_id
+      score_carbon: 0
+      score_trash: 0
+      score_tree: 0
+    ) {
+      auth_id
     }
   }
 `;
@@ -29,7 +35,7 @@ const FormSeller = (props: Props) => {
       await handleMutation({
         variables: {
           user_name: userName,
-          auth_user: authUser?.id,
+          auth_id: authUser?.id,
           roles: "Seller",
         },
       });

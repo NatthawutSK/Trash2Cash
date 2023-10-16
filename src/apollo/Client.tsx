@@ -2,10 +2,10 @@
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "https://neumarktamwallersee.stepzen.net/api/terrifying-hamster/__graphql",
+  uri: "https://omboue.stepzen.net/api/agile-tuatara/__graphql",
   headers: {
     Authorization:
-      "apikey neumarktamwallersee::stepzen.io+1000::29ee6b34606a971db47fc2caecae5abee05a7c87af83065707243421eff0ab42",
+      "apikey omboue::stepzen.io+1000::ded329eeaf9b82faed22b4b7e74c2493310da2e0b5737eafb856d51b97a4498a",
   },
   cache: new InMemoryCache(),
 });

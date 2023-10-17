@@ -1,3 +1,4 @@
+import { TrashMaterial, recieveAmount } from "@/MockData/data";
 import { MySafeAreaView } from "@/components/MySafeAreaView";
 import { MyStack } from "@/components/MyStack";
 import { ChevronDown, ChevronUp, Check } from "@tamagui/lucide-icons";
@@ -18,138 +19,502 @@ import {
   TextArea,
   YStack,
 } from "tamagui";
+import SelectTrashMaterial from "../SelectTrashMaterial";
+import SelectReceiveTrash from "../SelectReceiveTrash";
+import { LinearGradient } from "tamagui/linear-gradient";
+import { useForm, Controller } from "react-hook-form";
+import { TextInput } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { gql, useMutation } from "@apollo/client";
+import { useUserContext } from "@/provider/UserContext";
 
 type Props = {};
 
-const trashItem = [
-  {
-    name: "หมวดกระดาษ",
-    sub: ["กระดาษกล่องลัง", "หนังสือพิมพ์", "กระดาษขาวดำ"],
-  },
-  { name: "หมวดพลาสติก", sub: ["ขวดพลาสติก", "ถุงพลาสติก"] },
-  { name: "หมวดโลหะ", sub: ["ขวดโลหะ", "กระป๋อง"] },
-  { name: "หมวดแก้ว", sub: ["ขวดแก้ว", "แก้ว"] },
-];
-
-type listTrash = {
-  trash: string;
-  type: string;
+type TrashMaterial = {
+  materialName: string;
+  price: string;
+  receive: string;
 };
 
-const FormStore = (props: Props) => {
-  const [TypeTrash, setTypeTrash] = useState("");
-  const [trash, setTrash] = useState("");
-  const [listTrash, setListTrash] = useState<listTrash[]>([]);
-  const router = useRouter();
+type FormValues = {
+  name: string;
+  phone: string;
+  line: string;
+  address: string;
+  material: string;
+  price: string;
+  receive: string;
+};
 
-  function addListTrash() {
-    setListTrash((listTrash) => [
-      ...listTrash,
-      { trash: trash, type: TypeTrash },
-    ]);
-    // listTrash.push({ trash: trash, type: TypeTrash });
-    // console.log(listTrash);
+const createBuyerMutation = gql`
+  mutation CreateBuyer(
+    $auth_id: String!
+    $line_id: String!
+    $user_name: String!
+    $address: String!
+    $phone_number: String!
+    $store_detail: String!
+    $roles: String!
+  ) {
+    insertUsers(
+      auth_id: $auth_id
+      line_id: $line_id
+      phone_number: $phone_number
+      roles: $roles
+      user_name: $user_name
+      address: $address
+    ) {
+      auth_id
+      user_name
+    }
+    insertStore(auth_id: $auth_id, store_detail: $store_detail) {
+      auth_id
+    }
   }
-  //   const id = `checkbox-${"$3".toString().slice(1)}`;
+`;
+
+const FormStore = (props: Props) => {
+  // const [trash, setTrash] = useState("");
+  const [next, setNext] = useState(false);
+  const [allMaterial, setAllMaterial] = useState<TrashMaterial[]>([]);
+  const [handleMutation, { loading }] = useMutation(createBuyerMutation);
+  const { authUser, reloadDbUser }: any = useUserContext();
+
+  const {
+    getValues,
+    control,
+    trigger,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    mode: "onChange",
+    defaultValues: {
+      name: "",
+      phone: "",
+      line: "",
+      address: "",
+      material: "",
+      price: "",
+      receive: "",
+    },
+  });
+
+  const onSubmit = async (data: FormValues) => {
+    // console.log(data);
+    const { name, phone, line, address } = data;
+    console.log("data", name, phone, line, address);
+    console.log("auth_id", authUser?.id);
+    console.log("allMterail", JSON.stringify(allMaterial));
+
+    // const store = {
+    //   material: JSON.stringify(allMaterial),
+    // };
+    // console.log(store);
+    try {
+      await handleMutation({
+        variables: {
+          user_name: name,
+          auth_id: authUser?.id,
+          roles: "Buyer",
+          address: address,
+          phone_number: phone,
+          line_id: line,
+          store_detail: JSON.stringify(allMaterial),
+        },
+      });
+      reloadDbUser();
+      // console.log("data", JSON.stringify(data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const checkForm = async () => {
+    if (await trigger(["name", "phone", "line", "address"])) {
+      setNext((prev) => !prev);
+    }
+  };
+
+  const AddMaterial = async () => {
+    if (await trigger(["price", "material", "receive"])) {
+      setAllMaterial((prev) => [
+        ...prev,
+        {
+          materialName: getValues("material"),
+          price: getValues("price"),
+          receive: getValues("receive"),
+        },
+      ]);
+    }
+  };
+
   return (
     <MySafeAreaView>
-      <Stack paddingHorizontal={"$5"} space={"$4"} jc={"center"} f={1}>
-        <H4 ta={"center"}>เพิ่มร้านค้า</H4>
-        <Stack>
-          <Label width={100} htmlFor="name">
-            ชื่อร้านค้า
-          </Label>
-          <Input id="name" placeholder="ชื่อร้านค้า" />
-        </Stack>
-        <Stack>
-          <Label width={100} htmlFor="phone">
-            เบอร์โทรศัพท์
-          </Label>
-          <Input id="phone" placeholder="เบอร์โทรศัพท์" />
-        </Stack>
-        <Stack>
-          <Label width={100} htmlFor="line">
-            ไลน์ไอดี
-          </Label>
-          <Input id="line" placeholder="ไลน์ไอดี" />
-        </Stack>
-        <Stack>
-          <Label width={100} htmlFor="address">
-            ที่อยู่ร้านค้า
-          </Label>
-          <TextArea id="address" placeholder="ที่อยู่ร้านค้า" />
-        </Stack>
-        <Fieldset>
-          <Label htmlFor="type">เลือกประเภทวัสดุ</Label>
-          <Select id="type" value={TypeTrash} onValueChange={setTypeTrash}>
-            <Select.Trigger id="type" iconAfter={ChevronDown}>
-              <Select.Value placeholder="เลือกหมวดวัสดุที่รับซื้อ" />
-            </Select.Trigger>
+      <KeyboardAwareScrollView>
+        {!next ? (
+          <Stack paddingHorizontal={"$5"} space={"$4"} jc={"center"} f={1}>
+            <H4 ta={"center"}>เพิ่มร้านค้า</H4>
+            <Stack>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <>
+                    <Label width={100} htmlFor="name">
+                      ชื่อร้านค้า
+                    </Label>
+                    <Input
+                      placeholder="name"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                    />
+                  </>
+                )}
+                name="name"
+              />
+              {errors.name && (
+                <Text className="text-red-600">This is required.</Text>
+              )}
+            </Stack>
+            <Stack>
+              <Controller
+                control={control}
+                rules={{
+                  required: {
+                    value: true,
+                    message: "Phone number is required",
+                  },
+                  pattern: {
+                    value: /^[0-9]{10}$/, // Adjust the regex pattern for your specific phone number format
+                    message: "Invalid phone number",
+                  },
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <>
+                    <Label width={100} htmlFor="phone">
+                      เบอร์โทรศัพท์
+                    </Label>
+                    <Input
+                      placeholder="เบอร์โทรศัพท์"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                    />
+                  </>
+                )}
+                name="phone"
+              />
+              {errors.phone && (
+                <Text className="text-red-600">{errors.phone.message}</Text>
+              )}
+            </Stack>
+            <Stack>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <>
+                    <Label width={100} htmlFor="line">
+                      ไลน์ไอดี
+                    </Label>
+                    <Input
+                      placeholder="ไลน์ไอดี"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                    />
+                  </>
+                )}
+                name="line"
+              />
+              {errors.line && (
+                <Text className="text-red-600">This is required.</Text>
+              )}
+            </Stack>
+            <Stack>
+              <Controller
+                control={control}
+                rules={{
+                  required: true,
+                }}
+                render={({ field: { onChange, onBlur, value } }) => (
+                  <>
+                    <Label width={100} htmlFor="address">
+                      ที่อยู่ร้านค้า
+                    </Label>
+                    <TextArea
+                      placeholder="ที่อยู่ร้านค้า"
+                      onBlur={onBlur}
+                      onChangeText={onChange}
+                      value={value}
+                    />
+                  </>
+                )}
+                name="address"
+              />
+              {errors.address && (
+                <Text className="text-red-600">This is required.</Text>
+              )}
+            </Stack>
+            <Button onPress={() => checkForm()}>ถัดไป</Button>
+          </Stack>
+        ) : (
+          <Stack paddingHorizontal={"$5"} space={"$4"} jc={"center"} f={1}>
+            <Stack flexDirection="column" gap={"$3"}>
+              {/* selct material */}
+              <Stack>
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <>
+                      <Label htmlFor="trash">เลือกวัสดุ</Label>
+                      <Select id="trash" value={value} onValueChange={onChange}>
+                        <Select.Trigger id="trash" iconAfter={ChevronDown}>
+                          <Select.Value placeholder="เลือกวัสดุที่รับ" />
+                        </Select.Trigger>
 
-            <Adapt when="sm" platform="touch">
-              <Sheet modal dismissOnSnapToBottom>
-                <Sheet.Frame>
-                  <Sheet.ScrollView>
-                    <Adapt.Contents />
-                  </Sheet.ScrollView>
-                </Sheet.Frame>
-                <Sheet.Overlay />
-              </Sheet>
-            </Adapt>
+                        <Adapt when="sm" platform="touch">
+                          <Sheet modal dismissOnSnapToBottom>
+                            <Sheet.Frame>
+                              <Sheet.ScrollView>
+                                <Adapt.Contents />
+                              </Sheet.ScrollView>
+                            </Sheet.Frame>
+                            <Sheet.Overlay />
+                          </Sheet>
+                        </Adapt>
 
-            <Select.Content zIndex={200000}>
-              <Select.ScrollUpButton
-                ai="center"
-                jc="center"
-                pos="relative"
-                w="100%"
-                h="$3"
-              >
-                <YStack zi={10}>
-                  <ChevronUp size={20} />
-                </YStack>
-              </Select.ScrollUpButton>
+                        <Select.Content zIndex={200000}>
+                          <Select.ScrollUpButton
+                            ai="center"
+                            jc="center"
+                            pos="relative"
+                            w="100%"
+                            h="$3"
+                          >
+                            <YStack zi={10}>
+                              <ChevronUp size={20} />
+                            </YStack>
+                            <LinearGradient
+                              start={[0, 0]}
+                              end={[0, 1]}
+                              fullscreen
+                              colors={["$background", "$backgroundTransparent"]}
+                              br="$4"
+                            />
+                          </Select.ScrollUpButton>
 
-              <Select.Viewport minWidth={200}>
-                <Select.Group>
-                  <Select.Label>ว้สดุ</Select.Label>
-                  {trashItem.map((item, i) => {
-                    return (
-                      <Select.Item index={i} key={item.name} value={item.name}>
-                        <Select.ItemText color="$color">
-                          {item.name}
-                        </Select.ItemText>
-                        <Select.ItemIndicator ml="auto">
-                          <Check size={16} />
-                        </Select.ItemIndicator>
-                      </Select.Item>
-                    );
-                  })}
-                </Select.Group>
-              </Select.Viewport>
+                          <Select.Viewport minWidth={200}>
+                            <Select.Group>
+                              <Select.Label>วัสดุ</Select.Label>
+                              {TrashMaterial.map((item, i) => {
+                                return (
+                                  <Select.Item
+                                    index={i}
+                                    key={item.name}
+                                    value={item.name}
+                                  >
+                                    <Select.ItemText color="$color">
+                                      {item.name}
+                                    </Select.ItemText>
+                                    <Select.ItemIndicator ml="auto">
+                                      <Check size={16} />
+                                    </Select.ItemIndicator>
+                                  </Select.Item>
+                                );
+                              })}
+                            </Select.Group>
+                          </Select.Viewport>
 
-              <Select.ScrollDownButton
-                ai="center"
-                jc="center"
-                pos="relative"
-                w="100%"
-                h="$3"
-              >
-                <YStack zi={10}>
-                  <ChevronDown size={20} />
-                </YStack>
-              </Select.ScrollDownButton>
-            </Select.Content>
-          </Select>
-        </Fieldset>
+                          <Select.ScrollDownButton
+                            ai="center"
+                            jc="center"
+                            pos="relative"
+                            w="100%"
+                            h="$3"
+                          >
+                            <YStack zi={10}>
+                              <ChevronDown size={20} />
+                            </YStack>
+                            <LinearGradient
+                              start={[0, 0]}
+                              end={[0, 1]}
+                              fullscreen
+                              colors={["$backgroundTransparent", "$background"]}
+                              br="$4"
+                            />
+                          </Select.ScrollDownButton>
+                        </Select.Content>
+                      </Select>
+                    </>
+                  )}
+                  name="material"
+                />
+                {errors.material && (
+                  <Text className="text-red-600">This is required.</Text>
+                )}
+              </Stack>
 
-        <Button onPress={() => addListTrash()}>เพิ่มวัสดุที่รับ</Button>
+              {/* ................... */}
 
-        {/* <Button onPress={() => router.push("/fullMap")}>
-          เพิ่มตำแหน่งที่ตั้ง
-        </Button> */}
-        <Button onPress={() => console.log("submit")}>ยืนยันข้อมูล</Button>
-      </Stack>
+              <Stack>
+                <Controller
+                  control={control}
+                  rules={{
+                    required: {
+                      value: true,
+                      message: "Price is required",
+                    },
+                    pattern: {
+                      value: /^[0-9]*[1-9][0-9]*$/,
+                      message: "Input must be a number greater than 0.",
+                    },
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <>
+                      <Label width={100} htmlFor="price">
+                        ราคาที่รับ
+                      </Label>
+                      <Input
+                        placeholder="price"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value.toString()}
+                      />
+                    </>
+                  )}
+                  name="price"
+                />
+                {errors.price && (
+                  <Text className="text-red-600">{errors.price.message}</Text>
+                )}
+              </Stack>
+              <Stack>
+                <Controller
+                  control={control}
+                  rules={{
+                    required: {
+                      value: true,
+                      message: "Receive is required",
+                    },
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <>
+                      <Label htmlFor="amount">จำนวนที่รับ</Label>
+                      <Select
+                        id="amount"
+                        value={value}
+                        onValueChange={onChange}
+                      >
+                        <Select.Trigger id="amount" iconAfter={ChevronDown}>
+                          <Select.Value placeholder="จำนวนที่รับ" />
+                        </Select.Trigger>
+
+                        <Adapt when="sm" platform="touch">
+                          <Sheet modal dismissOnSnapToBottom>
+                            <Sheet.Frame>
+                              <Sheet.ScrollView>
+                                <Adapt.Contents />
+                              </Sheet.ScrollView>
+                            </Sheet.Frame>
+                            <Sheet.Overlay />
+                          </Sheet>
+                        </Adapt>
+
+                        <Select.Content zIndex={200000}>
+                          <Select.ScrollUpButton
+                            ai="center"
+                            jc="center"
+                            pos="relative"
+                            w="100%"
+                            h="$3"
+                          >
+                            <YStack zi={10}>
+                              <ChevronUp size={20} />
+                            </YStack>
+                            <LinearGradient
+                              start={[0, 0]}
+                              end={[0, 1]}
+                              fullscreen
+                              colors={["$background", "$backgroundTransparent"]}
+                              br="$4"
+                            />
+                          </Select.ScrollUpButton>
+
+                          <Select.Viewport minWidth={200}>
+                            <Select.Group>
+                              <Select.Label>จำนวนที่รับ</Select.Label>
+                              {recieveAmount.map((item, i) => {
+                                return (
+                                  <Select.Item
+                                    index={i}
+                                    key={item}
+                                    value={item}
+                                  >
+                                    <Select.ItemText color="$color">
+                                      {item}
+                                    </Select.ItemText>
+                                    <Select.ItemIndicator ml="auto">
+                                      <Check size={16} />
+                                    </Select.ItemIndicator>
+                                  </Select.Item>
+                                );
+                              })}
+                            </Select.Group>
+                          </Select.Viewport>
+
+                          <Select.ScrollDownButton
+                            ai="center"
+                            jc="center"
+                            pos="relative"
+                            w="100%"
+                            h="$3"
+                          >
+                            <YStack zi={10}>
+                              <ChevronDown size={20} />
+                            </YStack>
+                            <LinearGradient
+                              start={[0, 0]}
+                              end={[0, 1]}
+                              fullscreen
+                              colors={["$backgroundTransparent", "$background"]}
+                              br="$4"
+                            />
+                          </Select.ScrollDownButton>
+                        </Select.Content>
+                      </Select>
+                    </>
+                  )}
+                  name="receive"
+                />
+                {errors.receive && (
+                  <Text className="text-red-600">{errors.receive.message}</Text>
+                )}
+              </Stack>
+            </Stack>
+            <Button onPress={() => AddMaterial()}>เพิ่มวัสดุที่รับ</Button>
+
+            <Stack bg={"$blue10Light"} w={"100%"} h={"$10"}>
+              <Text>{JSON.stringify(allMaterial)}</Text>
+            </Stack>
+
+            <Button onPress={() => console.log("go map")}>
+              เพิ่มตำแหน่งที่ตั้ง
+            </Button>
+            <Button onPress={handleSubmit(onSubmit)}>
+              {loading ? "กำลังบันทึก..." : "บันทึก"}
+            </Button>
+          </Stack>
+        )}
+      </KeyboardAwareScrollView>
     </MySafeAreaView>
   );
 };

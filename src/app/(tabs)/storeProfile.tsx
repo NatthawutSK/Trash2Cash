@@ -42,7 +42,6 @@ const storeProfile = (props: Props) => {
           </YStack>
 
           <ButtonStore title="ประวัติการซื้อ" />
-
           <ButtonStore title="ออกจากระบบ" func={() => signOut()} />
         </Stack>
       </Stack>

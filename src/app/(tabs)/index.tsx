@@ -37,6 +37,9 @@ export default function home() {
       <Button onPress={() => router.push("/mockFormStore")}>
         go to Form Store
       </Button>
+      <Button onPress={() => router.push("/(tabs)/storeProfile")}>
+        go to Store
+      </Button>
 
       <Stack space={"$8"} pb={"$8"} pt={"$5"}>
         {/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">

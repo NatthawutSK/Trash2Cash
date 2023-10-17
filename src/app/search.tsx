@@ -1,30 +1,103 @@
 import React, { useLayoutEffect, useState } from "react";
-import { Stack } from "tamagui";
-import { useNavigation } from "expo-router";
+import { Button, Stack, XStack, YStack } from "tamagui";
+import { router, useNavigation } from "expo-router";
 import { MatProps } from "@/components/MaterialItem";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { FlatList } from "react-native-gesture-handler";
+import { FlatList, TextInput } from "react-native-gesture-handler";
 import FlatListStore from "@/components/FlatListStore";
 import FlatListMaterial from "@/components/FlatListMaterial";
+import { useHeaderHeight } from "@react-navigation/elements";
+import { ArrowBigLeft, Search } from "@tamagui/lucide-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { Dimensions, Pressable } from "react-native";
 
 type Props = {};
 const Tab = createMaterialTopTabNavigator();
 const DATA = [
-	{ id: "1",name: "ถุงฟิล์ม ยืด PE1", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ4" ,picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg"], typeM: "plastic1", reduce: 10, avgprice: 51, submat:["peter", "card", "can", "fan"] },
-	{ id: "2",name: "ถุงฟิล์ม ยืด PE2", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ1" ,picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg"], typeM: "plastic2", reduce: 11, avgprice: 52, submat:["peter", "card", "can", "fan"] },
-	{ id: "3",name: "ถุงฟิล์ม ยืด PE3", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ3" ,picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg"], typeM: "plastic3", reduce: 12, avgprice: 53, submat:["peter", "card", "can", "fan"] },
-	{ id: "4",name: "ถุงฟิล์ม ยืด PE4", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ2" ,picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg"], typeM: "plastic4", reduce: 13, avgprice: 54, submat:["peter", "card", "can", "fan"] },
-	{ id: "5",name: "ถุงฟิล์ม ยืด PE5", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ2" ,picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg"], typeM: "plastic5", reduce: 14, avgprice: 55, submat:["peter", "card", "can", "fan"] },
-	{ id: "6",name: "ถุงฟิล์ม ยืด PE6", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ3" ,picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg"], typeM: "plastic6", reduce: 15, avgprice: 56, submat:["peter", "card", "can", "fan"] },
-	{ id: "7",name: "ถุงฟิล์ม ยืด PE7", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ1" ,picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg"], typeM: "plastic7", reduce: 16, avgprice: 57, submat:["peter", "card", "can", "fan"] },
-	{ id: "8",name: "ถุงฟิล์ม ยืด PE8", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ4" ,picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg"], typeM: "plastic8", reduce: 17, avgprice: 58, submat:["peter", "card", "can", "fan"] },
-	{ id: "9",name: "ถุงฟิล์ม ยืด PE9", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ4" ,picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg"], typeM: "plastic9", reduce: 18, avgprice: 59, submat:["peter", "card", "can", "fan"] },
-	{ id: "10",name: "ถุงฟิล์ม ยืด PE10", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ1",picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://ichef.bbci.co.uk/news/640/cpsprodpb/FFEF/production/_114791556_045a3336-8ab5-4cd4-90fc-ef42c5562d76.jpg"], typeM: "plastic10", reduce: 19, avgprice: 60, submat:["peter", "card", "can", "fan"] },
-	{ id: "11",name: "ถุงฟิล์ม ยืด PE11", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ3",picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://ichef.bbci.co.uk/news/640/cpsprodpb/FFEF/production/_114791556_045a3336-8ab5-4cd4-90fc-ef42c5562d76.jpg"], typeM: "plastic11", reduce: 20, avgprice: 62, submat:["peter", "card", "can", "fan"] },
-	{ id: "12",name: "ถุงฟิล์ม ยืด PE12", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ2",picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://ichef.bbci.co.uk/news/640/cpsprodpb/FFEF/production/_114791556_045a3336-8ab5-4cd4-90fc-ef42c5562d76.jpg"], typeM: "plastic12", reduce: 21, avgprice: 63, submat:["peter", "card", "can", "fan"] },
-	{ id: "13",name: "ถุงฟิล์ม ยืด PE13", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ2",picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://ichef.bbci.co.uk/news/640/cpsprodpb/FFEF/production/_114791556_045a3336-8ab5-4cd4-90fc-ef42c5562d76.jpg"], typeM: "plastic13", reduce: 22, avgprice: 64, submat:["peter", "card", "can", "fan"] },
-	{ id: "14",name: "ถุงฟิล์ม ยืด PE14", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ3",picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://ichef.bbci.co.uk/news/640/cpsprodpb/FFEF/production/_114791556_045a3336-8ab5-4cd4-90fc-ef42c5562d76.jpg"], typeM: "plastic14", reduce: 23, avgprice: 65, submat:["peter", "card", "can", "fan"] },
-	{ id: "15",name: "ถุงฟิล์ม ยืด PE15", description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ1",picture:["https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg", "https://ichef.bbci.co.uk/news/640/cpsprodpb/FFEF/production/_114791556_045a3336-8ab5-4cd4-90fc-ef42c5562d76.jpg"], typeM: "plastic15", reduce: 24, avgprice: 66, submat:["peter", "card", "can", "fan"] },
+	{
+		id: "1",
+		name: "ขวด PET ใส",
+		description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ4",
+		picture: [
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+		],
+		typeM: "plastic1",
+		reduce: 10,
+		avgprice: 51,
+		submat: ["peter", "card", "can", "fan"],
+	},
+	{
+		id: "2",
+		name: "ขวดแก้ว",
+		description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ1",
+		picture: [
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+		],
+		typeM: "plastic2",
+		reduce: 11,
+		avgprice: 52,
+		submat: ["peter", "card", "can", "fan"],
+	},
+	{
+		id: "3",
+		name: "กระดาษกล่อง",
+		description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ3",
+		picture: [
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+		],
+		typeM: "plastic3",
+		reduce: 12,
+		avgprice: 53,
+		submat: ["peter", "card", "can", "fan"],
+	},
+	{
+		id: "4",
+		name: "ถุงฟิล์ม/ยืด",
+		description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ2",
+		picture: [
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+		],
+		typeM: "plastic4",
+		reduce: 13,
+		avgprice: 54,
+		submat: ["peter", "card", "can", "fan"],
+	},
+	{
+		id: "5",
+		name: "กระป๋องอลูมิเนียม",
+		description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ2",
+		picture: [
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+		],
+		typeM: "plastic5",
+		reduce: 14,
+		avgprice: 55,
+		submat: ["peter", "card", "can", "fan"],
+	},
+	{
+		id: "6",
+		name: "กระดาษขาวดำ",
+		description: "ถุงก็อบแก็บ มาเดินกุ๊บกั๊บ3",
+		picture: [
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+			"https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+		],
+		typeM: "plastic6",
+		reduce: 15,
+		avgprice: 56,
+		submat: ["peter", "card", "can", "fan"],
+	},
 ];
 const DATA2 = [
 	{
@@ -86,47 +159,84 @@ const DATA2 = [
 	},
 ];
 
-const search = (props: Props) => {
+const SearchComponent = (props: Props) => {
 	const navigation = useNavigation();
 	const [search, setSearch] = useState<string>("");
 	const [data, setData] = useState<MatProps[]>(DATA);
-	useLayoutEffect(() => {
-		navigation.setOptions({
-			headerSearchBarOptions: {
-				inputType: "text",
-				placeholder: "ค้นหา",
-				// autoFocus: true,
-				onChangeText: (event: any) => {
-					setData(
-						data.filter((item) =>
-							item.name.includes(
-								event.nativeEvent.text.toUpperCase()
-							)
-						)
-					);
-				},
-				hintTextColor: "gray",
-				obscureBackground: false,
-				// disableBackButtonOverride: true,
-				// search bar options
-			},
-		});
-	}, [navigation]);
-
+	const [tabnum, setTabnum] = useState<number>(1);
+	console.log(navigation.getState().key);
 	return (
-		<Stack ac={"center"} h={"100%"}>
-			<Tab.Navigator initialRouteName="ฮีโร่" screenOptions={{}}>
-				<Tab.Screen
-					name="ฮีโร่"
-					children={() => <FlatListStore data={DATA2} />}
+		<YStack ac={"center"} h={"100%"} bg={"white"}>
+			<XStack
+				mt={40}
+				bg={"white"}
+				height={"5%"}
+				ai={"center"}
+				jc={"space-between"}
+				px={20}
+				mb={10}
+			>
+				<Pressable onPress={() => router.push("/")}>
+					<Ionicons name="arrow-back" size={28} color="black" />
+				</Pressable>
+				<TextInput
+					className="w-[70%] border-2 rounded-md h-10  text-base py-2 px-2 border-[#3C6255]"
+					placeholder="ค้นหา"
+					value={search}
+					onChangeText={(text) => {
+						setSearch(text);
+					}}
+					onSubmitEditing={() => {
+						console.log(tabnum);
+						if (tabnum === 1) {
+							console.log(123);
+							setData(
+								DATA.filter((item) =>
+									item.name.includes(search)
+								)
+							);
+							console.log(data);
+						}
+					}}
 				/>
-				<Tab.Screen
-					name="วัสดุรีไซเคิล"
-					children={() => <FlatListMaterial data={DATA} />}
-				/>
-			</Tab.Navigator>
-		</Stack>
+				<Pressable>
+					<Ionicons name="search" size={28} color="black" />
+				</Pressable>
+			</XStack>
+			<Stack h={"100%"}>
+				<Tab.Navigator
+					initialRouteName="ฮีโร่"
+					initialLayout={{
+						height: 0,
+						width: Dimensions.get("window").width,
+					}}
+				>
+					<Tab.Screen
+						name="ฮีโร่"
+						listeners={{
+							state: () => {
+								setSearch("");
+								setTabnum(tabnum * -1);
+								console.log(tabnum);
+							},
+						}}
+						children={() => <FlatListStore data={DATA2} />}
+					/>
+					<Tab.Screen
+						name="วัสดุรีไซเคิล"
+						listeners={{
+							state: () => {
+								setSearch("");
+								setTabnum(tabnum * -1);
+								console.log(tabnum);
+							},
+						}}
+						children={() => <FlatListMaterial data={data} />}
+					/>
+				</Tab.Navigator>
+			</Stack>
+		</YStack>
 	);
 };
 
-export default search;
+export default React.memo(SearchComponent);

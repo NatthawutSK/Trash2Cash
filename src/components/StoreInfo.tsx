@@ -35,7 +35,7 @@ const StoreInfo = ({ info }: Props) => {
         }}
       >
         <YStack>
-          <H4 className="font-bold">{info.name}</H4>
+          <H4 className="font-bold">{info?.user_name}</H4>
           <XStack ai={"center"} space={8}>
             <Store size={30} color={colors.green4} />
             <Text>ร้านรับซื้อ</Text>
@@ -43,22 +43,19 @@ const StoreInfo = ({ info }: Props) => {
           <Separator borderColor={colors.green4} marginVertical={10} />
           <XStack ai={"center"} space={8}>
             <Phone size={30} color={colors.green4} />
-            <TouchableOpacity onPress={() => makePhoneCall(info.phone)}>
-              <Text className="underline">0812345678</Text>
+            <TouchableOpacity onPress={() => makePhoneCall(info?.phone_number)}>
+              <Text className="underline">{info.phone_number}</Text>
             </TouchableOpacity>
           </XStack>
           <Separator borderColor={colors.green4} marginVertical={10} />
           <XStack ai={"center"} space={8}>
             <FontAwesome5 name="line" size={30} color={colors.green4} />
-            <Text>{info.line}</Text>
+            <Text>{info?.line_id}</Text>
           </XStack>
           <Separator borderColor={colors.green4} marginVertical={10} />
           <XStack ai={"center"} space={8} pr={30}>
             <Map size={30} color={colors.green4} />
-            <Text>
-              เลขที่
-              1234grgdrgdrgdrggggggggggggggggggggggggggggggggggggggggggggggggggggggg
-            </Text>
+            <Text>{info?.address}</Text>
           </XStack>
         </YStack>
       </View>

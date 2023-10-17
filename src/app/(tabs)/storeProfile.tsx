@@ -1,7 +1,7 @@
 import Carousel from "@/components/Carousel";
 import React from "react";
 // import { ScrollView } from "react-native-virtualized-view";
-import { MockImg, MockTrashMaterial, Mockstore } from "@/MockData/data";
+import { MockImg, MockTrashMaterial } from "@/MockData/data";
 import ButtonStore from "@/components/ButtonStore";
 import DialogEditStoreInfo from "@/components/DialogEditStoreInfo";
 import MaterialDropDown from "@/components/MaterialDropDown";
@@ -10,15 +10,44 @@ import { useAuth } from "@clerk/clerk-expo";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useRouter } from "expo-router";
 import { ScrollView } from "react-native-virtualized-view";
-import { Stack, YStack } from "tamagui";
+import { Stack, YStack, Text } from "tamagui";
+import { useUserContext } from "@/provider/UserContext";
+import { gql, useQuery } from "@apollo/client";
+import { View } from "react-native";
+import Spinner from "react-native-loading-spinner-overlay";
 type Props = {};
+
+const getMaterialQuery = gql`
+  query StoreQuery($auth_id: String!) {
+    usersUsingStore_auth_id_fkey(auth_id: $auth_id) {
+      store {
+        store_detail
+      }
+    }
+  }
+`;
 
 const storeProfile = (props: Props) => {
   const headerHeight = useHeaderHeight();
   const router = useRouter();
   const { signOut } = useAuth();
+  const { dbUser, authUser }: any = useUserContext();
 
-  // console.log(headerHeight);
+  const { data, loading, refetch, error } = useQuery(getMaterialQuery, {
+    variables: { auth_id: authUser?.id },
+  });
+  // console.log("id", authUser?.id)
+  if (loading) {
+    return (
+      <Spinner
+        animation="fade"
+        visible={true}
+        textContent={"Loading..."}
+        textStyle={{ color: "#FFF" }}
+      />
+    );
+  }
+  if (error) return <Text>Something went wrong</Text>;
 
   return (
     <ScrollView style={{ flex: 1, paddingTop: headerHeight }}>
@@ -29,9 +58,23 @@ const storeProfile = (props: Props) => {
             title="แก้ไขรูปร้านค้า"
             func={() => router.push("/editImageStore")}
           />
-          <StoreInfo info={Mockstore} />
+          {/* <Text>
+            {JSON.stringify(
+              JSON.parse(
+                data.usersUsingStore_auth_id_fkey.store[0].store_detail
+              )
+            )}
+          </Text> */}
+          <View>
+            {JSON.parse(
+              data.usersUsingStore_auth_id_fkey.store[0].store_detail
+            ).map((item: any) => (
+              <Text>{item.materialName}</Text>
+            ))}
+          </View>
+          <StoreInfo info={dbUser} />
           {/* --------------------------------------------------- */}
-          <DialogEditStoreInfo info={Mockstore} />
+          <DialogEditStoreInfo info={dbUser} />
           {/* --------------------------------------------------- */}
           <YStack ai={"center"} space={"$4"}>
             <MaterialDropDown data={MockTrashMaterial} />

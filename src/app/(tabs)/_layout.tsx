@@ -127,7 +127,7 @@ export default function TabLayout() {
           title: "qrCode",
           tabBarButton: () => (
             <Link
-              href={dbUser.roles === "store" ? "/qrCodeBuyer" : "/qrCodeSeller"}
+              href={dbUser.roles === "Buyer" ? "/qrCodeBuyer" : "/qrCodeSeller"}
               asChild
             >
               <Pressable

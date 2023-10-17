@@ -76,12 +76,12 @@ export const MockTrashMaterial: TypeTrashMaterial[] = [
   },
 ];
 
-export const Mockstore: TypeStore = {
-  name: "ร้าน NA NA",
-  address: "ถนน 1 ซอยรามคำแหง 159/1 ",
-  phone: "0812345678",
-  line: "natthawutSK",
-};
+// export const Mockstore: TypeStore = {
+//   name: "ร้าน NA NA",
+//   address: "ถนน 1 ซอยรามคำแหง 159/1 ",
+//   phone: "0812345678",
+//   line: "natthawutSK",
+// };
 
 export const MockImg: string[] = [
   "https://xn--12c7bzakgbj6bza1cbe6b3jwh.com/upload/about/1735775123198501.webp",

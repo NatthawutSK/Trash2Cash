@@ -1,8 +1,8 @@
 export type TypeStore = {
-  name: string;
+  user_name: string;
   address: string;
-  phone: string;
-  line: string;
+  phone_number: string;
+  line_id: string;
 };
 
 export type TypeTrashMaterial = {

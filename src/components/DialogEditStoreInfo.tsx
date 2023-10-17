@@ -86,15 +86,15 @@ const DialogEditStoreInfo = ({ info }: Props) => {
             <Stack flexDirection="column" gap={"$3"}>
               <Fieldset>
                 <Label htmlFor="name">ชื่อร้าน</Label>
-                <Input id="name" defaultValue={info.name} />
+                <Input id="name" defaultValue={info.user_name} />
               </Fieldset>
               <Fieldset>
                 <Label htmlFor="phone">เบอร์โทร</Label>
-                <Input id="phone" defaultValue={info.phone} />
+                <Input id="phone" defaultValue={info.phone_number} />
               </Fieldset>
               <Fieldset>
                 <Label htmlFor="line">ไลน์ไอดี</Label>
-                <Input id="line" defaultValue={info.line} />
+                <Input id="line" defaultValue={info.line_id} />
               </Fieldset>
               <Fieldset>
                 <Label htmlFor="address">เบอร์โทร</Label>

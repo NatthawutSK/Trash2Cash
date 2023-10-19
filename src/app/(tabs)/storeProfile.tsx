@@ -1,5 +1,5 @@
 import Carousel from "@/components/Carousel";
-import React from "react";
+import React, { useState } from "react";
 // import { ScrollView } from "react-native-virtualized-view";
 import { MockImg } from "@/MockData/data";
 import ButtonStore from "@/components/ButtonStore";
@@ -34,6 +34,7 @@ const storeProfile = (props: Props) => {
   const router = useRouter();
   const { signOut } = useAuth();
   const { dbUser, authUser }: any = useUserContext();
+  const [info, setInfo] = useState(dbUser);
 
   const { data, loading, refetch, error } = useQuery(getMaterialQuery, {
     variables: { auth_id: authUser?.id },
@@ -74,9 +75,9 @@ const storeProfile = (props: Props) => {
               </Text>
             ))}
           </View> */}
-          <StoreInfo info={dbUser} />
+          <StoreInfo info={info} />
           {/* --------------------------------------------------- */}
-          <DialogEditStoreInfo info={dbUser} />
+          <DialogEditStoreInfo info={info} setInfo={setInfo} />
           {/* --------------------------------------------------- */}
           <YStack ai={"center"} space={"$4"}>
             <MaterialDropDown data={materialData} />

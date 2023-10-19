@@ -22,7 +22,7 @@ import { KeyboardAvoidingView } from "react-native";
 import { TypeStore } from "@/MockData/types";
 import { gql, useMutation } from "@apollo/client";
 import { useUserContext } from "@/provider/UserContext";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, Controller, set } from "react-hook-form";
 
 const EditStoreMutation = gql`
   mutation UpdateUserMutation(
@@ -46,6 +46,7 @@ const EditStoreMutation = gql`
 
 type Props = {
   info: TypeStore;
+  setInfo: (info: TypeStore) => void;
 };
 
 type FormValues = {
@@ -55,7 +56,7 @@ type FormValues = {
   address: string;
 };
 
-const DialogEditStoreInfo = ({ info }: Props) => {
+const DialogEditStoreInfo = ({ info, setInfo }: Props) => {
   const [handleMutation] = useMutation(EditStoreMutation);
   const { authUser, reloadDbUser, loading }: any = useUserContext();
 
@@ -63,6 +64,13 @@ const DialogEditStoreInfo = ({ info }: Props) => {
     console.log(data);
 
     try {
+      setInfo({
+        ...info,
+        line_id: data.line,
+        phone_number: data.phone,
+        user_name: data.name,
+        address: data.address,
+      });
       await handleMutation({
         variables: {
           auth_id: authUser?.id,

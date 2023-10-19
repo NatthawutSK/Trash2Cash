@@ -6,15 +6,8 @@ export type TypeStore = {
 };
 
 export type TypeTrashMaterial = {
-  name: string;
-  img:
-    | "plastic_bottle"
-    | "glass_bottle"
-    | "box"
-    | "plastic_bag"
-    | "can"
-    | "paper";
-  recieveAmount:
+  materialName: string;
+  receive:
     | "น้อยกว่า 10 กก."
     | "10 - 20 กก."
     | "20 - 30 กก."
@@ -28,3 +21,13 @@ export type TypeTrashMaterial = {
     | "ไม่จำกัด";
   price: number;
 };
+
+// export type TypeMaterial ={
+//   "plastic_bottle"
+//   "ขวด PET ใส"
+//   glass_bottle
+//   plastic_bag
+//   "ถุงฟิล์ม/ยืด"
+//   can
+//   paper
+// }

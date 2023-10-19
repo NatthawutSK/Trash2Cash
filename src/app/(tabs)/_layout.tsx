@@ -37,7 +37,7 @@ export default function TabLayout() {
         tabBarLabelStyle: { fontSize: 12, top: -5 },
         // tabBarBadgeStyle: { backgroundColor: colors.green1 },
         tabBarStyle: { backgroundColor: colors.green3, height: 60 },
-        headerTransparent: true,
+        // headerTransparent: true,
         headerRight: () => (
           <Stack f={1} flexDirection="row" ai={"center"} space={"$3"}>
             <Link href="/search" asChild>

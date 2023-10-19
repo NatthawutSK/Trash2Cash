@@ -42,13 +42,11 @@ const detailStore = (props: Props) => {
     <ScrollView>
       {/* <Image width={500} h={250} source={{ uri: Mockstore[0].img }} /> */}
       <Carousel img={MockImg} />
-      <Stack mt={"$8"}>
-        <StoreInfo info={Mockstore} />
-      </Stack>
+      <Stack mt={"$8"}>{/* <StoreInfo info={Mockstore} /> */}</Stack>
 
       <YStack ai={"center"} pt={"$5"} space={"$4"}>
         <H4 className="font-bold">วัสดุที่รับ</H4>
-        <MaterialDropDown data={MockTrashMaterial} />
+        {/* <MaterialDropDown data={MockTrashMaterial} /> */}
       </YStack>
     </ScrollView>
   );

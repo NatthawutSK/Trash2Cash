@@ -48,14 +48,16 @@ export const userdata = {
 
 export const imgIcon = {
   plastic_bottle: require("../../assets/images/plastic-bottle.png"),
+  "ขวด PET ใส": require("../../assets/images/plastic-bottle.png"),
   glass_bottle: require("../../assets/images/glass-bottle.png"),
   box: require("../../assets/images/box.png"),
   plastic_bag: require("../../assets/images/plastic-bag.png"),
+  "ถุงฟิล์ม/ยืด": require("../../assets/images/plastic-bag.png"),
   can: require("../../assets/images/can.png"),
   paper: require("../../assets/images/paper.png"),
 };
 
-export const MockTrashMaterial: TypeTrashMaterial[] = [
+export const MockTrashMaterial = [
   {
     name: "ขวด PET ใส",
     img: "plastic_bottle",
@@ -76,12 +78,12 @@ export const MockTrashMaterial: TypeTrashMaterial[] = [
   },
 ];
 
-// export const Mockstore: TypeStore = {
-//   name: "ร้าน NA NA",
-//   address: "ถนน 1 ซอยรามคำแหง 159/1 ",
-//   phone: "0812345678",
-//   line: "natthawutSK",
-// };
+export const Mockstore = {
+  name: "ร้าน NA NA",
+  address: "ถนน 1 ซอยรามคำแหง 159/1 ",
+  phone: "0812345678",
+  line: "natthawutSK",
+};
 
 export const MockImg: string[] = [
   "https://xn--12c7bzakgbj6bza1cbe6b3jwh.com/upload/about/1735775123198501.webp",
@@ -102,3 +104,7 @@ export const recieveAmount: string[] = [
   "90 - 100 กก.",
   "ไม่จำกัด",
 ];
+
+// export const recieveImg = {
+
+// }

@@ -1,4 +1,4 @@
-import { MockTrashMaterial, imgIcon } from "@/MockData/data";
+import { imgIcon } from "@/MockData/data";
 import { colors } from "@/constants/Colors";
 import { getProperty } from "@/utils/util";
 import React from "react";
@@ -8,8 +8,21 @@ import DialogAddTrashMaterial from "@/components/DialogAddTrashMaterial";
 import { Button, H4, Text } from "tamagui";
 import DialogEditTrashMaterial from "@/components/DialogEditTrashMaterial";
 import { TypeTrashMaterial } from "@/MockData/types";
+import { useLocalSearchParams } from "expo-router";
+import { gql, useQuery } from "@apollo/client";
+import Spinner from "react-native-loading-spinner-overlay";
 
 type Props = {};
+
+const getMaterialQuery = gql`
+  query StoreQuery($auth_id: String!) {
+    usersUsingStore_auth_id_fkey(auth_id: $auth_id) {
+      store {
+        store_detail
+      }
+    }
+  }
+`;
 
 const renderTrashMaterial = (item: TypeTrashMaterial) => {
   return (
@@ -25,11 +38,17 @@ const renderTrashMaterial = (item: TypeTrashMaterial) => {
       }}
     >
       <View className="items-center justify-center w-36">
-        <Image className="w-24 h-24 " source={getProperty(imgIcon, item.img)} />
+        <Image
+          className="w-24 h-24 "
+          source={getProperty(
+            imgIcon,
+            item.materialName as keyof typeof imgIcon
+          )}
+        />
       </View>
       <View className="justify-center">
-        <Text>ชื่อวัสดุ : {item.name}</Text>
-        <Text>จำนวนที่รับ : {item.recieveAmount}</Text>
+        <Text>ชื่อวัสดุ : {item.materialName}</Text>
+        <Text>จำนวนที่รับ : {item.receive}</Text>
         <Text>ราคาที่รับ : {item.price} บาท/กก.</Text>
         <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
           <DialogEditTrashMaterial item={item} />
@@ -50,10 +69,44 @@ const renderTrashMaterial = (item: TypeTrashMaterial) => {
 };
 
 const editMaterialStore = (props: Props) => {
+  const { id } = useLocalSearchParams();
+
+  const { data, loading, refetch, error } = useQuery(getMaterialQuery, {
+    variables: { auth_id: id },
+  });
+  // console.log("id", authUser?.id)
+  if (loading) {
+    return (
+      <Spinner
+        animation="fade"
+        visible={true}
+        textContent={"Loading..."}
+        textStyle={{ color: "#FFF" }}
+      />
+    );
+  }
+
+  const materialData: TypeTrashMaterial[] = JSON.parse(
+    data.usersUsingStore_auth_id_fkey.store[0].store_detail
+  );
+
+  // console.log(materialDataEdit);
+
+  if (error) return <Text>Something went wrong</Text>;
+  //   console.log(data);
+
   return (
     <View style={{ flex: 1 }}>
+      {/* <Text>{id}</Text>
+      {materialData.map((item: TypeTrashMaterial, i: any) => (
+        <Text key={i}>
+          {item.materialName} {item.receive}
+        </Text>
+      ))} */}
+
+      {/* <Text>{JSON.stringify(item.materialData)}</Text> */}
       <FlatList
-        data={MockTrashMaterial}
+        data={materialData}
         renderItem={({ item }: { item: TypeTrashMaterial }) =>
           renderTrashMaterial(item)
         }

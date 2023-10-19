@@ -1,7 +1,7 @@
 import Carousel from "@/components/Carousel";
 import React from "react";
 // import { ScrollView } from "react-native-virtualized-view";
-import { MockImg, MockTrashMaterial } from "@/MockData/data";
+import { MockImg } from "@/MockData/data";
 import ButtonStore from "@/components/ButtonStore";
 import DialogEditStoreInfo from "@/components/DialogEditStoreInfo";
 import MaterialDropDown from "@/components/MaterialDropDown";
@@ -10,11 +10,13 @@ import { useAuth } from "@clerk/clerk-expo";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useRouter } from "expo-router";
 import { ScrollView } from "react-native-virtualized-view";
-import { Stack, YStack, Text } from "tamagui";
+import { Stack, YStack, Text, Button } from "tamagui";
 import { useUserContext } from "@/provider/UserContext";
 import { gql, useQuery } from "@apollo/client";
 import { View } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
+import { useNavigation } from "@react-navigation/native";
+import { TypeTrashMaterial } from "@/MockData/types";
 type Props = {};
 
 const getMaterialQuery = gql`
@@ -47,10 +49,17 @@ const storeProfile = (props: Props) => {
       />
     );
   }
+
+  const materialData: TypeTrashMaterial[] = JSON.parse(
+    data.usersUsingStore_auth_id_fkey.store[0].store_detail
+  );
+
+  // console.log(materialDataEdit);
+
   if (error) return <Text>Something went wrong</Text>;
 
   return (
-    <ScrollView style={{ flex: 1, paddingTop: headerHeight }}>
+    <ScrollView style={{ flex: 1 }}>
       <Carousel img={MockImg} />
       <Stack pb={"$14"} pt={"$8"} f={1}>
         <Stack flexDirection="column" gap={"$5"}>
@@ -58,29 +67,25 @@ const storeProfile = (props: Props) => {
             title="แก้ไขรูปร้านค้า"
             func={() => router.push("/editImageStore")}
           />
-          {/* <Text>
-            {JSON.stringify(
-              JSON.parse(
-                data.usersUsingStore_auth_id_fkey.store[0].store_detail
-              )
-            )}
-          </Text> */}
-          <View>
-            {JSON.parse(
-              data.usersUsingStore_auth_id_fkey.store[0].store_detail
-            ).map((item: any) => (
-              <Text>{item.materialName}</Text>
+          {/* <View>
+            {materialData.map((item: any, i: any) => (
+              <Text key={i}>
+                {item.materialName} {item.receive}
+              </Text>
             ))}
-          </View>
+          </View> */}
           <StoreInfo info={dbUser} />
           {/* --------------------------------------------------- */}
           <DialogEditStoreInfo info={dbUser} />
           {/* --------------------------------------------------- */}
           <YStack ai={"center"} space={"$4"}>
-            <MaterialDropDown data={MockTrashMaterial} />
+            <MaterialDropDown data={materialData} />
+            {/* <Text>{JSON.stringify(materialData)}</Text> */}
             <ButtonStore
               title="แก้ไขวัสดุที่รับ"
-              func={() => router.push("/editMaterialStore")}
+              func={() =>
+                router.push(`/(store)/editMaterialStore/${authUser?.id}`)
+              }
             />
           </YStack>
 

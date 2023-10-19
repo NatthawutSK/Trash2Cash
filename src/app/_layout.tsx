@@ -186,7 +186,7 @@ function RootLayoutNav() {
               options={{ title: "แก้ไขรูปร้านค้า" }}
             />
             <Stack.Screen
-              name="(store)/editMaterialStore"
+              name="(store)/editMaterialStore/[id]"
               options={{ title: "แก้ไขวัสดุที่รับ" }}
             />
           </Stack>

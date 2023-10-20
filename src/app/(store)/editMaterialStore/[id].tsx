@@ -1,7 +1,7 @@
 import { imgIcon } from "@/MockData/data";
 import { colors } from "@/constants/Colors";
 import { getProperty } from "@/utils/util";
-import React from "react";
+import React, { useState } from "react";
 import { FlatList, Image, View } from "react-native";
 
 import DialogAddTrashMaterial from "@/components/DialogAddTrashMaterial";
@@ -86,8 +86,8 @@ const editMaterialStore = (props: Props) => {
     );
   }
 
-  const materialData: TypeTrashMaterial[] = JSON.parse(
-    data.usersUsingStore_auth_id_fkey.store[0].store_detail
+  const [materialData, setMaterialData] = useState<TypeTrashMaterial[]>(
+    JSON.parse(data.usersUsingStore_auth_id_fkey.store[0].store_detail)
   );
 
   // console.log(materialDataEdit);

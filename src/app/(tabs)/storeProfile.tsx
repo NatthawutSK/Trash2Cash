@@ -1,5 +1,5 @@
 import Carousel from "@/components/Carousel";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { ScrollView } from "react-native-virtualized-view";
 import { MockImg } from "@/MockData/data";
 import ButtonStore from "@/components/ButtonStore";
@@ -35,11 +35,30 @@ const storeProfile = (props: Props) => {
   const { signOut } = useAuth();
   const { dbUser, authUser }: any = useUserContext();
   const [info, setInfo] = useState(dbUser);
+  const [materialData, setMaterialData] = useState<TypeTrashMaterial[]>([]);
 
   const { data, loading, refetch, error } = useQuery(getMaterialQuery, {
     variables: { auth_id: authUser?.id },
   });
+  console.log("data", data);
+
   // console.log("id", authUser?.id)
+
+  // const materialData: TypeTrashMaterial[] = JSON.parse(
+  //   data.usersUsingStore_auth_id_fkey.store[0].store_detail
+  // );
+
+  useEffect(() => {
+    if (!loading && data) {
+      const materialData = JSON.parse(
+        data.usersUsingStore_auth_id_fkey.store[0].store_detail
+      );
+      setMaterialData(materialData);
+      // setDataLoaded(true); // Mark the data as loaded
+    }
+  }, [loading, data]);
+
+  // console.log(materialDataEdit);
   if (loading) {
     return (
       <Spinner
@@ -50,13 +69,6 @@ const storeProfile = (props: Props) => {
       />
     );
   }
-
-  const materialData: TypeTrashMaterial[] = JSON.parse(
-    data.usersUsingStore_auth_id_fkey.store[0].store_detail
-  );
-
-  // console.log(materialDataEdit);
-
   if (error) return <Text>Something went wrong</Text>;
 
   return (

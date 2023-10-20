@@ -11,6 +11,9 @@ const getUserQuery = gql`
       phone_number
       roles
       user_name
+      store {
+        store_user_id
+      }
     }
   }
 `;

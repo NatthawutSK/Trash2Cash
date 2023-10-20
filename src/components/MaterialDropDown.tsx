@@ -13,10 +13,11 @@ import {
 import { colors } from "@/constants/Colors";
 import { getProperty } from "@/utils/util";
 import { imgIcon } from "@/MockData/data";
+import { TypeTrashMaterial } from "@/MockData/types";
 
 type Props = {};
 
-const MaterialRender = (item: any) => {
+const MaterialRender = (item: TypeTrashMaterial) => {
   return (
     <YStack>
       <XStack
@@ -27,10 +28,16 @@ const MaterialRender = (item: any) => {
         // space={"$3"}
         // gap={"$3"}
       >
-        <Image className="w-24 h-24" source={getProperty(imgIcon, item.img)} />
+        <Image
+          className="w-24 h-24"
+          source={getProperty(
+            imgIcon,
+            item.materialName as keyof typeof imgIcon
+          )}
+        />
         <YStack ai={"flex-start"} jc={"center"}>
-          <Text>ชื่อวัสดุ : {item.name}</Text>
-          <Text>จำนวนที่รับ : {item.recieveAmount}</Text>
+          <Text>ชื่อวัสดุ : {item.materialName}</Text>
+          <Text>จำนวนที่รับ : {item.receive}</Text>
           <Text>ราคาที่รับ : {item.price} บาท/กก.</Text>
         </YStack>
       </XStack>
@@ -39,7 +46,7 @@ const MaterialRender = (item: any) => {
   );
 };
 
-const MaterialDropDown = ({ data }: any) => {
+const MaterialDropDown = ({ data }: { data: TypeTrashMaterial[] }) => {
   return (
     <Accordion overflow="hidden" width="90%" type="multiple">
       <Accordion.Item value="a2">
@@ -57,6 +64,7 @@ const MaterialDropDown = ({ data }: any) => {
         </Accordion.Trigger>
         <Accordion.Content>
           <View>
+            {/* <Text>{JSON.stringify(data.data)}</Text> */}
             <FlatList
               style={{ gap: 20 }}
               showsVerticalScrollIndicator={false}

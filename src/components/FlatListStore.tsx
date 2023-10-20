@@ -69,6 +69,7 @@ const FlatListStore = ({ data }: { data: StoreProps[] }) => {
 				renderItem={renderStore}
 				keyExtractor={(item, index) => index.toString()}
 				ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
+				contentContainerStyle={{ paddingBottom: 80 }}
 				// Performance settings
 				removeClippedSubviews={true}
 				initialNumToRender={7}

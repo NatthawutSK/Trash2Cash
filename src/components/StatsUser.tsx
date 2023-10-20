@@ -36,8 +36,8 @@ const StatsUser = (props: Props) => {
 						<Text className="text-white text-xs  font-bold text-center">
 							ลดปริมาณขยะ
 						</Text>
-						<Text className="text-white font-semibold text-base">
-							{props.co2} KCo2e
+						<Text className="text-white font-semibold text-base text-center">
+							{props.trash} KCo2e
 						</Text>
 					</View>
 				</View>
@@ -48,8 +48,8 @@ const StatsUser = (props: Props) => {
 					<Text className="text-white text-xs  font-bold text-center">
 						เทียบเท่าปลูกต้นไม้
 					</Text>
-					<Text className="text-white font-semibold text-base">
-						{props.co2} KCo2e
+					<Text className="text-white font-semibold text-base  text-center">
+						{props.tree} KCo2e
 					</Text>
 				</View>
 			</View>

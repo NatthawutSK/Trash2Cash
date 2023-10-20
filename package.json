@@ -44,6 +44,7 @@
     "expo-status-bar": "~1.6.0",
     "expo-system-ui": "~2.4.0",
     "expo-web-browser": "~12.3.2",
+    "firebase": "^10.5.0",
     "geolib": "^3.3.4",
     "graphql": "^15.8.0",
     "nativewind": "^2.0.11",

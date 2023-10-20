@@ -8,7 +8,7 @@ export type UserType = {
 };
 
 export type Score = {
-	tree: number;
-	co2: number;
-	trash: number;
+	score_tree: number;
+	score_carbon: number;
+	score_trash: number;
 };

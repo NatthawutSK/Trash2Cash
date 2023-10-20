@@ -2,12 +2,17 @@ import React, { useState } from "react";
 import { Sheet, YStack, Image, Button, View, Text, Avatar } from "tamagui";
 import * as ImagePicker from "expo-image-picker";
 import { colors } from "@/constants/Colors";
+import { uploadImage } from "@/utils/util";
+import { storage } from "../../firebase";
+import { useUserContext } from "@/provider/UserContext";
+import { getDownloadURL, ref } from "firebase/storage";
 type Props = {};
 
 const PickerImg = () => {
 	const [image, setImage] = useState<string | undefined>(
 		"http://placekitten.com/200/300"
 	);
+	const { dbUser, reloadDbUser }: any = useUserContext();
 	const [open, setOpen] = useState(false);
 	const pickImage = async () => {
 		// No permissions request is necessary for launching the image library
@@ -22,6 +27,16 @@ const PickerImg = () => {
 
 		if (!result.canceled) {
 			setImage(result.assets[0].uri);
+			uploadImage(
+				result.assets[0].uri,
+				`Profile/${dbUser.auth_id}/avatar.png`
+			);
+			// reloadDbUser();
+			console.log(
+				await getDownloadURL(
+					ref(storage, `Profile/${dbUser.auth_id}/avatar.png`)
+				)
+			);
 		}
 	};
 

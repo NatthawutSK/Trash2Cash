@@ -4,21 +4,25 @@ import { gql, useQuery } from "@apollo/client";
 import { UserType } from "@/MockData/types";
 
 const getUserQuery = gql`
-	query MyQuery($authid: String!) {
-		users(auth_id: $authid) {
-			address
-			auth_id
-			line_id
-			phone_number
-			roles
-			user_name
-			score {
+
+  query MyQuery($authid: String!) {
+    users(auth_id: $authid) {
+      address
+      auth_id
+      line_id
+      phone_number
+      roles
+      user_name
+      store {
+        store_user_id
+      }
+      score {
 				score_carbon
 				score_trash
 				score_tree
 			}
-		}
-	}
+    }
+  }
 `;
 
 const UserContext = createContext({});

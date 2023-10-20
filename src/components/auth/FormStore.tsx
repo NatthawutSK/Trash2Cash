@@ -319,11 +319,11 @@ const FormStore = (props: Props) => {
                                 return (
                                   <Select.Item
                                     index={i}
-                                    key={item.name}
-                                    value={item.name}
+                                    key={item.materialName}
+                                    value={item.materialName}
                                   >
                                     <Select.ItemText color="$color">
-                                      {item.name}
+                                      {item.materialName}
                                     </Select.ItemText>
                                     <Select.ItemIndicator ml="auto">
                                       <Check size={16} />

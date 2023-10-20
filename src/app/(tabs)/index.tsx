@@ -18,7 +18,7 @@ const BoxTrash = (item: any) => {
       >
         <Image className="w-24 h-24" source={getProperty(imgIcon, item.img)} />
         <Text ta={"center"} mt={"$3"} fontSize={"$5"} className="text-white">
-          {item.name}
+          {item.materialName}
         </Text>
       </View>
     </Pressable>
@@ -27,9 +27,9 @@ const BoxTrash = (item: any) => {
 
 const router = useRouter();
 export default function home() {
-  const headerHeight = useHeaderHeight();
+  // const headerHeight = useHeaderHeight();
   return (
-    <ScrollView bg={"$green5Light"} f={1} pt={headerHeight}>
+    <ScrollView bg={"$green5Light"} f={1}>
       {/* <Text>{JSON.stringify(data)}</Text> */}
       {/* <SelectTrashMaterial /> */}
       {/* <DialogDemo /> */}
@@ -88,9 +88,9 @@ export default function home() {
           />
         </Stack>
 
-        <Text ta={"center"} className="text-xl font-bold" color={"$green8Dark"}>
+        {/* <Text ta={"center"} className="text-xl font-bold" color={"$green8Dark"}>
           สถิติรวม
-        </Text>
+        </Text> */}
 
         {/* <Stack jc={"center"} ai={"center"} space={"$5"}>
           <XStack space={"$4"}> */}

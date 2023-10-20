@@ -63,30 +63,30 @@ export const imgIcon = {
 
 export const MockTrashMaterial = [
   {
-    name: "ขวด PET ใส",
+    materialName: "ขวด PET ใส",
     img: "plastic_bottle",
     recieveAmount: "10 - 20 กก.",
     price: 10,
   },
   {
-    name: "ขวดแก้ว",
+    materialName: "ขวดแก้ว",
     img: "glass_bottle",
     recieveAmount: "ไม่จำกัด",
     price: 20,
   },
   {
-    name: "กระดาษกล่อง",
+    materialName: "กระดาษกล่อง",
     img: "box",
     recieveAmount: "30 - 40 กก.",
     price: 30,
   },
 ];
 
-export const Mockstore = {
-  name: "ร้าน NA NA",
+export const Mockstore: TypeStore = {
+  user_name: "ร้าน NA NA",
   address: "ถนน 1 ซอยรามคำแหง 159/1 ",
-  phone: "0812345678",
-  line: "natthawutSK",
+  phone_number: "0812345678",
+  line_id: "natthawutSK",
 };
 
 export const MockImg: string[] = [

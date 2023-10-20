@@ -13,7 +13,7 @@ import { ScrollView } from "react-native-virtualized-view";
 import { Stack, YStack, Text, Button } from "tamagui";
 import { useUserContext } from "@/provider/UserContext";
 import { gql, useQuery } from "@apollo/client";
-import { View } from "react-native";
+import { RefreshControl, View } from "react-native";
 import Spinner from "react-native-loading-spinner-overlay";
 import { useNavigation } from "@react-navigation/native";
 import { TypeTrashMaterial } from "@/MockData/types";
@@ -35,30 +35,12 @@ const storeProfile = (props: Props) => {
   const { signOut } = useAuth();
   const { dbUser, authUser }: any = useUserContext();
   const [info, setInfo] = useState(dbUser);
-  const [materialData, setMaterialData] = useState<TypeTrashMaterial[]>([]);
 
   const { data, loading, refetch, error } = useQuery(getMaterialQuery, {
     variables: { auth_id: authUser?.id },
   });
   console.log("data", data);
 
-  // console.log("id", authUser?.id)
-
-  // const materialData: TypeTrashMaterial[] = JSON.parse(
-  //   data.usersUsingStore_auth_id_fkey.store[0].store_detail
-  // );
-
-  useEffect(() => {
-    if (!loading && data) {
-      const materialData = JSON.parse(
-        data.usersUsingStore_auth_id_fkey.store[0].store_detail
-      );
-      setMaterialData(materialData);
-      // setDataLoaded(true); // Mark the data as loaded
-    }
-  }, [loading, data]);
-
-  // console.log(materialDataEdit);
   if (loading) {
     return (
       <Spinner
@@ -71,8 +53,17 @@ const storeProfile = (props: Props) => {
   }
   if (error) return <Text>Something went wrong</Text>;
 
+  const materialData: TypeTrashMaterial[] = JSON.parse(
+    data.usersUsingStore_auth_id_fkey.store[0].store_detail
+  );
+
   return (
-    <ScrollView style={{ flex: 1 }}>
+    <ScrollView
+      style={{ flex: 1 }}
+      refreshControl={
+        <RefreshControl refreshing={loading} onRefresh={refetch} />
+      }
+    >
       <Carousel img={MockImg} />
       <Stack pb={"$14"} pt={"$8"} f={1}>
         <Stack flexDirection="column" gap={"$5"}>

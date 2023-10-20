@@ -11,6 +11,7 @@ import { TypeTrashMaterial } from "@/MockData/types";
 import { useLocalSearchParams } from "expo-router";
 import { gql, useQuery } from "@apollo/client";
 import Spinner from "react-native-loading-spinner-overlay";
+import { useUserContext } from "@/provider/UserContext";
 
 type Props = {};
 
@@ -70,10 +71,13 @@ const renderTrashMaterial = (item: TypeTrashMaterial) => {
 
 const editMaterialStore = (props: Props) => {
   const { id } = useLocalSearchParams();
-
+  const { dbUser, authUser }: any = useUserContext();
   const { data, loading, refetch, error } = useQuery(getMaterialQuery, {
     variables: { auth_id: id },
   });
+  // console.log(dbUser);
+  // console.log(dbUser.store[0].store_user_id);
+
   // console.log("id", authUser?.id)
   if (loading) {
     return (
@@ -89,6 +93,7 @@ const editMaterialStore = (props: Props) => {
   const [materialData, setMaterialData] = useState<TypeTrashMaterial[]>(
     JSON.parse(data.usersUsingStore_auth_id_fkey.store[0].store_detail)
   );
+  console.log("hah", materialData);
 
   // console.log(materialDataEdit);
 
@@ -111,11 +116,18 @@ const editMaterialStore = (props: Props) => {
           renderTrashMaterial(item)
         }
         contentContainerStyle={{ gap: 20 }}
+        keyExtractor={(item, index) => index.toString()}
+        // ListFooterComponentStyle={{ padding: 100 }}
+        // ListFooterComponentStyle={{ paddingTop: 20 }}
         ListHeaderComponent={
           <H4 className="self-center py-5 font-bold">วัสดุที่รับ</H4>
         }
       />
-      <DialogAddTrashMaterial />
+      <DialogAddTrashMaterial
+        storeId={dbUser.store[0].store_user_id}
+        setMaterialData={setMaterialData}
+        materialData={materialData}
+      />
     </View>
   );
 };

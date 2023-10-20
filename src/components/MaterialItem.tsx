@@ -3,11 +3,11 @@ import React from "react";
 import { YStack, XStack, Avatar, Separator, Text } from "tamagui";
 import { router } from "expo-router";
 
-export type MatProps = { img?: string; name: string; description: string, picture: string[], id: string, typeM: string, reduce: number, avgprice: number, submat: string[]};
+export type MatProps = { img?: string; name: string; description: string, iconmain: string[], picture: string[], id: string, typeM: string, reduce: number, avgprice: number, submat: string[]};
 // export type MatProps = { img?: string; name: string; description: string };
 const MaterialItem = (item: MatProps) => {
 	return (
-		<Pressable onPress={() => router.push({pathname:`/detailTrash/${item.id}`} )}>
+		<Pressable onPress={() => router.push({pathname:`/detailTrash/${item.id}`, params: item } )}>
 			<YStack w={"100%"}>
 				<XStack
 					alignItems="center"
@@ -21,12 +21,13 @@ const MaterialItem = (item: MatProps) => {
 					br={20}
 				>
 					<Avatar circular size="$6">
-						<Avatar.Image src="http://placekitten.com/200/300" />
+						<Avatar.Image src={item.iconmain[0]} />
 						<Avatar.Fallback bc="red" />
 					</Avatar>
 					<YStack>
 						<Text fow={"800"}>
 							{item.name}
+							
 						</Text>
 						<Text>{item.description}</Text>
 					</YStack>

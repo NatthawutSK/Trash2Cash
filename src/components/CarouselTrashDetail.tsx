@@ -56,20 +56,20 @@ const styles = StyleSheet.create({
 // });
 
 const Slide = memo(function Slide({ data }: any) {
-    // const items = (data).split(",")
-    console.log("Slice")
-    console.log(data)
+  // const items = (data).split(",")
+  console.log("Slice");
+  console.log(data);
   return (
-    <View style={styles.slide} >
-      <Image source={ data } style={styles.slideImage} />
+
+    <View style={styles.slide}>
+      <Image source={data} style={styles.slideImage} />
     </View>
   );
 });
 
 export default function CarouselTrashDetail({ img }: any) {
-
-// console.log(JSON.stringify(img));
-  const items = (img).split(",")
+  // console.log(JSON.stringify(img));
+  const items = img.split(",");
   // console.log(items)
   // const items2 = items.repla
 
@@ -111,7 +111,6 @@ export default function CarouselTrashDetail({ img }: any) {
   };
 
   const renderItem = useCallback(function renderItem({ item }: any) {
-    
     // console.log(item)
     return <Slide data={item} />;
   }, []);
@@ -152,6 +151,4 @@ export default function CarouselTrashDetail({ img }: any) {
       <Pagination index={index}></Pagination>
     </>
   );
-
 }
-

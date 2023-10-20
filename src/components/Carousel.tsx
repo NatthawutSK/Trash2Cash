@@ -13,12 +13,12 @@ const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   slide: {
-    height: 250,
+    height: 200,
     width: windowWidth,
     // justifyContent: "center",
     alignItems: "center",
   },
-  slideImage: { width: windowWidth, height: 250 },
+  slideImage: { width: windowWidth, height: 200 },
   slideTitle: { fontSize: 24 },
   slideSubtitle: { fontSize: 18 },
 
@@ -61,9 +61,6 @@ const Slide = memo(function Slide({ data }: any) {
 });
 
 export default function Carousel({ img }: any) {
-
-// console.log(JSON.stringify(img));
-
   const [index, setIndex] = useState(0);
   const indexRef = useRef(index);
   indexRef.current = index;
@@ -108,7 +105,7 @@ export default function Carousel({ img }: any) {
   function Pagination({ index }: any) {
     return (
       <View style={styles.pagination} pointerEvents="none">
-        {img?.map((_: any, i: any) => {
+        {img.map((_: any, i: any) => {
           return (
             <View
               key={i}
@@ -141,6 +138,4 @@ export default function Carousel({ img }: any) {
       <Pagination index={index}></Pagination>
     </>
   );
-
 }
-

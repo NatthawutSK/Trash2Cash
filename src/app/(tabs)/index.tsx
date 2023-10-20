@@ -9,7 +9,6 @@ import { TrashMaterial, imgIcon } from "@/MockData/data";
 import { getProperty } from "@/utils/util";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { gql, useQuery } from "@apollo/client";
 const BoxTrash = (item: any) => {
   return (
     <Pressable onPress={() => router.push("/")}>
@@ -19,38 +18,27 @@ const BoxTrash = (item: any) => {
       >
         <Image className="w-24 h-24" source={getProperty(imgIcon, item.img)} />
         <Text ta={"center"} mt={"$3"} fontSize={"$5"} className="text-white">
-          {item.name}
+          {item.materialName}
         </Text>
       </View>
     </Pressable>
   );
 };
 
-const getUserQuery = gql`
-  query MyQuery($authid: String!) {
-    usersUsingusers_auth_user_key(auth_user: $authid) {
-      address
-      auth_user
-      line_id
-      phone_number
-      roles
-      user_name
-    }
-  }
-`;
-
 const router = useRouter();
 export default function home() {
-  const headerHeight = useHeaderHeight();
+  // const headerHeight = useHeaderHeight();
   return (
-    <ScrollView bg={"$green5Light"} f={1} pt={headerHeight}>
+    <ScrollView bg={"$green5Light"} f={1}>
       {/* <Text>{JSON.stringify(data)}</Text> */}
       {/* <SelectTrashMaterial /> */}
       {/* <DialogDemo /> */}
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
-
-      <Button onPress={() => router.push("/formSeller")}>
-        go to form seller
+      <Button onPress={() => router.push("/mockFormStore")}>
+        go to Form Store
+      </Button>
+      <Button onPress={() => router.push("/(tabs)/storeProfile")}>
+        go to Store
       </Button>
 
       <Stack space={"$8"} pb={"$8"} pt={"$5"}>
@@ -100,9 +88,9 @@ export default function home() {
           />
         </Stack>
 
-        <Text ta={"center"} className="text-xl font-bold" color={"$green8Dark"}>
+        {/* <Text ta={"center"} className="text-xl font-bold" color={"$green8Dark"}>
           สถิติรวม
-        </Text>
+        </Text> */}
 
         {/* <Stack jc={"center"} ai={"center"} space={"$5"}>
           <XStack space={"$4"}> */}

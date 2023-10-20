@@ -48,7 +48,7 @@ const detailStore = (props: Props) => {
 
       <YStack ai={"center"} pt={"$5"} space={"$4"}>
         <H4 className="font-bold">วัสดุที่รับ</H4>
-        <MaterialDropDown data={MockTrashMaterial} />
+        {/* <MaterialDropDown data={MockTrashMaterial} /> */}
       </YStack>
     </ScrollView>
   );

@@ -3,32 +3,32 @@ import { TypeStore, TypeTrashMaterial } from "./types";
 export const TrashMaterial = [
   {
     id: 1,
-    name: "ขวด PET ใส",
+    materialName: "ขวด PET ใส",
     img: "plastic_bottle",
   },
   {
     id: 2,
-    name: "ขวดแก้ว",
+    materialName: "ขวดแก้ว",
     img: "glass_bottle",
   },
   {
     id: 3,
-    name: "กระดาษกล่อง",
+    materialName: "กระดาษกล่อง",
     img: "box",
   },
   {
     id: 4,
-    name: "ถุงฟิล์ม/ยืด",
+    materialName: "ถุงฟิล์ม/ยืด",
     img: "plastic_bag",
   },
   {
     id: 5,
-    name: "กระป๋องอลูมิเนียม",
+    materialName: "กระป๋องอลูมิเนียม",
     img: "can",
   },
   {
     id: 6,
-    name: "กระดาษขาวดำ",
+    materialName: "กระดาษขาวดำ",
     img: "paper",
   },
 ];
@@ -48,28 +48,34 @@ export const userdata = {
 
 export const imgIcon = {
   plastic_bottle: require("../../assets/images/plastic-bottle.png"),
+  "ขวด PET ใส": require("../../assets/images/plastic-bottle.png"),
   glass_bottle: require("../../assets/images/glass-bottle.png"),
+  ขวดแก้ว: require("../../assets/images/glass-bottle.png"),
   box: require("../../assets/images/box.png"),
+  กระดาษกล่อง: require("../../assets/images/box.png"),
   plastic_bag: require("../../assets/images/plastic-bag.png"),
+  "ถุงฟิล์ม/ยืด": require("../../assets/images/plastic-bag.png"),
   can: require("../../assets/images/can.png"),
+  กระป๋องอลูมิเนียม: require("../../assets/images/can.png"),
   paper: require("../../assets/images/paper.png"),
+  กระดาษขาวดำ: require("../../assets/images/paper.png"),
 };
 
-export const MockTrashMaterial: TypeTrashMaterial[] = [
+export const MockTrashMaterial = [
   {
-    name: "ขวด PET ใส",
+    materialName: "ขวด PET ใส",
     img: "plastic_bottle",
     recieveAmount: "10 - 20 กก.",
     price: 10,
   },
   {
-    name: "ขวดแก้ว",
+    materialName: "ขวดแก้ว",
     img: "glass_bottle",
     recieveAmount: "ไม่จำกัด",
     price: 20,
   },
   {
-    name: "กระดาษกล่อง",
+    materialName: "กระดาษกล่อง",
     img: "box",
     recieveAmount: "30 - 40 กก.",
     price: 30,
@@ -77,10 +83,10 @@ export const MockTrashMaterial: TypeTrashMaterial[] = [
 ];
 
 export const Mockstore: TypeStore = {
-  name: "ร้าน NA NA",
+  user_name: "ร้าน NA NA",
   address: "ถนน 1 ซอยรามคำแหง 159/1 ",
-  phone: "0812345678",
-  line: "natthawutSK",
+  phone_number: "0812345678",
+  line_id: "natthawutSK",
 };
 
 export const MockImg: string[] = [
@@ -102,3 +108,7 @@ export const recieveAmount: string[] = [
   "90 - 100 กก.",
   "ไม่จำกัด",
 ];
+
+// export const recieveImg = {
+
+// }

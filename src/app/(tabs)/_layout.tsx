@@ -37,7 +37,7 @@ export default function TabLayout() {
         tabBarLabelStyle: { fontSize: 12, top: -5 },
         // tabBarBadgeStyle: { backgroundColor: colors.green1 },
         tabBarStyle: { backgroundColor: colors.green3, height: 60 },
-        headerTransparent: true,
+        // headerTransparent: true,
         headerRight: () => (
           <Stack f={1} flexDirection="row" ai={"center"} space={"$3"}>
             <Link href="/search" asChild>
@@ -127,7 +127,7 @@ export default function TabLayout() {
           title: "qrCode",
           tabBarButton: () => (
             <Link
-              href={dbUser.roles === "store" ? "/qrCodeBuyer" : "/qrCodeSeller"}
+              href={dbUser.roles === "Buyer" ? "/qrCodeBuyer" : "/qrCodeSeller"}
               asChild
             >
               <Pressable
@@ -152,7 +152,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="storeProfile"
         options={{
-          href: dbUser.roles === "store" ? "/(tabs)/storeProfile" : null,
+          href: dbUser.roles === "Buyer" ? "/(tabs)/storeProfile" : null,
 
           title: "Store",
           tabBarIcon: ({ color }) => (
@@ -164,7 +164,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          href: dbUser.roles === "store" ? null : "/(tabs)/profile",
+          href: dbUser.roles === "Buyer" ? null : "/(tabs)/profile",
 
           title: "Profile",
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,

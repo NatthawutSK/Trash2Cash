@@ -4,7 +4,12 @@ import { Adapt, Fieldset, Label, Select, Sheet, YStack } from "tamagui";
 import { LinearGradient } from "tamagui/linear-gradient";
 import { TrashMaterial } from "@/MockData/data";
 
-export default function SelectTrashMaterial() {
+type Props = {
+  trash?: string;
+  setTrash?: (trash: string) => void;
+};
+
+export default function SelectTrashMaterial({ trash, setTrash }: Props) {
   const [val, setVal] = useState("ขวด PET ใส");
 
   return (

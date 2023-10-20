@@ -91,7 +91,7 @@ const DialogEditTrashMaterial = ({ item }: Props) => {
                 <Label htmlFor="name">ชื่อวัสดุ</Label>
                 <Input
                   id="name"
-                  defaultValue={item.name}
+                  defaultValue={item.materialName.toString()}
                   editable={false}
                   bg={"$gray5Light"}
                 />
@@ -100,7 +100,7 @@ const DialogEditTrashMaterial = ({ item }: Props) => {
                 <Label htmlFor="price">ราคาที่รับ</Label>
                 <Input id="price" defaultValue={item.price.toString()} />
               </Fieldset>
-              <SelectReceiveTrash amount={item.recieveAmount} />
+              <SelectReceiveTrash amount={item.receive} />
             </Stack>
 
             <YStack alignItems="flex-end" marginTop="$2">

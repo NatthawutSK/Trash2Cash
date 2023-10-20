@@ -16,6 +16,7 @@ const FlatListMaterial = ({ data }: { data: MatProps[] }) => {
 			<FlatList
 				contentContainerStyle={{
 					gap: 10,
+					paddingBottom: 80,
 				}}
 				showsVerticalScrollIndicator={false}
 				data={data}

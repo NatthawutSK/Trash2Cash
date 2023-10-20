@@ -5,6 +5,7 @@ import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Button, Form, H4, Stack, Text, XStack } from "tamagui";
 import FormSeller from "./FormSeller";
+import FormStore from "./FormStore";
 
 type Props = {};
 
@@ -40,7 +41,7 @@ const chooseRole = (props: Props) => {
       ) : checkRole === "seller" ? (
         <FormSeller />
       ) : checkRole === "store" ? (
-        <FormSeller />
+        <FormStore />
       ) : null}
     </>
   );

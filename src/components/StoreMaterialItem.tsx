@@ -19,7 +19,7 @@ const StoreMaterial = ({ img, name, mat, price, transport }: StoreMaterialProps)
   const router = useRouter();
   return (
     //   <Link href="/detailStore/66" asChild>
-    <Pressable onPress={() => router.push("/detailStore/66")}>
+    <Pressable onPress={() => router.push(`/detailStore/66`)}>
       <YStack flex={1}>
         <XStack
           br={20}
@@ -39,6 +39,7 @@ const StoreMaterial = ({ img, name, mat, price, transport }: StoreMaterialProps)
             <YStack space={"$1"}>
               <Text fow={"800"} fontSize={"$1"}>
                 {name}
+         
               </Text>
               <Text>ราคาขั้นต่ำ : {price} ฿</Text>
             </YStack>

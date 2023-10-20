@@ -127,6 +127,7 @@ const MaterialInfoItem = ({name, picture, id, typeM, reduce, avgprice, submat}: 
           >
             <Text style={{ fontSize: 20, fontWeight: "bold" }}>
               Name : {name}
+              `/detailTrash/${id}`
             </Text>
             <Text style={{ fontSize: 14 }}>Type : {typeM}</Text>
           </YStack>
@@ -169,7 +170,7 @@ const MaterialInfoItem = ({name, picture, id, typeM, reduce, avgprice, submat}: 
             >
 
               {Icon.map((m, i) => {
-                  return <Button className=" p-6 bg-green-800 m-2"><FontAwesome5 key={i} name={m} size={1}  /></Button>;
+                  return <Pressable className=" p-3 bg-gradient-to-r from-cyan-500 to-blue-500 mr-5 mt-3 border-2" onPress={() => router.push("/detailStore/66")}><FontAwesome5 key={i} name={m} size={18} /></Pressable>;
                 })}
               </View>
 

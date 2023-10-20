@@ -3,17 +3,18 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 //   import { Text, View } from "@/components/Themed";
 import FlatListStoreMaterial from "@/components/FlatListStoreMaterial";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { ScrollView } from "react-native-virtualized-view";
 import { YStack } from "tamagui";
-import Carousel from "@/components/Carousel";
+// import Carousel from "@/components/Carousel";
+import CarouselTrashDetail from "@/components/CarouselTrashDetail";
 
 const images = [
-  "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+  "../../../assets/images/trash/bottlewarn.png",
 
-  "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+  "../../../assets/images/trash/bottlecorrect.png",
 
-  "https://www.onep.go.th/wp-content/uploads/2020/12/envinews-20201222-2.jpg",
+  "../../../assets/images/trash/bottlewarn.png",
 
   // Add more images as needed
 ];
@@ -265,6 +266,14 @@ type ItemProps = {
   submat: string[][];
 };
 export default function TrashDetail() {
+  // const params = useLocalSearchParams<{ item: any }>();
+  const item = useLocalSearchParams();
+  // const {item} = params;
+  // console.log(item)
+  // console.log(item.picture)
+
+  // const pictureCorousel = (item.picture).split(',');
+  
   // let [currentIndex, setCurrentIndex] = useState(0);
   // const flatListRef = useRef(null);
   // console.log(currentIndex);
@@ -299,27 +308,29 @@ export default function TrashDetail() {
   // }
   return (
     <ScrollView>
-      <Carousel img={images} />
+      <CarouselTrashDetail img={item.picture} />
       <YStack p={20} mt={"$8"}>
         <YStack alignItems="flex-start" ml={30} mb={10}>
           <Text style={{ fontSize: 20, fontWeight: "bold" }}>
-            Name : Bottle
+          {item.name}
           </Text>
-          <Text style={{ fontSize: 14 }}>Type : Plas</Text>
+
+          <Text style={{ fontSize: 14 }}>{item.description}</Text>
         </YStack>
         <View style={styles.hr}></View>
         <YStack>
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
+              {/* {JSON.parse(item.picture).map(picture => <Text>{picture}</Text>)} */}
             <Text style={{ fontSize: 14 }}>Reduce Co2</Text>
-            <Text style={{ fontSize: 14 }}>10 e/kg</Text>
+            <Text style={{ fontSize: 14 }}>{item.reduce} e/kg</Text>
           </View>
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
             <Text style={{ fontSize: 14 }}>Average Price</Text>
-            <Text style={{ fontSize: 14 }}>10 baht/kg</Text>
+            <Text style={{ fontSize: 14 }}>{item.avgprice} baht/kg</Text>
           </View>
         </YStack>
         <View style={styles.hr}></View>
@@ -328,7 +339,7 @@ export default function TrashDetail() {
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
           >
-            {Icon.map((m, i) => {
+            {Icon?.map((m, i) => {
               return (
                 <Text className="my-3 mr-5" key={i}>
                   <FontAwesome5 key={i} name={m} size={18} />

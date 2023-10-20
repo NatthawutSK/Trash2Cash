@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
   pagination: {
     position: "absolute",
-    top: 220,
+    top: 270,
     width: "100%",
     justifyContent: "center",
     flexDirection: "row",
@@ -53,16 +53,22 @@ const styles = StyleSheet.create({
 // });
 
 const Slide = memo(function Slide({ data }: any) {
+    // const items = (data).split(",")
+    console.log("Slice")
+    console.log(data)
   return (
     <View style={styles.slide}>
-      <Image source={{ uri: data }} style={styles.slideImage} />
+      <Image source={ data } style={styles.slideImage} />
     </View>
   );
 });
 
-export default function Carousel({ img }: any) {
+export default function CarouselTrashDetail({ img }: any) {
 
 // console.log(JSON.stringify(img));
+  const items = (img).split(",")
+  // console.log(items)
+  // const items2 = items.repla
 
   const [index, setIndex] = useState(0);
   const indexRef = useRef(index);
@@ -102,13 +108,15 @@ export default function Carousel({ img }: any) {
   };
 
   const renderItem = useCallback(function renderItem({ item }: any) {
+    
+    // console.log(item)
     return <Slide data={item} />;
   }, []);
 
   function Pagination({ index }: any) {
     return (
       <View style={styles.pagination} pointerEvents="none">
-        {img?.map((_: any, i: any) => {
+        {items?.map((_: any, i: any) => {
           return (
             <View
               key={i}
@@ -128,7 +136,7 @@ export default function Carousel({ img }: any) {
   return (
     <>
       <FlatList
-        data={img}
+        data={items}
         style={styles.carousel}
         renderItem={renderItem}
         pagingEnabled

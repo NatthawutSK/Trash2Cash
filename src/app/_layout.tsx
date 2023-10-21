@@ -31,8 +31,6 @@ import config from "../../tamagui.config";
 import UserContextProvider, { useUserContext } from "@/provider/UserContext";
 import ChooseRole from "@/components/auth/ChooseRole";
 import Spinner from "react-native-loading-spinner-overlay";
-import MaterialContextProvider from "@/provider/MaterialContext";
-// import { LocationProvider } from "@/provider/LocationProvider";
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY!;
 export {
   // Catch any errors thrown by the Layout component.
@@ -100,7 +98,6 @@ function RootLayoutNavWithProviders() {
     >
       <ApolloProvider client={client}>
         <UserContextProvider>
-          {/* <MaterialContextProvider> */}
           <TamaguiProvider config={config}>
             <Theme name={colorScheme}>
               <ThemeProvider
@@ -110,7 +107,6 @@ function RootLayoutNavWithProviders() {
               </ThemeProvider>
             </Theme>
           </TamaguiProvider>
-          {/* </MaterialContextProvider> */}
         </UserContextProvider>
       </ApolloProvider>
     </ClerkProvider>

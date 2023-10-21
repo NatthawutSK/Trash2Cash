@@ -74,12 +74,19 @@ export default function Profile() {
 		if (focusCount === 1 && isFocused) {
 			// this is the first time focus => init screen here
 			(async () => {
-				setImgUrl(
-					await getDownloadURL(
-						ref(storage, `Profile/${dbUser.auth_id}/avatar.png`)
-					)
-				);
-				console.log("async");
+				try {
+					setImgUrl(
+						await getDownloadURL(
+							ref(storage, `Profile/${dbUser.auth_id}/avatar.png`)
+						)
+					);
+					console.log("async");
+				} catch (e) {
+					setImgUrl(
+						"https://icons.veryicon.com/png/o/business/middle-stage-background-icon/account-number.png"
+					);
+					console.log(e);
+				}
 			})();
 		}
 	});
@@ -107,16 +114,10 @@ export default function Profile() {
 	};
 
 	return (
-		<YStack padding={"$4"} marginTop={"$11"} space={"$4"}>
+		<YStack padding={"$4"} marginTop={"$6"} space={"$4"}>
 			<XStack jc={"space-around"} w={"100%"} space={"$4"} mb={"$2"}>
 				<Avatar br={20} size="$12">
-					<Avatar.Image
-						src={
-							imgUrl === ""
-								? "https://icons8.com/icon/ckaioC1qqwCu/male-user"
-								: imgUrl
-						}
-					/>
+					<Avatar.Image src={imgUrl} />
 					<Avatar.Fallback bc="red" />
 				</Avatar>
 				<Stack

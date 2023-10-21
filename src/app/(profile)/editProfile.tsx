@@ -23,7 +23,7 @@ import { H4 } from "tamagui";
 import { colors } from "@/constants/Colors";
 import PickerImg from "@/components/MyImagePicker";
 import { useUserContext } from "@/provider/UserContext";
-import { uploadImage } from "@/utils/util";
+import { uploadImage, pickImage } from "@/utils/util";
 import * as ImagePicker from "expo-image-picker";
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../../firebase";
@@ -46,23 +46,23 @@ const editProfile = (props: Props) => {
 		}
 	`;
 	const [handleMutation, { loading }] = useMutation(updateUserQuery);
-	const pickImage = async () => {
-		// No permissions request is necessary for launching the image library
-		let result = await ImagePicker.launchImageLibraryAsync({
-			mediaTypes: ImagePicker.MediaTypeOptions.Images,
-			allowsEditing: true,
-			aspect: [16, 9],
-			quality: 1,
-		});
-		//to remove warning
-		// delete result.canceled;
+	// const pickImage = async () => {
+	// 	// No permissions request is necessary for launching the image library
+	// 	let result = await ImagePicker.launchImageLibraryAsync({
+	// 		mediaTypes: ImagePicker.MediaTypeOptions.Images,
+	// 		allowsEditing: true,
+	// 		aspect: [16, 9],
+	// 		quality: 1,
+	// 	});
+	// 	//to remove warning
+	// 	// delete result.canceled;
 
-		if (!result.canceled) {
-			setImage(result.assets[0].uri);
+	// 	if (!result.canceled) {
+	// 		setImage(result.assets[0].uri);
 
-			// reloadDbUser();
-		}
-	};
+	// 		// reloadDbUser();
+	// 	}
+	// };
 	const SaveProfile = async () => {
 		try {
 			await handleMutation({
@@ -109,7 +109,7 @@ const editProfile = (props: Props) => {
 						bc={"#66b55d"}
 						color={"$green5Light"}
 						className="font-bold"
-						onPress={pickImage}
+						onPress={() => pickImage(setImage)}
 					>
 						เลือกรูป
 					</Button>

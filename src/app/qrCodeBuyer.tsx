@@ -64,19 +64,7 @@ export default function App() {
 							flexDirection: "column",
 							flex: 1,
 						}}
-					>
-						<Text
-							style={{
-								fontSize: 20,
-								width: "100%",
-								textAlign: "center",
-								color: "white",
-							}}
-						>
-							Scan your QR code
-						</Text>
-						<View></View>
-					</BarCodeScanner>
+					></BarCodeScanner>
 				)}
 			</View>
 

@@ -1,9 +1,10 @@
 import { TrashMaterial, recieveAmount } from "@/MockData/data";
 import { MySafeAreaView } from "@/components/MySafeAreaView";
 import { MyStack } from "@/components/MyStack";
-import { ChevronDown, ChevronUp, Check } from "@tamagui/lucide-icons";
+import { ChevronDown, ChevronUp, Check, X } from "@tamagui/lucide-icons";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
+import { MaterialIcons } from "@expo/vector-icons";
 import {
   Adapt,
   Button,
@@ -24,11 +25,13 @@ import SelectTrashMaterial from "../SelectTrashMaterial";
 import SelectReceiveTrash from "../SelectReceiveTrash";
 import { LinearGradient } from "tamagui/linear-gradient";
 import { useForm, Controller } from "react-hook-form";
-import { TextInput } from "react-native";
+import { TextInput, View } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { gql, useMutation } from "@apollo/client";
 import { useUserContext } from "@/provider/UserContext";
 import MapPickLocation from "../MapPickLocation";
+import MaterialFormStoreComp from "../MaterialFormStoreComp";
+import { ScrollView } from "react-native-virtualized-view";
 
 type Props = {};
 
@@ -154,9 +157,9 @@ const FormStore = (props: Props) => {
   };
 
   const checkForm = async () => {
-    // if (await trigger(["name", "phone", "line", "address"])) {
-    setNext((prev) => !prev);
-    // }
+    if (await trigger(["name", "phone", "line", "address"])) {
+      setNext((prev) => !prev);
+    }
   };
 
   const AddMaterial = async () => {
@@ -179,6 +182,7 @@ const FormStore = (props: Props) => {
 
   return (
     <MySafeAreaView>
+      {/* <ScrollView> */}
       {showMap ? (
         <MapPickLocation addLocation={addLocation} />
       ) : (
@@ -542,40 +546,67 @@ const FormStore = (props: Props) => {
               </Stack>
               <Button onPress={() => AddMaterial()}>เพิ่มวัสดุที่รับ</Button>
 
-              <Stack bg={"$blue10Light"} w={"100%"} h={"$10"}>
+              {/* <Stack bg={"$blue10Light"} w={"100%"} h={"$10"}>
                 <Text>{JSON.stringify(allMaterial)}</Text>
-              </Stack>
+              </Stack> */}
 
-              {/* <XStack jc={"space-around"}>
-                <Label>latitude</Label>
-                <Label>longtitude</Label>
-              </XStack> */}
+              {/* <MaterialFormStoreComp allMaterial={allMaterial} /> */}
+              <View className=" bg-[#61876E] text-white rounded-lg px-3 py-3 w-[100%]">
+                <Text className="text-lg font-bold text-white">
+                  รายการที่เพิ่ม
+                </Text>
+                {allMaterial.length > 0 ? (
+                  allMaterial.map((item, i) => {
+                    return (
+                      <View
+                        key={i}
+                        className="flex-row justify-between items-center bg-[#3C6255] rounded-lg px-5 py-3 mt-2"
+                      >
+                        <Text className="text-white">{item.materialName}</Text>
+                        <Text className="text-white">{item.price} กก.</Text>
+                        <Button
+                          icon={X}
+                          color={"white"}
+                          size={"$3"}
+                          className="bg-[#3C6255]"
+                          onPress={() => {
+                            console.log("pressss");
 
-              <XStack jc={"space-around"}>
-                <Stack width={"48%"}>
-                  <Label>latitude</Label>
-                  <Input
-                    placeholder="latitude"
-                    width={"100%"}
-                    editable={false}
-                    bg={"$blue1Light"}
-                    value={location.latitude.toString()}
-                  />
-                </Stack>
-                <Stack width={"48%"}>
-                  <Label>longtitude</Label>
-                  <Input
-                    placeholder="longtitude"
-                    width={"100%"}
-                    editable={false}
-                    bg={"$blue1Light"}
-                    value={location.longitude.toString()}
-                  />
-                </Stack>
-              </XStack>
+                            setAllMaterial(
+                              allMaterial.filter((val, index) => {
+                                return index != i;
+                              })
+                            );
+                          }}
+                        ></Button>
+                      </View>
+                    );
+                  })
+                ) : (
+                  // SellingFlatList({ list, removeItem })
+                  <Text className="text-base text-white">ไม่มีรายการ</Text>
+                )}
+              </View>
 
-              <Button onPress={() => setShowMap(true)}>
-                เพิ่มตำแหน่งที่ตั้ง {location.latitude.toString()}
+              <Button
+                onPress={() => setShowMap(true)}
+                iconAfter={
+                  location.latitude === 0 && location.longitude === 0 ? (
+                    <MaterialIcons
+                      name="add-location-alt"
+                      size={24}
+                      color="black"
+                    />
+                  ) : (
+                    <MaterialIcons
+                      name="file-download-done"
+                      size={24}
+                      color="black"
+                    />
+                  )
+                }
+              >
+                เพิ่มตำแหน่งที่ตั้ง
               </Button>
               <Button onPress={handleSubmit(onSubmit)}>
                 {loading ? "กำลังบันทึก..." : "บันทึก"}
@@ -584,6 +615,7 @@ const FormStore = (props: Props) => {
           )}
         </KeyboardAwareScrollView>
       )}
+      {/* </ScrollView> */}
     </MySafeAreaView>
   );
 };

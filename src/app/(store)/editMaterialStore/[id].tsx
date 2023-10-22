@@ -17,7 +17,11 @@ import DelMaterialData from "@/components/DelMaterialData";
 
 type Props = {};
 
-const renderTrashMaterial = (item: TypeTrashMaterial, setMaterialData: any) => {
+const renderTrashMaterial = (
+  item: TypeTrashMaterial,
+  setMaterialData: (materialData: TypeTrashMaterial[]) => void,
+  materialData: TypeTrashMaterial[]
+) => {
   return (
     <View
       className="bg-white self-center"
@@ -44,7 +48,11 @@ const renderTrashMaterial = (item: TypeTrashMaterial, setMaterialData: any) => {
         <Text>จำนวนที่รับ : {item.receive}</Text>
         <Text>ราคาที่รับ : {item.price} บาท/กก.</Text>
         <View style={{ flexDirection: "row", gap: 10, marginTop: 10 }}>
-          <DialogEditTrashMaterial item={item} />
+          <DialogEditTrashMaterial
+            item={item}
+            materialData={materialData}
+            setMaterialData={setMaterialData}
+          />
           <DelMaterialData
             materialName={item.materialName}
             setMaterialData={setMaterialData}
@@ -107,7 +115,7 @@ const editMaterialStore = (props: Props) => {
         onRefresh={reloadDbUser}
         data={materialData}
         renderItem={({ item }: { item: TypeTrashMaterial }) =>
-          renderTrashMaterial(item, setMaterialData)
+          renderTrashMaterial(item, setMaterialData, materialData)
         }
         contentContainerStyle={{ gap: 20 }}
         keyExtractor={(item, index) => index.toString()}

@@ -144,6 +144,10 @@ function RootLayoutNav() {
               options={{ headerShown: false }}
             />
             <Stack.Screen
+              name="(map)/mapPick"
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
               name="(map)/nearbyRanking"
               options={{ headerShown: false }}
             />

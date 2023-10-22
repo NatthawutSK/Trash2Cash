@@ -17,6 +17,7 @@ import {
   Stack,
   Text,
   TextArea,
+  XStack,
   YStack,
 } from "tamagui";
 import SelectTrashMaterial from "../SelectTrashMaterial";
@@ -27,6 +28,7 @@ import { TextInput } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { gql, useMutation } from "@apollo/client";
 import { useUserContext } from "@/provider/UserContext";
+import MapPickLocation from "../MapPickLocation";
 
 type Props = {};
 
@@ -55,6 +57,8 @@ const createBuyerMutation = gql`
     $phone_number: String!
     $store_detail: String!
     $roles: String!
+    $latitude: String!
+    $longtitude: String!
   ) {
     insertUsers(
       auth_id: $auth_id
@@ -70,13 +74,31 @@ const createBuyerMutation = gql`
     insertStore(auth_id: $auth_id, store_detail: $store_detail) {
       auth_id
     }
+    insertLocation_store(
+      auth_id: $auth_id
+      latitude: $latitude
+      longtitude: $longtitude
+    ) {
+      auth_id
+    }
   }
 `;
 
+type Location = {
+  latitude: number;
+  longitude: number;
+};
+
 const FormStore = (props: Props) => {
   // const [trash, setTrash] = useState("");
+  const router = useRouter();
   const [next, setNext] = useState(false);
   const [allMaterial, setAllMaterial] = useState<TrashMaterial[]>([]);
+  const [showMap, setShowMap] = useState(false);
+  const [location, setLocation] = useState<Location>({
+    latitude: 0,
+    longitude: 0,
+  });
   const [handleMutation, { loading }] = useMutation(createBuyerMutation);
   const { authUser, reloadDbUser }: any = useUserContext();
 
@@ -120,6 +142,8 @@ const FormStore = (props: Props) => {
           phone_number: phone,
           line_id: line,
           store_detail: JSON.stringify(allMaterial),
+          latitude: location.latitude.toString(),
+          longtitude: location.longitude.toString(),
         },
       });
       reloadDbUser();
@@ -130,9 +154,9 @@ const FormStore = (props: Props) => {
   };
 
   const checkForm = async () => {
-    if (await trigger(["name", "phone", "line", "address"])) {
-      setNext((prev) => !prev);
-    }
+    // if (await trigger(["name", "phone", "line", "address"])) {
+    setNext((prev) => !prev);
+    // }
   };
 
   const AddMaterial = async () => {
@@ -148,125 +172,20 @@ const FormStore = (props: Props) => {
     }
   };
 
+  const addLocation = (location: Location) => {
+    setLocation(location);
+    setShowMap(false);
+  };
+
   return (
     <MySafeAreaView>
-      <KeyboardAwareScrollView>
-        {!next ? (
-          <Stack paddingHorizontal={"$5"} space={"$4"} jc={"center"} f={1}>
-            <H4 ta={"center"}>เพิ่มร้านค้า</H4>
-            <Stack>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <>
-                    <Label width={100} htmlFor="name">
-                      ชื่อร้านค้า
-                    </Label>
-                    <Input
-                      placeholder="name"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                    />
-                  </>
-                )}
-                name="name"
-              />
-              {errors.name && (
-                <Text className="text-red-600">This is required.</Text>
-              )}
-            </Stack>
-            <Stack>
-              <Controller
-                control={control}
-                rules={{
-                  required: {
-                    value: true,
-                    message: "Phone number is required",
-                  },
-                  pattern: {
-                    value: /^[0-9]{10}$/, // Adjust the regex pattern for your specific phone number format
-                    message: "Invalid phone number",
-                  },
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <>
-                    <Label width={100} htmlFor="phone">
-                      เบอร์โทรศัพท์
-                    </Label>
-                    <Input
-                      placeholder="เบอร์โทรศัพท์"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                    />
-                  </>
-                )}
-                name="phone"
-              />
-              {errors.phone && (
-                <Text className="text-red-600">{errors.phone.message}</Text>
-              )}
-            </Stack>
-            <Stack>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <>
-                    <Label width={100} htmlFor="line">
-                      ไลน์ไอดี
-                    </Label>
-                    <Input
-                      placeholder="ไลน์ไอดี"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                    />
-                  </>
-                )}
-                name="line"
-              />
-              {errors.line && (
-                <Text className="text-red-600">This is required.</Text>
-              )}
-            </Stack>
-            <Stack>
-              <Controller
-                control={control}
-                rules={{
-                  required: true,
-                }}
-                render={({ field: { onChange, onBlur, value } }) => (
-                  <>
-                    <Label width={100} htmlFor="address">
-                      ที่อยู่ร้านค้า
-                    </Label>
-                    <TextArea
-                      placeholder="ที่อยู่ร้านค้า"
-                      onBlur={onBlur}
-                      onChangeText={onChange}
-                      value={value}
-                    />
-                  </>
-                )}
-                name="address"
-              />
-              {errors.address && (
-                <Text className="text-red-600">This is required.</Text>
-              )}
-            </Stack>
-            <Button onPress={() => checkForm()}>ถัดไป</Button>
-          </Stack>
-        ) : (
-          <Stack paddingHorizontal={"$5"} space={"$4"} jc={"center"} f={1}>
-            <Stack flexDirection="column" gap={"$3"}>
-              {/* selct material */}
+      {showMap ? (
+        <MapPickLocation addLocation={addLocation} />
+      ) : (
+        <KeyboardAwareScrollView>
+          {!next ? (
+            <Stack paddingHorizontal={"$5"} space={"$4"} jc={"center"} f={1}>
+              <H4 ta={"center"}>เพิ่มร้านค้า</H4>
               <Stack>
                 <Controller
                   control={control}
@@ -275,126 +194,19 @@ const FormStore = (props: Props) => {
                   }}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <>
-                      <Label htmlFor="trash">เลือกวัสดุ</Label>
-                      <Select id="trash" value={value} onValueChange={onChange}>
-                        <Select.Trigger id="trash" iconAfter={ChevronDown}>
-                          <Select.Value placeholder="เลือกวัสดุที่รับ" />
-                        </Select.Trigger>
-
-                        <Adapt when="sm" platform="touch">
-                          <Sheet modal dismissOnSnapToBottom>
-                            <Sheet.Frame>
-                              <Sheet.ScrollView>
-                                <Adapt.Contents />
-                              </Sheet.ScrollView>
-                            </Sheet.Frame>
-                            <Sheet.Overlay />
-                          </Sheet>
-                        </Adapt>
-
-                        <Select.Content zIndex={200000}>
-                          <Select.ScrollUpButton
-                            ai="center"
-                            jc="center"
-                            pos="relative"
-                            w="100%"
-                            h="$3"
-                          >
-                            <YStack zi={10}>
-                              <ChevronUp size={20} />
-                            </YStack>
-                            <LinearGradient
-                              start={[0, 0]}
-                              end={[0, 1]}
-                              fullscreen
-                              colors={["$background", "$backgroundTransparent"]}
-                              br="$4"
-                            />
-                          </Select.ScrollUpButton>
-
-                          <Select.Viewport minWidth={200}>
-                            <Select.Group>
-                              <Select.Label>วัสดุ</Select.Label>
-                              {TrashMaterial.map((item, i) => {
-                                return (
-                                  <Select.Item
-                                    index={i}
-                                    key={item.materialName}
-                                    value={item.materialName}
-                                  >
-                                    <Select.ItemText color="$color">
-                                      {item.materialName}
-                                    </Select.ItemText>
-                                    <Select.ItemIndicator ml="auto">
-                                      <Check size={16} />
-                                    </Select.ItemIndicator>
-                                  </Select.Item>
-                                );
-                              })}
-                            </Select.Group>
-                          </Select.Viewport>
-
-                          <Select.ScrollDownButton
-                            ai="center"
-                            jc="center"
-                            pos="relative"
-                            w="100%"
-                            h="$3"
-                          >
-                            <YStack zi={10}>
-                              <ChevronDown size={20} />
-                            </YStack>
-                            <LinearGradient
-                              start={[0, 0]}
-                              end={[0, 1]}
-                              fullscreen
-                              colors={["$backgroundTransparent", "$background"]}
-                              br="$4"
-                            />
-                          </Select.ScrollDownButton>
-                        </Select.Content>
-                      </Select>
-                    </>
-                  )}
-                  name="material"
-                />
-                {errors.material && (
-                  <Text className="text-red-600">This is required.</Text>
-                )}
-              </Stack>
-
-              {/* ................... */}
-
-              <Stack>
-                <Controller
-                  control={control}
-                  rules={{
-                    required: {
-                      value: true,
-                      message: "Price is required",
-                    },
-                    pattern: {
-                      value: /^[0-9]*[1-9][0-9]*$/,
-                      message: "Input must be a number greater than 0.",
-                    },
-                  }}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <>
-                      <Label width={100} htmlFor="price">
-                        ราคาที่รับ
-                      </Label>
+                      <Label width={100}>ชื่อร้านค้า</Label>
                       <Input
-                        placeholder="price"
+                        placeholder="name"
                         onBlur={onBlur}
                         onChangeText={onChange}
-                        value={value.toString()}
+                        value={value}
                       />
                     </>
                   )}
-                  name="price"
+                  name="name"
                 />
-                {errors.price && (
-                  <Text className="text-red-600">{errors.price.message}</Text>
+                {errors.name && (
+                  <Text className="text-red-600">This is required.</Text>
                 )}
               </Stack>
               <Stack>
@@ -403,118 +215,375 @@ const FormStore = (props: Props) => {
                   rules={{
                     required: {
                       value: true,
-                      message: "Receive is required",
+                      message: "Phone number is required",
+                    },
+                    pattern: {
+                      value: /^[0-9]{10}$/, // Adjust the regex pattern for your specific phone number format
+                      message: "Invalid phone number",
                     },
                   }}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <>
-                      <Label htmlFor="amount">จำนวนที่รับ</Label>
-                      <Select
-                        id="amount"
+                      <Label width={100}>เบอร์โทรศัพท์</Label>
+                      <Input
+                        placeholder="เบอร์โทรศัพท์"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
                         value={value}
-                        onValueChange={onChange}
-                      >
-                        <Select.Trigger id="amount" iconAfter={ChevronDown}>
-                          <Select.Value placeholder="จำนวนที่รับ" />
-                        </Select.Trigger>
-
-                        <Adapt when="sm" platform="touch">
-                          <Sheet modal dismissOnSnapToBottom>
-                            <Sheet.Frame>
-                              <Sheet.ScrollView>
-                                <Adapt.Contents />
-                              </Sheet.ScrollView>
-                            </Sheet.Frame>
-                            <Sheet.Overlay />
-                          </Sheet>
-                        </Adapt>
-
-                        <Select.Content zIndex={200000}>
-                          <Select.ScrollUpButton
-                            ai="center"
-                            jc="center"
-                            pos="relative"
-                            w="100%"
-                            h="$3"
-                          >
-                            <YStack zi={10}>
-                              <ChevronUp size={20} />
-                            </YStack>
-                            <LinearGradient
-                              start={[0, 0]}
-                              end={[0, 1]}
-                              fullscreen
-                              colors={["$background", "$backgroundTransparent"]}
-                              br="$4"
-                            />
-                          </Select.ScrollUpButton>
-
-                          <Select.Viewport minWidth={200}>
-                            <Select.Group>
-                              <Select.Label>จำนวนที่รับ</Select.Label>
-                              {recieveAmount.map((item, i) => {
-                                return (
-                                  <Select.Item
-                                    index={i}
-                                    key={item}
-                                    value={item}
-                                  >
-                                    <Select.ItemText color="$color">
-                                      {item}
-                                    </Select.ItemText>
-                                    <Select.ItemIndicator ml="auto">
-                                      <Check size={16} />
-                                    </Select.ItemIndicator>
-                                  </Select.Item>
-                                );
-                              })}
-                            </Select.Group>
-                          </Select.Viewport>
-
-                          <Select.ScrollDownButton
-                            ai="center"
-                            jc="center"
-                            pos="relative"
-                            w="100%"
-                            h="$3"
-                          >
-                            <YStack zi={10}>
-                              <ChevronDown size={20} />
-                            </YStack>
-                            <LinearGradient
-                              start={[0, 0]}
-                              end={[0, 1]}
-                              fullscreen
-                              colors={["$backgroundTransparent", "$background"]}
-                              br="$4"
-                            />
-                          </Select.ScrollDownButton>
-                        </Select.Content>
-                      </Select>
+                      />
                     </>
                   )}
-                  name="receive"
+                  name="phone"
                 />
-                {errors.receive && (
-                  <Text className="text-red-600">{errors.receive.message}</Text>
+                {errors.phone && (
+                  <Text className="text-red-600">{errors.phone.message}</Text>
                 )}
               </Stack>
+              <Stack>
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <>
+                      <Label width={100}>ไลน์ไอดี</Label>
+                      <Input
+                        placeholder="ไลน์ไอดี"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                      />
+                    </>
+                  )}
+                  name="line"
+                />
+                {errors.line && (
+                  <Text className="text-red-600">This is required.</Text>
+                )}
+              </Stack>
+              <Stack>
+                <Controller
+                  control={control}
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                    <>
+                      <Label width={100}>ที่อยู่ร้านค้า</Label>
+                      <TextArea
+                        placeholder="ที่อยู่ร้านค้า"
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                      />
+                    </>
+                  )}
+                  name="address"
+                />
+                {errors.address && (
+                  <Text className="text-red-600">This is required.</Text>
+                )}
+              </Stack>
+              <Button onPress={() => checkForm()}>ถัดไป</Button>
             </Stack>
-            <Button onPress={() => AddMaterial()}>เพิ่มวัสดุที่รับ</Button>
+          ) : (
+            <Stack paddingHorizontal={"$5"} space={"$4"} jc={"center"} f={1}>
+              <Stack flexDirection="column" gap={"$3"}>
+                {/* selct material */}
+                <Stack>
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <>
+                        <Label>เลือกวัสดุ</Label>
+                        <Select
+                          id="trash"
+                          value={value}
+                          onValueChange={onChange}
+                        >
+                          <Select.Trigger id="trash" iconAfter={ChevronDown}>
+                            <Select.Value placeholder="เลือกวัสดุที่รับ" />
+                          </Select.Trigger>
 
-            <Stack bg={"$blue10Light"} w={"100%"} h={"$10"}>
-              <Text>{JSON.stringify(allMaterial)}</Text>
+                          <Adapt when="sm" platform="touch">
+                            <Sheet modal dismissOnSnapToBottom>
+                              <Sheet.Frame>
+                                <Sheet.ScrollView>
+                                  <Adapt.Contents />
+                                </Sheet.ScrollView>
+                              </Sheet.Frame>
+                              <Sheet.Overlay />
+                            </Sheet>
+                          </Adapt>
+
+                          <Select.Content zIndex={200000}>
+                            <Select.ScrollUpButton
+                              ai="center"
+                              jc="center"
+                              pos="relative"
+                              w="100%"
+                              h="$3"
+                            >
+                              <YStack zi={10}>
+                                <ChevronUp size={20} />
+                              </YStack>
+                              <LinearGradient
+                                start={[0, 0]}
+                                end={[0, 1]}
+                                fullscreen
+                                colors={[
+                                  "$background",
+                                  "$backgroundTransparent",
+                                ]}
+                                br="$4"
+                              />
+                            </Select.ScrollUpButton>
+
+                            <Select.Viewport minWidth={200}>
+                              <Select.Group>
+                                <Select.Label>วัสดุ</Select.Label>
+                                {TrashMaterial.map((item, i) => {
+                                  return (
+                                    <Select.Item
+                                      index={i}
+                                      key={item.materialName}
+                                      value={item.materialName}
+                                    >
+                                      <Select.ItemText color="$color">
+                                        {item.materialName}
+                                      </Select.ItemText>
+                                      <Select.ItemIndicator ml="auto">
+                                        <Check size={16} />
+                                      </Select.ItemIndicator>
+                                    </Select.Item>
+                                  );
+                                })}
+                              </Select.Group>
+                            </Select.Viewport>
+
+                            <Select.ScrollDownButton
+                              ai="center"
+                              jc="center"
+                              pos="relative"
+                              w="100%"
+                              h="$3"
+                            >
+                              <YStack zi={10}>
+                                <ChevronDown size={20} />
+                              </YStack>
+                              <LinearGradient
+                                start={[0, 0]}
+                                end={[0, 1]}
+                                fullscreen
+                                colors={[
+                                  "$backgroundTransparent",
+                                  "$background",
+                                ]}
+                                br="$4"
+                              />
+                            </Select.ScrollDownButton>
+                          </Select.Content>
+                        </Select>
+                      </>
+                    )}
+                    name="material"
+                  />
+                  {errors.material && (
+                    <Text className="text-red-600">This is required.</Text>
+                  )}
+                </Stack>
+
+                {/* ................... */}
+
+                <Stack>
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: "Price is required",
+                      },
+                      pattern: {
+                        value: /^[0-9]*[1-9][0-9]*$/,
+                        message: "Input must be a number greater than 0.",
+                      },
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <>
+                        <Label width={100}>ราคาที่รับ</Label>
+                        <Input
+                          placeholder="price"
+                          onBlur={onBlur}
+                          onChangeText={onChange}
+                          value={value.toString()}
+                        />
+                      </>
+                    )}
+                    name="price"
+                  />
+                  {errors.price && (
+                    <Text className="text-red-600">{errors.price.message}</Text>
+                  )}
+                </Stack>
+                <Stack>
+                  <Controller
+                    control={control}
+                    rules={{
+                      required: {
+                        value: true,
+                        message: "Receive is required",
+                      },
+                    }}
+                    render={({ field: { onChange, onBlur, value } }) => (
+                      <>
+                        <Label>จำนวนที่รับ</Label>
+                        <Select
+                          id="amount"
+                          value={value}
+                          onValueChange={onChange}
+                        >
+                          <Select.Trigger id="amount" iconAfter={ChevronDown}>
+                            <Select.Value placeholder="จำนวนที่รับ" />
+                          </Select.Trigger>
+
+                          <Adapt when="sm" platform="touch">
+                            <Sheet modal dismissOnSnapToBottom>
+                              <Sheet.Frame>
+                                <Sheet.ScrollView>
+                                  <Adapt.Contents />
+                                </Sheet.ScrollView>
+                              </Sheet.Frame>
+                              <Sheet.Overlay />
+                            </Sheet>
+                          </Adapt>
+
+                          <Select.Content zIndex={200000}>
+                            <Select.ScrollUpButton
+                              ai="center"
+                              jc="center"
+                              pos="relative"
+                              w="100%"
+                              h="$3"
+                            >
+                              <YStack zi={10}>
+                                <ChevronUp size={20} />
+                              </YStack>
+                              <LinearGradient
+                                start={[0, 0]}
+                                end={[0, 1]}
+                                fullscreen
+                                colors={[
+                                  "$background",
+                                  "$backgroundTransparent",
+                                ]}
+                                br="$4"
+                              />
+                            </Select.ScrollUpButton>
+
+                            <Select.Viewport minWidth={200}>
+                              <Select.Group>
+                                <Select.Label>จำนวนที่รับ</Select.Label>
+                                {recieveAmount.map((item, i) => {
+                                  return (
+                                    <Select.Item
+                                      index={i}
+                                      key={item}
+                                      value={item}
+                                    >
+                                      <Select.ItemText color="$color">
+                                        {item}
+                                      </Select.ItemText>
+                                      <Select.ItemIndicator ml="auto">
+                                        <Check size={16} />
+                                      </Select.ItemIndicator>
+                                    </Select.Item>
+                                  );
+                                })}
+                              </Select.Group>
+                            </Select.Viewport>
+
+                            <Select.ScrollDownButton
+                              ai="center"
+                              jc="center"
+                              pos="relative"
+                              w="100%"
+                              h="$3"
+                            >
+                              <YStack zi={10}>
+                                <ChevronDown size={20} />
+                              </YStack>
+                              <LinearGradient
+                                start={[0, 0]}
+                                end={[0, 1]}
+                                fullscreen
+                                colors={[
+                                  "$backgroundTransparent",
+                                  "$background",
+                                ]}
+                                br="$4"
+                              />
+                            </Select.ScrollDownButton>
+                          </Select.Content>
+                        </Select>
+                      </>
+                    )}
+                    name="receive"
+                  />
+                  {errors.receive && (
+                    <Text className="text-red-600">
+                      {errors.receive.message}
+                    </Text>
+                  )}
+                </Stack>
+              </Stack>
+              <Button onPress={() => AddMaterial()}>เพิ่มวัสดุที่รับ</Button>
+
+              <Stack bg={"$blue10Light"} w={"100%"} h={"$10"}>
+                <Text>{JSON.stringify(allMaterial)}</Text>
+              </Stack>
+
+              {/* <XStack jc={"space-around"}>
+                <Label>latitude</Label>
+                <Label>longtitude</Label>
+              </XStack> */}
+
+              <XStack jc={"space-around"}>
+                <Stack width={"48%"}>
+                  <Label>latitude</Label>
+                  <Input
+                    placeholder="latitude"
+                    width={"100%"}
+                    editable={false}
+                    bg={"$blue1Light"}
+                    value={location.latitude.toString()}
+                  />
+                </Stack>
+                <Stack width={"48%"}>
+                  <Label>longtitude</Label>
+                  <Input
+                    placeholder="longtitude"
+                    width={"100%"}
+                    editable={false}
+                    bg={"$blue1Light"}
+                    value={location.longitude.toString()}
+                  />
+                </Stack>
+              </XStack>
+
+              <Button onPress={() => setShowMap(true)}>
+                เพิ่มตำแหน่งที่ตั้ง {location.latitude.toString()}
+              </Button>
+              <Button onPress={handleSubmit(onSubmit)}>
+                {loading ? "กำลังบันทึก..." : "บันทึก"}
+              </Button>
             </Stack>
-
-            <Button onPress={() => console.log("go map")}>
-              เพิ่มตำแหน่งที่ตั้ง
-            </Button>
-            <Button onPress={handleSubmit(onSubmit)}>
-              {loading ? "กำลังบันทึก..." : "บันทึก"}
-            </Button>
-          </Stack>
-        )}
-      </KeyboardAwareScrollView>
+          )}
+        </KeyboardAwareScrollView>
+      )}
     </MySafeAreaView>
   );
 };

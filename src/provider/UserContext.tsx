@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 import { useUser } from "@clerk/clerk-expo";
 import { gql, useQuery } from "@apollo/client";
-import { UserType } from "@/MockData/types";
+// import { UserType } from "@/MockData/types";
 
 const getUserQuery = gql`
 

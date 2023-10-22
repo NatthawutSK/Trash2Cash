@@ -62,7 +62,7 @@ const Slide = memo(function Slide({ data }: any) {
   return (
 
     <View style={styles.slide}>
-      <Image source={data} style={styles.slideImage} />
+      <Image source={data} style={styles.slideImage} id={data} />
     </View>
   );
 });

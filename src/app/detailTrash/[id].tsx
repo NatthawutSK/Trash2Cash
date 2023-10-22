@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View, Image, } from "react-native";
 
 //   import { Text, View } from "@/components/Themed";
 import FlatListStoreMaterial from "@/components/FlatListStoreMaterial";
@@ -307,9 +307,18 @@ export default function TrashDetail() {
   //   );
   // }
   return (
-    <ScrollView>
+    <ScrollView className="w-full h-full">
+      {/* <View className="bg-white h-full w-full"> */}
+      {/* <StatusBar style="light" /> */}
+     
+      <Image
+        className="h-full w-full absolute"
+        source={require("../../../assets/images/background5.png")}
+      />
+
       <CarouselTrashDetail img={item.picture} />
       <YStack p={20} mt={"$8"}>
+        
         <YStack alignItems="flex-start" ml={30} mb={10}>
           <Text style={{ fontSize: 20, fontWeight: "bold" }}>
           {item.name}
@@ -335,6 +344,16 @@ export default function TrashDetail() {
         </YStack>
         <View style={styles.hr}></View>
         <YStack alignItems="flex-start" ml={30}>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Description</Text>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-around" }}
+          >
+            <Text className=" border-4 p-5 mt-3 bg-green-50 border-emerald-800">
+              {item.typeM}
+             </Text>
+          </View>
+        </YStack>
+        {/* <YStack alignItems="flex-start" ml={30}>
           <Text style={{ fontSize: 14 }}>สินค้าที่มีวัสดุนี้</Text>
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
@@ -347,8 +366,8 @@ export default function TrashDetail() {
               );
             })}
           </View>
-        </YStack>
-        <YStack alignItems="flex-start" ml={30}>
+        </YStack> */}
+        {/* <YStack alignItems="flex-start" ml={30}>
           <Text style={{ fontSize: 14 }}>เลือกประเภทผู้รับวัสดุนี้</Text>
           <View
             style={{ flexDirection: "row", justifyContent: "space-around" }}
@@ -365,11 +384,12 @@ export default function TrashDetail() {
               );
             })}
           </View>
-        </YStack>
+        </YStack> */}
 
         {/* <FlatListMaterialInfo data={DATA2} /> */}
-        <FlatListStoreMaterial data={DATA} />
+        {/* <FlatListStoreMaterial data={DATA} /> */}
       </YStack>
+      {/* </View> */}
     </ScrollView>
   );
 }

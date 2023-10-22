@@ -10,6 +10,7 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { ArrowBigLeft, Search } from "@tamagui/lucide-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Dimensions, Pressable } from "react-native";
+import { StoreProps } from "@/components/StoreItem";
 
 type Props = {};
 const Tab = createMaterialTopTabNavigator();
@@ -87,6 +88,7 @@ const SearchComponent = (props: Props) => {
 	const navigation = useNavigation();
 	const [search, setSearch] = useState<string>("");
 	const [data, setData] = useState<MatProps[]>(DATA);
+	const [data2, setData2] = useState<StoreProps[]>(DATA2);
 	const [tabnum, setTabnum] = useState<number>(1);
 	console.log(navigation.getState().key);
 	return (
@@ -116,10 +118,18 @@ const SearchComponent = (props: Props) => {
 							console.log(123);
 							setData(
 								DATA.filter((item) =>
-									item.name.includes(search)
+									(item.name.toLowerCase()).includes(search.toLowerCase())
 								)
 							);
 							console.log(data);
+						}
+						else{
+							setData2(
+								DATA2.filter((item) =>
+									(item.name.toLowerCase()).includes(search.toLowerCase())
+								)
+							);
+							console.log(data2);
 						}
 					}}
 				/>
@@ -144,7 +154,7 @@ const SearchComponent = (props: Props) => {
 								console.log(tabnum);
 							},
 						}}
-						children={() => <FlatListStore data={DATA2} />}
+						children={() => <FlatListStore data={data2} />}
 					/>
 					<Tab.Screen
 						name="วัสดุรีไซเคิล"

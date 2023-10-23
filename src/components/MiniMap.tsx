@@ -3,11 +3,30 @@ import React, { useEffect, useState } from "react";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import { getDistance, convertDistance, orderByDistance } from "geolib";
-import { useLocation } from "@/provider/LocationProvider";
+// import { useLocation } from "@/provider/LocationProvider";
 import { Stack, XStack } from "tamagui";
+import { gql, useQuery } from "@apollo/client";
 type Props = {};
 
+const locationQuery = gql`
+  query MyQuery {
+    location_storeList {
+      auth_id
+      latitude
+      location_id
+      longtitude
+      users {
+        user_name
+        phone_number
+      }
+    }
+  }
+`;
+
 const MiniMap = (props: Props) => {
+  const { data, loading } = useQuery(locationQuery);
+  // console.log(data?.location_storeList);
+
   // const { location } = useLocation();
   //   const customMarker = (
   //     <Image
@@ -58,45 +77,22 @@ const MiniMap = (props: Props) => {
         provider={PROVIDER_GOOGLE}
         showsUserLocation={true}
       >
-        <Marker
-          coordinate={{
-            latitude: location?.coords.latitude! - 0.002,
-            longitude: location?.coords.longitude! - 0.0005,
-          }}
-          title="ร้านพานิช"
-          description="รับหมดไม่สนขยะไหน"
-        >
-          <Image
-            source={require("../../assets/images/icons8-recycle-64.png")}
-            style={{ width: 40, height: 40 }}
-          />
-        </Marker>
-        <Marker
-          coordinate={{
-            latitude: location?.coords.latitude! + 0.001,
-            longitude: location?.coords.longitude! + 0.0005,
-          }}
-          title="Marker Title"
-          description="Marker Description"
-        >
-          <Image
-            source={require("../../assets/images/icons8-recycle-64.png")}
-            style={{ width: 40, height: 40 }}
-          />
-        </Marker>
-        <Marker
-          coordinate={{
-            latitude: location?.coords.latitude! - 0.00005,
-            longitude: location?.coords.longitude! - 0.001,
-          }}
-          title="Marker Title"
-          description="Marker Description"
-        >
-          <Image
-            source={require("../../assets/images/icons8-recycle-64.png")}
-            style={{ width: 40, height: 40 }}
-          />
-        </Marker>
+        {data?.location_storeList.map((item: any) => (
+          <Marker
+            key={item.location_id}
+            coordinate={{
+              latitude: parseFloat(item.latitude),
+              longitude: parseFloat(item.longtitude),
+            }}
+            title={item.users.user_name}
+            description="รับหมดไม่สนขยะไหน"
+          >
+            <Image
+              source={require("../../assets/images/icons8-recycle-64.png")}
+              style={{ width: 40, height: 40 }}
+            />
+          </Marker>
+        ))}
       </MapView>
       {/* </XStack> */}
     </>

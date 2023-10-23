@@ -23,31 +23,34 @@ const getUserQuery = gql`
 			}
 		}
 	}
+
 `;
+
+
 
 const UserContext = createContext({});
 
 const UserContextProvider = ({ children }: any) => {
-	const { user: authUser, isLoaded: isAuthLoaded } = useUser();
+  const { user: authUser, isLoaded: isAuthLoaded } = useUser();
 
-	const {
-		data,
-		loading: isDbLoading,
-		refetch,
-	} = useQuery(getUserQuery, {
-		variables: { authid: authUser?.id },
-	});
+  const {
+    data,
+    loading: isDbLoading,
+    refetch,
+  } = useQuery(getUserQuery, {
+    variables: { authid: authUser?.id },
+  });
 
-	const dbUser = data?.users;
+  const dbUser = data?.users;
 
-	const loading = isDbLoading || !isAuthLoaded;
-	return (
-		<UserContext.Provider
-			value={{ dbUser, authUser, loading, reloadDbUser: refetch }}
-		>
-			{children}
-		</UserContext.Provider>
-	);
+  const loading = isDbLoading || !isAuthLoaded;
+  return (
+    <UserContext.Provider
+      value={{ dbUser, authUser, loading, reloadDbUser: refetch }}
+    >
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export default UserContextProvider;

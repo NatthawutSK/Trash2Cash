@@ -90,7 +90,7 @@ const DialogAddTrashMaterial = ({
           store_detail: JSON.stringify(newData),
         },
       });
-      // reloadDbUser();
+      reloadDbUser();
       // console.log("data", JSON.stringify(data));
     } catch (e) {
       console.log(e);
@@ -186,7 +186,7 @@ const DialogAddTrashMaterial = ({
                   }}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <>
-                      <Label htmlFor="trash">เลือกวัสดุ</Label>
+                      <Label>เลือกวัสดุ</Label>
                       <Select id="trash" value={value} onValueChange={onChange}>
                         <Select.Trigger id="trash" iconAfter={ChevronDown}>
                           <Select.Value placeholder="เลือกวัสดุที่รับ" />
@@ -293,9 +293,7 @@ const DialogAddTrashMaterial = ({
                   }}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <>
-                      <Label width={100} htmlFor="price">
-                        ราคาที่รับ
-                      </Label>
+                      <Label width={100}>ราคาที่รับ</Label>
                       <Input
                         placeholder="price"
                         onBlur={onBlur}
@@ -322,7 +320,7 @@ const DialogAddTrashMaterial = ({
                   }}
                   render={({ field: { onChange, onBlur, value } }) => (
                     <>
-                      <Label htmlFor="amount">จำนวนที่รับ</Label>
+                      <Label>จำนวนที่รับ</Label>
                       <Select
                         id="amount"
                         value={value}

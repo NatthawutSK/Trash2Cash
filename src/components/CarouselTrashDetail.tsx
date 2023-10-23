@@ -13,18 +13,21 @@ const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
 const styles = StyleSheet.create({
   slide: {
-    height: 250,
+    height: 220,
     width: windowWidth,
+    top:10,
+
+
     // justifyContent: "center",
     alignItems: "center",
   },
-  slideImage: { width: windowWidth, height: 250 },
+  slideImage: { width: 335, height: 200 },
   slideTitle: { fontSize: 24 },
   slideSubtitle: { fontSize: 18 },
 
   pagination: {
     position: "absolute",
-    top: 270,
+    top: 230,
     width: "100%",
     justifyContent: "center",
     flexDirection: "row",
@@ -57,8 +60,9 @@ const Slide = memo(function Slide({ data }: any) {
   console.log("Slice");
   console.log(data);
   return (
+
     <View style={styles.slide}>
-      <Image source={data} style={styles.slideImage} />
+      <Image source={data} style={styles.slideImage} id={data} />
     </View>
   );
 });

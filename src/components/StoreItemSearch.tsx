@@ -15,16 +15,13 @@ import { Link, useRouter } from "expo-router";
 import { StoreNearbyType } from "@/types";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-
 // export type StoreProps = { img: string; name: string; mat: string[] };
 
-const StoreItem = ({ user_name, distance, auth_id }: StoreNearbyType) => {
-
+const StoreItemSearch = ({ user_name, distance, auth_id }: StoreNearbyType) => {
   const router = useRouter();
   return (
     //   <Link href="/detailStore/66" asChild>
     <>
-
       <TouchableOpacity onPress={() => router.push(`/detailStore/${auth_id}`)}>
         <YStack flex={1}>
           <XStack
@@ -45,11 +42,11 @@ const StoreItem = ({ user_name, distance, auth_id }: StoreNearbyType) => {
               <YStack space={"$1"}>
                 <Text fow={"800"}>{user_name}</Text>
                 {/* <Text>วัสดุที่รับ</Text>
-                <XStack maw={"80%"} space={"$2"} fw={"wrap"}>
-                  {mat.map((m, i) => {
-                    return <FontAwesome5 key={i} name={m} size={18} />;
-                  })}
-                </XStack> */}
+                  <XStack maw={"80%"} space={"$2"} fw={"wrap"}>
+                    {mat.map((m, i) => {
+                      return <FontAwesome5 key={i} name={m} size={18} />;
+                    })}
+                  </XStack> */}
               </YStack>
             </XStack>
             <YStack ai={"flex-end"} space={"$1"} w={"30%"}>
@@ -59,7 +56,6 @@ const StoreItem = ({ user_name, distance, auth_id }: StoreNearbyType) => {
                 {distance > 1000 ? distance / 1000 : distance}{" "}
                 {distance > 1000 ? "กม." : "ม."}
               </Text>
-
             </YStack>
           </XStack>
         </YStack>
@@ -69,4 +65,4 @@ const StoreItem = ({ user_name, distance, auth_id }: StoreNearbyType) => {
   );
 };
 
-export default StoreItem;
+export default StoreItemSearch;

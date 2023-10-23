@@ -9,6 +9,7 @@ import { TrashMaterial, imgIcon } from "@/MockData/data";
 import { getProperty } from "@/utils/util";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import MiniMap from "@/components/MiniMap";
 const BoxTrash = (item: any) => {
   return (
     <Pressable onPress={() => router.push("/")}>
@@ -34,14 +35,18 @@ export default function home() {
       {/* <SelectTrashMaterial /> */}
       {/* <DialogDemo /> */}
       {/* <Circle w={"100%"} h={"60%"} bg={"$green10Light"} /> */}
-      <Button onPress={() => router.push("/mockFormStore")}>
+      {/* <Button onPress={() => router.push("/mockFormStore")}>
         go to Form Store
       </Button>
       <Button onPress={() => router.push("/(tabs)/storeProfile")}>
         go to Store
-      </Button>
+      </Button> */}
 
-      <Stack space={"$8"} pb={"$8"} pt={"$5"}>
+      <Stack space={"$8"} pb={"$8"}>
+        <Image
+          className="h-full w-full absolute"
+          source={require("../../../assets/images/background4.png")}
+        />
         {/* <Text ta={"center"} mt={"$4"} className="text-xl font-bold ">
           Trash2Cash
         </Text> */}

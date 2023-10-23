@@ -39,6 +39,12 @@ export type UserRankType = {
 	user_name: string;
 };
 
+export type TypeMaterialDetail = {
+  materialName: string;
+  receive: string;
+  price: number;
+};
+
 // export type TypeMaterial ={
 //   "plastic_bottle"
 //   "ขวด PET ใส"

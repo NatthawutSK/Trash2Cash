@@ -3,30 +3,27 @@ import { useUser } from "@clerk/clerk-expo";
 import { gql, useQuery } from "@apollo/client";
 
 const getUserQuery = gql`
-	query MyQuery($authid: String!) {
-		users(auth_id: $authid) {
-			address
-			auth_id
-			line_id
-			phone_number
-			roles
-			user_name
-			store {
-				store_user_id
-				store_detail
-			}
-			score {
-				score_carbon
-				score_trash
-				score_tree
-				score_id
-			}
-		}
-	}
-
+  query MyQuery($authid: String!) {
+    users(auth_id: $authid) {
+      address
+      auth_id
+      line_id
+      phone_number
+      roles
+      user_name
+      store {
+        store_user_id
+        store_detail
+      }
+      score {
+        score_carbon
+        score_trash
+        score_tree
+        score_id
+      }
+    }
+  }
 `;
-
-
 
 const UserContext = createContext({});
 

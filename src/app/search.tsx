@@ -9,11 +9,28 @@ import FlatListMaterial from "@/components/FlatListMaterial";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { ArrowBigLeft, Search } from "@tamagui/lucide-icons";
 import { Ionicons } from "@expo/vector-icons";
-import { Dimensions, Pressable } from "react-native";
+import { Dimensions, Pressable, Text } from "react-native";
 import { StoreProps } from "@/components/StoreItem";
+import { gql, useQuery } from "@apollo/client";
+import Spinner from "react-native-loading-spinner-overlay";
 
 type Props = {};
 const Tab = createMaterialTopTabNavigator();
+
+const getUserQuery = gql`
+
+  query MyQuery {
+    storeList {
+      users {
+        user_name
+        auth_id
+      }
+    }
+  }
+`;
+
+
+
 const DATA = [
   {
     id: "1",
@@ -42,7 +59,7 @@ const DATA = [
       require("../../assets/images/trash/boxwarn.png"),
       require("../../assets/images/trash/boxcorrect.png"),
     ],
-    typeM: "กระดาษลัง หรือ กระดาษกล่อง คือ กระดาษ ที่เป็นชนิดกระดาษลูกฟูกซึ่งมีลักษณะเป็นแผ่นกระดาษแปะหน้าไว้ 2 ฝั่ง โดยมีลอนกระดาษอยู่ตรงกลาง นิยมหยิบมาใช้เป็นบรรจุภัณฑ์ เนื่องจากมีความแข็งแรง ทนทาน และรับน้ำหนักได้มาก แถมตัวกระดาษยังมีน้ำหนักที่เบา และยังสามารถวางต่อกันเป็นชั้นเพื่อประหยัดพื้นที่ได้อีกด้วย ที่พิเศษนอกเหนือจากนั้น กระดาษลูกฟูก ยังสามารถทำเป็นรูปทรงต่างๆได้ตามที่ต้องการ แถมยังมีราคาที่ต่ำมาก จึงทำให้กระดาษลูกฟูก ได้รับความนิยมในการนำมาใช้ในการบรรจุสินค้า หรือพัสดุต่างๆอีกด้วย",
+    typeM: "กระดาษลัง หรือ กระดาษกล่อง คือ กระดาษ ที่เป็นชนิดกระดาษลูกฟูกซึ่งมีลักษณะเป็นแผ่นกระดาษแปะหน้าไว้ 2 ฝั่ง โดยมีลอนกระดาษอยู่ตรงกลาง นิยมหยิบมาใช้เป็นบรรจุภัณฑ์ เนื่องจากมีความแข็งแรง ทนทาน และรับน้ำหนักได้มาก แถมตัวกระดาษยังมีน้ำหนักที่เบา และยังสามารถวางต่อกันเป็นชั้นเพื่อประหยัดพื้นที่ได้อีกด้วย ที่พิเศษนอกเหนือจากนั้น กระดาษลูกฟูก ยังสามารถทำเป็นรูปทรงต่างๆได้ตามที่ต้องการ แถมยังมีราคาที่ต่ำมาก จึงทำให้กระดาษลูกฟูก ได้รับความนิยมในการนำมาใช้ในการบรรจุสินค้า หรือพัสดุต่างๆอีกด้วย ในปี 1871 Albert L.Jones ชาวอเมริกา ได้นำกระดาษที่ทำเป็นลอนมาประยุกต์ช้งาน โดยนำมาห่อหุ้มสินค้า ซึ่งในช่วงเเรกๆสินค้าที่ถูกห่อหุ้มโดยกระดาษเป็นขวดแก้ว และชุดตะเกียงน้ำมันกาดต่อมาในปี 1874 ได้มีการจดสิทธิบัตรแนวความคิดที่จะไม่ให้กระดาษที่ขึ้นรูปเป็นลอนมีการยึดตัวออก จึงได้นำกระดาษแผ่นเรียบมาประกบติดกันจึงเกิดเป็นกระดาษ 2 ชั้นตั้งเเต่นั้นมา",
     reduce: 11,
     avgprice: 52,
     submat: ["peter", "card", "can", "fan"],
@@ -93,7 +110,7 @@ const DATA = [
       require("../../assets/images/trash/canwarn.png"),
       require("../../assets/images/trash/cancorrect.png"),
     ],
-    typeM: "กระป๋องอะลูมิเนียมเป็นหนึ่งในบรรจุภัณฑ์ที่ถูกยกให้เป็นบรรจุภัณฑ์ที่เป็นมิตรกับสิ่งแวดล้อมมากที่สุด เพราะนอกจากจะมีคุณสมบัติที่เบา พกพาง่าย แข็งแรง และปกป้องเครื่องดื่มได้ดีแล้ว กระป๋องอะลูมิเนียมส่วนใหญ่ยังผลิตมาจากกระป๋องอะลูมิเนียมใช้แล้วที่ผ่านการรีไซเคิล ซึ่งช่วยลดขยะและลดการใช้ทรัพยากรใหม่ได้มหาศาล ",
+    typeM: "กระป๋องอะลูมิเนียมเป็นหนึ่งในบรรจุภัณฑ์ที่ถูกยกให้เป็นบรรจุภัณฑ์ที่เป็นมิตรกับสิ่งแวดล้อมมากที่สุด เพราะนอกจากจะมีคุณสมบัติที่เบา พกพาง่าย แข็งแรง และปกป้องเครื่องดื่มได้ดีแล้ว กระป๋องอะลูมิเนียมส่วนใหญ่ยังผลิตมาจากกระป๋องอะลูมิเนียมใช้แล้วที่ผ่านการรีไซเคิล ซึ่งช่วยลดขยะและลดการใช้ทรัพยากรใหม่ได้มหาศาล ก่อนอื่นเรามาทำความรู้จักกับ 'กระป๋องอะลูมิเนียม' บรรจุภัณฑ์ซึ่งเป็นที่นิยม นำมาบรรจุเครื่องดื่มประเภทต่างๆ ไม่ว่าจะเป็นน้ำอัดลม น้ำผลไม้ กาแฟ นมสด ฯลฯ เพราะกระป๋องอะลูมิเนียมเหล่านี้ มีคุณสมบัติที่ทนทานต่อการกัดกร่อน ทนต่อการซึมผ่านของความชื้น อากาศ ก๊าซ และกลิ่น ไม่ให้ออกไปภายนอก ในทางตรงกันข้ามยังสามารถป้องกันอากาศ แสงแดด และสิ่งแปลกปลอมจากภายนอกที่จะมาสัมผัสกับเครื่องดื่มในกระป๋องได้เป็นอย่างดี ซึ่งมีผลต่อการรักษาคุณภาพของเครื่องดื่มที่อยู่ภายในให้คงรสชาติไว้ได้ยาวนาน ตามอายุของผลิตภัณฑ์นั้นๆ ",
     reduce: 14,
     avgprice: 55,
     submat: ["peter", "card", "can", "fan"],
@@ -110,7 +127,7 @@ const DATA = [
       require("../../assets/images/trash/paperwarn.png"),
       require("../../assets/images/trash/papercorrect.png"),
     ],
-    typeM: "กระดาษขาวดำถือเป็นขยะกระดาษที่แพงที่สุดเพราะผ่านการฟอกสีออกหมดแล้ว สามารถนำไปทำเป็นกระดาษประเภทต่างๆ ได้หลากหลาย เช่น กระดาษทิชชู่ ผ้าอนามัย หรือแม้กระทั้งนำกลับมาทำเป็น A4 แผ่นใหม่ได้ กระดาษเอกสารที่ใช้กันในสำนักงาน มีราคาสูง เพราะ เวลานำมารีไซเคิลแล้วไม่ต้องฟอกสีใหม่ ส่วนใหญ่นิยมนำมาทำเนกระดาษทิชชู่หรือกระดาษเอกสาร",
+    typeM: "กระดาษ เป็นวัสดุที่ผลิตขึ้นมาสำหรับการจดบันทึก มีประวัติศาสตร์ยาวนาน เชื่อกันว่ามีการใช้กระดาษครั้งแรก ๆ โดยชาวอียิปต์และชาวจีนโบราณ แต่กระดาษในยุคแรก ๆ ล้วนผลิตขึ้นเพื่อการจดบันทึกด้วยกันทั้งสิ้น จึงกล่าวได้ว่าระบบการเขียนคือแรงผลักดันให้เกิดการผลิตกระดาษขึ้นในโลก ปัจจุบันกระดาษไม่ได้มีประโยชน์ในการใช้จดบันทึกตัวหนังสือ หรือข้อความ เท่านั้น ยังใช้ประโยชน์อื่น ๆ ได้มากมาย เช่น กระดาษชำระ กระดาษห่อของขวัญ กระดาษลูกฟูกสำหรับทำกล่อง เป็นต้น ",
     reduce: 15,
     avgprice: 56,
     submat: ["peter", "card", "can", "fan"],
@@ -177,12 +194,39 @@ const DATA2 = [
 ];
 
 const SearchComponent = (props: Props) => {
+
+  const {
+		data,
+		loading,
+		refetch,
+    error
+	} = useQuery(getUserQuery);
+
+
   const navigation = useNavigation();
   const [search, setSearch] = useState<string>("");
-  const [data, setData] = useState<MatProps[]>(DATA);
-  const [data2, setData2] = useState<StoreProps[]>(DATA2);
+  const [data1, setData1] = useState<MatProps[]>(DATA);
   const [tabnum, setTabnum] = useState<number>(1);
   console.log(navigation.getState().key);
+  
+  if (loading) {
+    return (
+      <Spinner
+      animation="fade"
+      visible={true}
+      textContent={"Loading..."}
+      textStyle={{ color: "#FFF" }}
+      />
+      );
+    }
+    if (error) {
+      return <Text>Something went wrong</Text>
+    };
+    
+    const name_data = data.storeList;
+    console.log(name_data)
+    
+    const [data2, setData2] = useState<any>(name_data);
   return (
     <YStack ac={"center"} h={"100%"} bg={"white"}>
       <XStack
@@ -208,19 +252,20 @@ const SearchComponent = (props: Props) => {
             console.log(tabnum);
             if (tabnum === 1) {
               console.log(123);
-              setData(
+              setData1(
                 DATA.filter((item) =>
                   item.name.toLowerCase().includes(search.toLowerCase())
                 )
               );
               console.log(data);
-            } else {
+            } 
+            else {
               setData2(
-                DATA2.filter((item) =>
-                  item.name.toLowerCase().includes(search.toLowerCase())
+                  name_data.filter((item: { users: { user_name: string; }; }) =>
+                  item.users.user_name.toLowerCase().includes(search.toLowerCase())
                 )
               );
-              console.log(data2);
+              // console.log(data2);
             }
           }}
         />
@@ -256,7 +301,7 @@ const SearchComponent = (props: Props) => {
                 console.log(tabnum);
               },
             }}
-            children={() => <FlatListMaterial data={data} />}
+            children={() => <FlatListMaterial data={data1} />}
           />
         </Tab.Navigator>
       </Stack>

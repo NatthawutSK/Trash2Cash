@@ -13,9 +13,9 @@ import {
 } from "tamagui";
 import { Link, useRouter } from "expo-router";
 
-export type StoreProps = { img: string; name: string; mat: string[]};
+export type StoreProps = { user_name: string };
 
-const StoreItem = ({ img, name, mat }: StoreProps) => {
+const StoreItem = ( props : any) => {
   const router = useRouter();
   return (
     //   <Link href="/detailStore/66" asChild>
@@ -35,19 +35,19 @@ const StoreItem = ({ img, name, mat }: StoreProps) => {
         >
           <XStack ai={"center"} ac={"center"} space={"$4"} w={"50%"}>
             <Avatar size="$6" radiused>
-              <Avatar.Image src={img} />
+              <Avatar.Image src="https://d3544la1u8djza.cloudfront.net/APHI/Blog/2020/07-23/How+Much+Does+It+Cost+to+Have+a+Cat+_+ASPCA+Pet+Insurance+_+black+cat+with+yellow+eyes+peeking+out-min.jpg" />
               <Avatar.Fallback bc="red" />
             </Avatar>
             <YStack space={"$1"}>
               <Text fow={"800"} >
-                {name}
+                {props.users.user_name}
               </Text>
-              <Text>วัสดุที่รับ</Text>
+              {/* <Text>วัสดุที่รับ</Text>
               <XStack maw={"80%"} space={"$2"} fw={"wrap"}>
                 {mat.map((m, i) => {
                   return <FontAwesome5 key={i} name={m} size={18} />;
                 })}
-              </XStack>
+              </XStack> */}
             </YStack>
           </XStack>
           <YStack ai={"flex-end"} space={"$1"} w={"30%"}>

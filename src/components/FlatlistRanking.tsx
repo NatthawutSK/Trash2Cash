@@ -16,7 +16,7 @@ const renderRankingUser = (item: UserRankType) => {
 const FlatlistRanking = ({ data }: { data: UserRankType[] }) => {
   // console.log(data[1].score[0].score_trash);
   return (
-    <YStack bc={colors.green1} mt={-45}>
+    <YStack bc={colors.green2} mt={-45}>
       <View h={"40%"} fd={"row"} className="mb-2" jc={"center"} mx={5}>
         <Stack
           bg={colors.green4}

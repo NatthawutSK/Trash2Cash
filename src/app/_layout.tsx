@@ -13,7 +13,7 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { useEffect } from "react";
-import { ActivityIndicator, useColorScheme } from "react-native";
+import { ActivityIndicator, useColorScheme, Text } from "react-native";
 import { TamaguiProvider, Theme } from "tamagui";
 
 // import { Link, SplashScreen, Stack } from "expo-router";
@@ -50,6 +50,7 @@ export default function RootLayout() {
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
     InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
     SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
+    Kanit: require("../../assets/fonts/Kanit-Regular.ttf"),
     ...FontAwesome.font,
   });
 
@@ -152,52 +153,53 @@ function RootLayoutNav() {
               name="search"
               options={{ title: "ค้นหา", headerShown: false }}
             />
-						<Stack.Screen
-							name="detailStore/[id]"
-							options={{ title: "Detail Store" }}
-						/>
-						<Stack.Screen
-							name="detailTrash/[id]"
-							options={{ title: "Detail Trash" }}
-						/>
-						<Stack.Screen
-							name="(profile)/editProfile"
-							options={{ title: "Edit Profile" }}
-						/>
-						<Stack.Screen
-							name="(profile)/changePassword"
-							options={{ title: "Change Password" }}
-						/>
-						<Stack.Screen
-							name="(profile)/history"
-							options={{ title: "History" }}
-						/>
-						<Stack.Screen
-							name="profileRanking/[id]"
-							options={{ title: "User Stat" }}
-						/>
-						<Stack.Screen
-							name="qrCodeBuyer"
-							options={{ title: "แสกน QR Code คนขาย" }}
-						></Stack.Screen>
-						<Stack.Screen
-							name="ApproveDetail"
-							options={{ title: "XD" }}
-						></Stack.Screen>
-						<Stack.Screen
-							name="(store)/editImageStore"
-							options={{ title: "แก้ไขรูปร้านค้า" }}
-						/>
-						<Stack.Screen
-							name="(store)/editMaterialStore/[id]"
-							options={{ title: "แก้ไขวัสดุที่รับ" }}
-						/>
-					</Stack>
-				)}
-			</SignedIn>
-			<SignedOut>
-				<AuthScreen />
-			</SignedOut>
-		</>
-	);
+            <Stack.Screen
+              name="detailStore/[id]"
+              options={{ title: "Detail Store" }}
+            />
+            <Stack.Screen
+              name="detailTrash/[id]"
+              options={{ title: "Detail Trash" }}
+            />
+            <Stack.Screen
+              name="(profile)/editProfile"
+              options={{ title: "Edit Profile" }}
+            />
+            <Stack.Screen
+              name="(profile)/changePassword"
+              options={{ title: "Change Password" }}
+            />
+            <Stack.Screen
+              name="(profile)/history"
+              options={{ title: "History" }}
+            />
+            <Stack.Screen
+              name="profileRanking/[id]"
+              options={{ title: "User Stat" }}
+            />
+            <Stack.Screen
+              name="qrCodeBuyer"
+              options={{ title: "แสกน QR Code คนขาย" }}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="ApproveDetail"
+              options={{ title: "XD" }}
+            ></Stack.Screen>
+            <Stack.Screen
+              name="(store)/editImageStore"
+              options={{ title: "แก้ไขรูปร้านค้า" }}
+            />
+            <Stack.Screen
+              name="(store)/editMaterialStore/[id]"
+              options={{ title: "แก้ไขวัสดุที่รับ" }}
+            />
+          </Stack>
+        )}
+      </SignedIn>
+      <SignedOut>
+        <Text style={{ fontFamily: "Kanit" }}>ทดสอบ</Text>
+        {/* <AuthScreen /> */}
+      </SignedOut>
+    </>
+  );
 }

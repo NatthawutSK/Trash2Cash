@@ -1,6 +1,6 @@
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { XStack, YStack, Square, Text, Stack, View } from "tamagui";
+import { XStack, YStack, Square, Text, Stack, View, H4 } from "tamagui";
 import { Trash2, TreePine } from "@tamagui/lucide-icons";
 import { gql, useQuery } from "@apollo/client";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -39,14 +39,14 @@ const stats = (props: Props) => {
         className="h-full w-full absolute"
         source={require("../../../assets/images/background6.png")}
       />
-      <Text
+      <H4
         pb={"$10"}
         ta={"center"}
-        className="text-xl font-bold"
+        className="text-2xl font-bold"
         color={"$green1Light"}
       >
         สถิติรวม
-      </Text>
+      </H4>
 
       <Stack jc={"center"} ai={"center"} space={"$5"}>
         {/* <H4 fos={20}>สถิติรวม</H4> */}

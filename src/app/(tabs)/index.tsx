@@ -51,7 +51,7 @@ export default function home() {
           Trash2Cash
         </Text> */}
         <Stack space={"$4"}>
-          <View
+          {/* <View
             style={{
               alignSelf: "center",
               width: "90%",
@@ -61,14 +61,19 @@ export default function home() {
             }}
           >
             <MiniMap />
-          </View>
+          </View> */}
           <Stack jc={"center"} ai={"center"}>
             <Button
               w={"90%"}
               onPress={() => router.push("/(map)/nearbyRanking")}
               style={{ backgroundColor: colors.green4 }}
             >
-              <Text fos={"$5"} className="font-bold" color={"$green1Light"}>
+              <Text
+                style={{ fontFamily: "Kanit" }}
+                fos={"$5"}
+                className="font-bold"
+                color={"$green1Light"}
+              >
                 อันดับร้านใกล้ฉัน
               </Text>
             </Button>

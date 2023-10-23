@@ -225,8 +225,17 @@ const Ranking = (props: Props) => {
       <Stack h={dbUser.roles === "Seller" ? "90%" : "100%"} mt={10} mb={15}>
         <FlatlistRanking data={DATA} />
       </Stack>
-      {dbUser.role === "Seller" && (
-        <Stack mt={-35} bg={colors.green3} mb={20} pb={20}>
+      {dbUser.roles === "Seller" && (
+        <Stack
+          className="rounded-t-2xl"
+          mt={-50}
+          bg={colors.green3}
+          mb={20}
+          pb={20}
+          // borderRadius={"$10"}
+          pt={"$2"}
+          // mt={"$5"}
+        >
           <RankingUser {...dbUser} isMe={true} />
         </Stack>
       )}

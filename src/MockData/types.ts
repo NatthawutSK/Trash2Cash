@@ -22,6 +22,12 @@ export type TypeTrashMaterial = {
   price: number;
 };
 
+export type TypeMaterialDetail = {
+  materialName: string;
+  receive: string;
+  price: number;
+};
+
 // export type TypeMaterial ={
 //   "plastic_bottle"
 //   "ขวด PET ใส"

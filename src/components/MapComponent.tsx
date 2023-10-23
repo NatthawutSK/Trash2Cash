@@ -8,9 +8,26 @@ import { Button, Image } from "tamagui";
 import { useRouter } from "expo-router";
 import { MySafeAreaView } from "./MySafeAreaView";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { gql, useQuery } from "@apollo/client";
 type Props = {};
 
+const locationQuery = gql`
+  query MyQuery {
+    location_storeList {
+      auth_id
+      latitude
+      location_id
+      longtitude
+      users {
+        user_name
+        phone_number
+      }
+    }
+  }
+`;
+
 const MapViewComponent = (props: Props) => {
+  const { data, loading } = useQuery(locationQuery);
   const [location, setLocation] = useState<Location.LocationObject>({
     coords: {
       latitude: 0,
@@ -40,33 +57,29 @@ const MapViewComponent = (props: Props) => {
   // const { location } = useLocation();
   const router = useRouter();
   return (
-    <SafeAreaView className=" justify-center items-center">
-    <View
-      style={{
-        width: "85%",
-        height: "95%",
-        overflow: "hidden",
-      }}
-      
-
-    >
-      <View className="border-4 border-cyan-600 rounded-md">
-
-      <MapView
-        
-        style={{ width: "100%", height: "100%" }}
-        region={{
-          latitude: location?.coords.latitude!,
-          longitude: location?.coords.longitude!,
-          latitudeDelta: 0.0211,
-          longitudeDelta: 0.0121,
+    <View className=" justify-center items-center">
+      <View
+        style={{
+          width: "100%",
+          height: "100%",
+          overflow: "hidden",
         }}
-        zoomEnabled={true}
-        rotateEnabled={true}
-        provider={PROVIDER_GOOGLE}
-        showsUserLocation={true}
       >
-        {/* <Marker
+        <View className="">
+          <MapView
+            style={{ width: "100%", height: "100%" }}
+            region={{
+              latitude: location?.coords.latitude!,
+              longitude: location?.coords.longitude!,
+              latitudeDelta: 0.0211,
+              longitudeDelta: 0.0121,
+            }}
+            zoomEnabled={true}
+            rotateEnabled={true}
+            provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+          >
+            {/* <Marker
 					draggable={true}
 					coordinate={{
 						latitude: location?.coords.latitude!,
@@ -78,58 +91,25 @@ const MapViewComponent = (props: Props) => {
 						console.log(e.nativeEvent.coordinate);
 					}}
 				/> */}
-        <Marker
-          coordinate={{
-            latitude: location?.coords.latitude! - 0.002,
-            longitude: location?.coords.longitude! - 0.0005,
-          }}
-          title="ร้านพานิช"
-          description="รับหมดไม่สนขยะไหน"
-        >
-          <Image
-            source={require("../../assets/images/icons8-recycle-64.png")}
-            style={{ width: 40, height: 40 }}
-          />
-        </Marker>
-        <Marker
-          coordinate={{
-            latitude: location?.coords.latitude! + 0.001,
-            longitude: location?.coords.longitude! + 0.0005,
-          }}
-          title="Marker Title"
-          description="Marker Description"
-        >
-          <Image
-            source={require("../../assets/images/icons8-recycle-64.png")}
-            style={{ width: 40, height: 40 }}
-          />
-        </Marker>
-        <Marker
-          coordinate={{
-            latitude: location?.coords.latitude! - 0.00005,
-            longitude: location?.coords.longitude! - 0.001,
-          }}
-          title="Marker Title"
-          description="Marker Description"
-        >
-          <Image
-            source={require("../../assets/images/icons8-recycle-64.png")}
-            style={{ width: 40, height: 40 }}
-          />
-        </Marker>
-      </MapView>
-      </View>
-      {/* <Button
-        bg={"$green10Light"}
-        color={"$green1Light"}
-        w={"80%"}
-        alignSelf={"center"}
-        style={{ position: "absolute", bottom: 25 }}
-        onPress={() => router.back()}
-      >
-        ใช้ตำแหน่งนี้
-      </Button> */}
-      {/* <Text>
+            {data?.location_storeList.map((item: any) => (
+              <Marker
+                key={item.location_id}
+                coordinate={{
+                  latitude: parseFloat(item.latitude),
+                  longitude: parseFloat(item.longtitude),
+                }}
+                title={item.users.user_name}
+                description={"ติดต่อ : " + item.users.phone_number}
+              >
+                <Image
+                  source={require("../../assets/images/icons8-recycle-64.png")}
+                  style={{ width: 40, height: 40 }}
+                />
+              </Marker>
+            ))}
+          </MapView>
+        </View>
+        {/* <Text>
         {convertDistance(
           getDistance(
             { latitude: 13.756331, longitude: 100.501762 },
@@ -156,8 +136,8 @@ const MapViewComponent = (props: Props) => {
             )
             )}
           </Text> */}
+      </View>
     </View>
-    </SafeAreaView>
   );
 };
 

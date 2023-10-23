@@ -555,6 +555,11 @@ const FormStore = (props: Props) => {
                 <Text className="text-lg font-bold text-white">
                   รายการที่เพิ่ม
                 </Text>
+                <View className="flex-row ">
+                  <Text className="ml-8 text-green-950 text-lg ">วัสดุ</Text>
+                  <Text className="ml-12 text-green-950 text-lg ">ราคา</Text>
+                  <Text className="ml-7 text-green-950 text-lg">จำนวน</Text>
+                </View>
                 {allMaterial.length > 0 ? (
                   allMaterial.map((item, i) => {
                     return (
@@ -563,7 +568,8 @@ const FormStore = (props: Props) => {
                         className="flex-row justify-between items-center bg-[#3C6255] rounded-lg px-5 py-3 mt-2"
                       >
                         <Text className="text-white">{item.materialName}</Text>
-                        <Text className="text-white">{item.price} กก.</Text>
+                        <Text className="text-white">{item.price} บาท</Text>
+                        <Text className="text-white">{item.receive}</Text>
                         <Button
                           icon={X}
                           color={"white"}

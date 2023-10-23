@@ -65,7 +65,7 @@ export const MockTrashMaterial = [
   {
     materialName: "ขวด PET ใส",
     img: "plastic_bottle",
-    recieveAmount: "10 - 20 กก.",
+    recieve: "10 - 20 กก.",
     price: 10,
   },
   {

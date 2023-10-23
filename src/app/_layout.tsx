@@ -139,17 +139,14 @@ function RootLayoutNav() {
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="modal" options={{ presentation: "modal" }} />
-            <Stack.Screen
-              name="(map)/fullMap"
-              options={{ headerShown: false }}
-            />
+            <Stack.Screen name="(map)/fullMap" options={{ title: "แผนที่" }} />
             <Stack.Screen
               name="(map)/mapPick"
               options={{ headerShown: false }}
             />
             <Stack.Screen
               name="(map)/nearbyRanking"
-              options={{ headerShown: false }}
+              options={{ title: "อันดับใกล้เคียง" }}
             />
             <Stack.Screen
               name="search"

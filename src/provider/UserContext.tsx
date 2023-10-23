@@ -25,6 +25,8 @@ const getUserQuery = gql`
   }
 `;
 
+
+
 const UserContext = createContext({});
 
 const UserContextProvider = ({ children }: any) => {

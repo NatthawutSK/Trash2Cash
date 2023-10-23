@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Button, Stack, XStack, YStack } from "tamagui";
 import { router, useNavigation } from "expo-router";
 import { MatProps } from "@/components/MaterialItem";
@@ -10,26 +10,13 @@ import { useHeaderHeight } from "@react-navigation/elements";
 import { ArrowBigLeft, Search } from "@tamagui/lucide-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { Dimensions, Pressable, Text } from "react-native";
-import { StoreProps } from "@/components/StoreItem";
+
 import { gql, useQuery } from "@apollo/client";
 import Spinner from "react-native-loading-spinner-overlay";
-
+import { orderByDistance, convertDistance, getDistance } from "geolib";
+import * as Location from "expo-location";
 type Props = {};
 const Tab = createMaterialTopTabNavigator();
-
-const getUserQuery = gql`
-
-  query MyQuery {
-    storeList {
-      users {
-        user_name
-        auth_id
-      }
-    }
-  }
-`;
-
-
 
 const DATA = [
   {
@@ -59,7 +46,8 @@ const DATA = [
       require("../../assets/images/trash/boxwarn.png"),
       require("../../assets/images/trash/boxcorrect.png"),
     ],
-    typeM: "กระดาษลัง หรือ กระดาษกล่อง คือ กระดาษ ที่เป็นชนิดกระดาษลูกฟูกซึ่งมีลักษณะเป็นแผ่นกระดาษแปะหน้าไว้ 2 ฝั่ง โดยมีลอนกระดาษอยู่ตรงกลาง นิยมหยิบมาใช้เป็นบรรจุภัณฑ์ เนื่องจากมีความแข็งแรง ทนทาน และรับน้ำหนักได้มาก แถมตัวกระดาษยังมีน้ำหนักที่เบา และยังสามารถวางต่อกันเป็นชั้นเพื่อประหยัดพื้นที่ได้อีกด้วย ที่พิเศษนอกเหนือจากนั้น กระดาษลูกฟูก ยังสามารถทำเป็นรูปทรงต่างๆได้ตามที่ต้องการ แถมยังมีราคาที่ต่ำมาก จึงทำให้กระดาษลูกฟูก ได้รับความนิยมในการนำมาใช้ในการบรรจุสินค้า หรือพัสดุต่างๆอีกด้วย ในปี 1871 Albert L.Jones ชาวอเมริกา ได้นำกระดาษที่ทำเป็นลอนมาประยุกต์ช้งาน โดยนำมาห่อหุ้มสินค้า ซึ่งในช่วงเเรกๆสินค้าที่ถูกห่อหุ้มโดยกระดาษเป็นขวดแก้ว และชุดตะเกียงน้ำมันกาดต่อมาในปี 1874 ได้มีการจดสิทธิบัตรแนวความคิดที่จะไม่ให้กระดาษที่ขึ้นรูปเป็นลอนมีการยึดตัวออก จึงได้นำกระดาษแผ่นเรียบมาประกบติดกันจึงเกิดเป็นกระดาษ 2 ชั้นตั้งเเต่นั้นมา",
+    typeM:
+      "กระดาษลัง หรือ กระดาษกล่อง คือ กระดาษ ที่เป็นชนิดกระดาษลูกฟูกซึ่งมีลักษณะเป็นแผ่นกระดาษแปะหน้าไว้ 2 ฝั่ง โดยมีลอนกระดาษอยู่ตรงกลาง นิยมหยิบมาใช้เป็นบรรจุภัณฑ์ เนื่องจากมีความแข็งแรง ทนทาน และรับน้ำหนักได้มาก แถมตัวกระดาษยังมีน้ำหนักที่เบา และยังสามารถวางต่อกันเป็นชั้นเพื่อประหยัดพื้นที่ได้อีกด้วย ที่พิเศษนอกเหนือจากนั้น กระดาษลูกฟูก ยังสามารถทำเป็นรูปทรงต่างๆได้ตามที่ต้องการ แถมยังมีราคาที่ต่ำมาก จึงทำให้กระดาษลูกฟูก ได้รับความนิยมในการนำมาใช้ในการบรรจุสินค้า หรือพัสดุต่างๆอีกด้วย ในปี 1871 Albert L.Jones ชาวอเมริกา ได้นำกระดาษที่ทำเป็นลอนมาประยุกต์ช้งาน โดยนำมาห่อหุ้มสินค้า ซึ่งในช่วงเเรกๆสินค้าที่ถูกห่อหุ้มโดยกระดาษเป็นขวดแก้ว และชุดตะเกียงน้ำมันกาดต่อมาในปี 1874 ได้มีการจดสิทธิบัตรแนวความคิดที่จะไม่ให้กระดาษที่ขึ้นรูปเป็นลอนมีการยึดตัวออก จึงได้นำกระดาษแผ่นเรียบมาประกบติดกันจึงเกิดเป็นกระดาษ 2 ชั้นตั้งเเต่นั้นมา",
     reduce: 11,
     avgprice: 52,
     submat: ["peter", "card", "can", "fan"],
@@ -76,7 +64,8 @@ const DATA = [
       require("../../assets/images/trash/bottlewarn.png"),
       require("../../assets/images/trash/bottlecorrect.png"),
     ],
-    typeM: "พลาสติกเป็นวัสดุที่มนุษย์คิดค้นและประดิษฐ์ขึ้นเพื่อช่วยให้เรามีชีวิตที่สะดวกสบายยิ่งขึ้น ในอดีตเราไม่เคยรู้จักพลาสติกเลยจนกระทั่งกลางศตวรรษที่ 19 วัสดุดั้งเดิมที่มนุษย์ค้นเคยและใช้อยู่ทั่วไปในชีวิตประจำวันในยุคก่อนหน้านี้ล้วนเป็นวัสดุจากธรรมชาติทั้งสิ้นไม่ว่าจะเป็น แก้ว ไม้ กระดาษ โลหะ ยาง หรือ ขนสัตว์ สิ่งเหล่านี้เคยเป็นวัสดุที่ตอบสนองความต้องการของมนุษย์ได้เป็นอย่างดีโดยพลาสติกจัดเป็นสารประกอบพวกไฮโดรคาร์บอนที่มีน้ำหนักโมเลกุลสูง ประกอบด้วยโมเลกุลซ้ำๆ กันต่อกันเป็นโมเลกุลสายยาวๆ ประกอบด้วยธาตุสำคัญ คือ คาร์บอน, ไฮโดรเจน, และออกซิเจน นอกจากนี้อาจมีธาตุอื่นๆเป็นส่วนประกอบย่อย ซึ่งได้แก่ ไนโตรเจน, ฟลูออรีน, คลอรีน, และกำมะถัน เป็นต้น",
+    typeM:
+      "พลาสติกเป็นวัสดุที่มนุษย์คิดค้นและประดิษฐ์ขึ้นเพื่อช่วยให้เรามีชีวิตที่สะดวกสบายยิ่งขึ้น ในอดีตเราไม่เคยรู้จักพลาสติกเลยจนกระทั่งกลางศตวรรษที่ 19 วัสดุดั้งเดิมที่มนุษย์ค้นเคยและใช้อยู่ทั่วไปในชีวิตประจำวันในยุคก่อนหน้านี้ล้วนเป็นวัสดุจากธรรมชาติทั้งสิ้นไม่ว่าจะเป็น แก้ว ไม้ กระดาษ โลหะ ยาง หรือ ขนสัตว์ สิ่งเหล่านี้เคยเป็นวัสดุที่ตอบสนองความต้องการของมนุษย์ได้เป็นอย่างดีโดยพลาสติกจัดเป็นสารประกอบพวกไฮโดรคาร์บอนที่มีน้ำหนักโมเลกุลสูง ประกอบด้วยโมเลกุลซ้ำๆ กันต่อกันเป็นโมเลกุลสายยาวๆ ประกอบด้วยธาตุสำคัญ คือ คาร์บอน, ไฮโดรเจน, และออกซิเจน นอกจากนี้อาจมีธาตุอื่นๆเป็นส่วนประกอบย่อย ซึ่งได้แก่ ไนโตรเจน, ฟลูออรีน, คลอรีน, และกำมะถัน เป็นต้น",
     reduce: 12,
     avgprice: 53,
     submat: ["peter", "card", "can", "fan"],
@@ -93,7 +82,8 @@ const DATA = [
       require("../../assets/images/trash/plasticwarn.png"),
       require("../../assets/images/trash/plasticcorrect.png"),
     ],
-    typeM: "PE Polyethylene มีคุณสมบัติ เป็นฉนวนไฟฟ้าที่ดี , มีความเหนียว และทนทานต่อแรงดึงปานกลาง ฉีกขาดยาก พวกที่มีความหนาแน่นต่ำ จะใสมาก แต่จะขุ่นเมื่อความหนาแน่นสูง ป้องกันความชื้นไม่ให้ผ่านเข้าออกได้ แต่ให้อากาศและก๊าซต่างๆ ซึมผ่านได้ ทนกรดและด่างอ่อน แต่ไม่ทนน้ำมันและไขมัน มีน้ำหนักเบา สามารถพับงอได้ดี มีความยืดตัวได้สูง ปกติจะไม่ละลายในตัวทำละลายใดๆ แต่ถ้าอุณหภูมิสูงกว่า 70 องศา ทนความเย็นได้ถึง -73 องศา จะเริ่มละลาย PE ได้ถูกจำแนกเป็นหลายชนิด ตัวหลักๆ ที่ใช้กันมากคือ LDPE , LLDPE , MDPE , HDPEการใช้งานของPE กว้างขวางมากนิยมผลิตเป็นถุง ,ขวด ,ฟิล์ม ,แผงบรรจุยา ,สายน้ำเกลือ ,ชิ้นส่วนรถยนต์ ,เชือก ,แห ,อวน , ถุง พลาสติก ,ท่อและรางน้ำ ,เครื่องใช้ในครัวเรือน ,ของเด็กเล่น ,ฉนวนหุ้มสายไฟ ,สายเคเบิ้ล ,เคลือบหลังพรม ,ผ้าใบพลาสติก ,แผ่นฟิล์มสำหรับการบรรจุหีบห่อ , แผ่นฟิล์มที่ใช้ในการเกษตร",
+    typeM:
+      "PE Polyethylene มีคุณสมบัติ เป็นฉนวนไฟฟ้าที่ดี , มีความเหนียว และทนทานต่อแรงดึงปานกลาง ฉีกขาดยาก พวกที่มีความหนาแน่นต่ำ จะใสมาก แต่จะขุ่นเมื่อความหนาแน่นสูง ป้องกันความชื้นไม่ให้ผ่านเข้าออกได้ แต่ให้อากาศและก๊าซต่างๆ ซึมผ่านได้ ทนกรดและด่างอ่อน แต่ไม่ทนน้ำมันและไขมัน มีน้ำหนักเบา สามารถพับงอได้ดี มีความยืดตัวได้สูง ปกติจะไม่ละลายในตัวทำละลายใดๆ แต่ถ้าอุณหภูมิสูงกว่า 70 องศา ทนความเย็นได้ถึง -73 องศา จะเริ่มละลาย PE ได้ถูกจำแนกเป็นหลายชนิด ตัวหลักๆ ที่ใช้กันมากคือ LDPE , LLDPE , MDPE , HDPEการใช้งานของPE กว้างขวางมากนิยมผลิตเป็นถุง ,ขวด ,ฟิล์ม ,แผงบรรจุยา ,สายน้ำเกลือ ,ชิ้นส่วนรถยนต์ ,เชือก ,แห ,อวน , ถุง พลาสติก ,ท่อและรางน้ำ ,เครื่องใช้ในครัวเรือน ,ของเด็กเล่น ,ฉนวนหุ้มสายไฟ ,สายเคเบิ้ล ,เคลือบหลังพรม ,ผ้าใบพลาสติก ,แผ่นฟิล์มสำหรับการบรรจุหีบห่อ , แผ่นฟิล์มที่ใช้ในการเกษตร",
     reduce: 13,
     avgprice: 54,
     submat: ["peter", "card", "can", "fan"],
@@ -110,7 +100,8 @@ const DATA = [
       require("../../assets/images/trash/canwarn.png"),
       require("../../assets/images/trash/cancorrect.png"),
     ],
-    typeM: "กระป๋องอะลูมิเนียมเป็นหนึ่งในบรรจุภัณฑ์ที่ถูกยกให้เป็นบรรจุภัณฑ์ที่เป็นมิตรกับสิ่งแวดล้อมมากที่สุด เพราะนอกจากจะมีคุณสมบัติที่เบา พกพาง่าย แข็งแรง และปกป้องเครื่องดื่มได้ดีแล้ว กระป๋องอะลูมิเนียมส่วนใหญ่ยังผลิตมาจากกระป๋องอะลูมิเนียมใช้แล้วที่ผ่านการรีไซเคิล ซึ่งช่วยลดขยะและลดการใช้ทรัพยากรใหม่ได้มหาศาล ก่อนอื่นเรามาทำความรู้จักกับ 'กระป๋องอะลูมิเนียม' บรรจุภัณฑ์ซึ่งเป็นที่นิยม นำมาบรรจุเครื่องดื่มประเภทต่างๆ ไม่ว่าจะเป็นน้ำอัดลม น้ำผลไม้ กาแฟ นมสด ฯลฯ เพราะกระป๋องอะลูมิเนียมเหล่านี้ มีคุณสมบัติที่ทนทานต่อการกัดกร่อน ทนต่อการซึมผ่านของความชื้น อากาศ ก๊าซ และกลิ่น ไม่ให้ออกไปภายนอก ในทางตรงกันข้ามยังสามารถป้องกันอากาศ แสงแดด และสิ่งแปลกปลอมจากภายนอกที่จะมาสัมผัสกับเครื่องดื่มในกระป๋องได้เป็นอย่างดี ซึ่งมีผลต่อการรักษาคุณภาพของเครื่องดื่มที่อยู่ภายในให้คงรสชาติไว้ได้ยาวนาน ตามอายุของผลิตภัณฑ์นั้นๆ ",
+    typeM:
+      "กระป๋องอะลูมิเนียมเป็นหนึ่งในบรรจุภัณฑ์ที่ถูกยกให้เป็นบรรจุภัณฑ์ที่เป็นมิตรกับสิ่งแวดล้อมมากที่สุด เพราะนอกจากจะมีคุณสมบัติที่เบา พกพาง่าย แข็งแรง และปกป้องเครื่องดื่มได้ดีแล้ว กระป๋องอะลูมิเนียมส่วนใหญ่ยังผลิตมาจากกระป๋องอะลูมิเนียมใช้แล้วที่ผ่านการรีไซเคิล ซึ่งช่วยลดขยะและลดการใช้ทรัพยากรใหม่ได้มหาศาล ก่อนอื่นเรามาทำความรู้จักกับ 'กระป๋องอะลูมิเนียม' บรรจุภัณฑ์ซึ่งเป็นที่นิยม นำมาบรรจุเครื่องดื่มประเภทต่างๆ ไม่ว่าจะเป็นน้ำอัดลม น้ำผลไม้ กาแฟ นมสด ฯลฯ เพราะกระป๋องอะลูมิเนียมเหล่านี้ มีคุณสมบัติที่ทนทานต่อการกัดกร่อน ทนต่อการซึมผ่านของความชื้น อากาศ ก๊าซ และกลิ่น ไม่ให้ออกไปภายนอก ในทางตรงกันข้ามยังสามารถป้องกันอากาศ แสงแดด และสิ่งแปลกปลอมจากภายนอกที่จะมาสัมผัสกับเครื่องดื่มในกระป๋องได้เป็นอย่างดี ซึ่งมีผลต่อการรักษาคุณภาพของเครื่องดื่มที่อยู่ภายในให้คงรสชาติไว้ได้ยาวนาน ตามอายุของผลิตภัณฑ์นั้นๆ ",
     reduce: 14,
     avgprice: 55,
     submat: ["peter", "card", "can", "fan"],
@@ -127,108 +118,130 @@ const DATA = [
       require("../../assets/images/trash/paperwarn.png"),
       require("../../assets/images/trash/papercorrect.png"),
     ],
-    typeM: "กระดาษ เป็นวัสดุที่ผลิตขึ้นมาสำหรับการจดบันทึก มีประวัติศาสตร์ยาวนาน เชื่อกันว่ามีการใช้กระดาษครั้งแรก ๆ โดยชาวอียิปต์และชาวจีนโบราณ แต่กระดาษในยุคแรก ๆ ล้วนผลิตขึ้นเพื่อการจดบันทึกด้วยกันทั้งสิ้น จึงกล่าวได้ว่าระบบการเขียนคือแรงผลักดันให้เกิดการผลิตกระดาษขึ้นในโลก ปัจจุบันกระดาษไม่ได้มีประโยชน์ในการใช้จดบันทึกตัวหนังสือ หรือข้อความ เท่านั้น ยังใช้ประโยชน์อื่น ๆ ได้มากมาย เช่น กระดาษชำระ กระดาษห่อของขวัญ กระดาษลูกฟูกสำหรับทำกล่อง เป็นต้น ",
+    typeM:
+      "กระดาษ เป็นวัสดุที่ผลิตขึ้นมาสำหรับการจดบันทึก มีประวัติศาสตร์ยาวนาน เชื่อกันว่ามีการใช้กระดาษครั้งแรก ๆ โดยชาวอียิปต์และชาวจีนโบราณ แต่กระดาษในยุคแรก ๆ ล้วนผลิตขึ้นเพื่อการจดบันทึกด้วยกันทั้งสิ้น จึงกล่าวได้ว่าระบบการเขียนคือแรงผลักดันให้เกิดการผลิตกระดาษขึ้นในโลก ปัจจุบันกระดาษไม่ได้มีประโยชน์ในการใช้จดบันทึกตัวหนังสือ หรือข้อความ เท่านั้น ยังใช้ประโยชน์อื่น ๆ ได้มากมาย เช่น กระดาษชำระ กระดาษห่อของขวัญ กระดาษลูกฟูกสำหรับทำกล่อง เป็นต้น ",
     reduce: 15,
     avgprice: 56,
     submat: ["peter", "card", "can", "fan"],
   },
 ];
-const DATA2 = [
-  {
-    img: "https://picsum.photos/200",
-    name: "ร้าน รี",
-    mat: [
-      "wine-bottle",
-      "box",
-      "file",
-      "glass-whiskey",
-      "file",
-      "glass-whiskey",
-    ],
-  },
-  {
-    img: "https://picsum.photos/201",
-    name: "ร้าน ไซ",
-    mat: ["file", "glass-whiskey"],
-  },
-  {
-    img: "https://picsum.photos/202",
-    name: "ร้าน เคิ้ล",
-    mat: ["wine-bottle", "box"],
-  },
-  {
-    img: "https://picsum.photos/203",
-    name: "ร้าน รีไซ",
-    mat: ["box", "glass-whiskey"],
-  },
-  {
-    img: "https://picsum.photos/204",
-    name: "ร้าน รีเคิลเคิลเคิลเคิลเคิลเติลเต",
-    mat: ["glass-whiskey"],
-  },
-  {
-    img: "https://picsum.photos/205",
-    name: "ร้าน รี",
-    mat: ["wine-bottle", "box", "file", "glass-whiskey"],
-  },
-  {
-    img: "https://picsum.photos/206",
-    name: "ร้าน ไซ",
-    mat: ["file", "glass-whiskey"],
-  },
-  {
-    img: "https://picsum.photos/207",
-    name: "ร้าน เคิ้ล",
-    mat: ["wine-bottle", "box"],
-  },
-  {
-    img: "https://picsum.photos/208",
-    name: "ร้าน รีไซ",
-    mat: ["box", "glass-whiskey"],
-  },
-  {
-    img: "https://picsum.photos/209",
-    name: "ร้าน รีเคิล",
-    mat: ["glass-whiskey"],
-  },
-];
+
+const LocationQuery = gql`
+  query MyQuery {
+    location_storeList {
+      auth_id
+      latitude
+      location_id
+      longtitude
+      users {
+        user_name
+        phone_number
+      }
+    }
+  }
+`;
 
 const SearchComponent = (props: Props) => {
-
-  const {
-		data,
-		loading,
-		refetch,
-    error
-	} = useQuery(getUserQuery);
-
-
+  const [data1, setData1] = useState<MatProps[]>(DATA);
   const navigation = useNavigation();
   const [search, setSearch] = useState<string>("");
-  const [data1, setData1] = useState<MatProps[]>(DATA);
   const [tabnum, setTabnum] = useState<number>(1);
-  console.log(navigation.getState().key);
-  
+
+  // console.log(navigation.getState().key);
+  const { data, loading } = useQuery(LocationQuery);
+
+  const [location, setLocation] = useState<Location.LocationObject>({
+    coords: {
+      latitude: 0,
+      longitude: 0,
+      altitude: null,
+      accuracy: null,
+      altitudeAccuracy: null,
+      heading: null,
+      speed: null,
+    },
+    timestamp: 0,
+    mocked: false,
+  });
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  // console.log(data?.location_storeList);
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        setErrorMsg("Permission to access location was denied");
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+  // console.log(loading);
   if (loading) {
     return (
       <Spinner
-      animation="fade"
-      visible={true}
-      textContent={"Loading..."}
-      textStyle={{ color: "#FFF" }}
+        animation="fade"
+        visible={true}
+        textContent={"Loading..."}
+        textStyle={{ color: "#FFF" }}
       />
+    );
+  }
+
+  // const [NearbyData, setNearbyData] = useState([]);
+  let NearbyData: any = [];
+
+  if (!loading) {
+    const resultArray = data?.location_storeList.map((item: any) => ({
+      latitude: parseFloat(item.latitude),
+      longitude: parseFloat(item.longtitude),
+    }));
+
+    const orderByDis = orderByDistance(
+      {
+        latitude: location?.coords.latitude!,
+        longitude: location?.coords.longitude!,
+      },
+      resultArray
+    );
+
+    NearbyData = resultArray?.map((item1: any) => {
+      const match = data?.location_storeList.find(
+        (item2: any) =>
+          parseFloat(item2.latitude) === item1.latitude &&
+          parseFloat(item2.longtitude) === item1.longitude
       );
-    }
-    if (error) {
-      return <Text>Something went wrong</Text>
-    };
-    
-    const name_data = data.storeList;
-    console.log(name_data)
-    
-    const [data2, setData2] = useState<any>(name_data);
+      return {
+        ...item1,
+        user_name: match ? match?.users?.user_name : undefined,
+        auth_id: match ? match?.auth_id : undefined,
+        distance: match
+          ? convertDistance(
+              getDistance(
+                {
+                  latitude: parseFloat(item1.latitude),
+                  longitude: parseFloat(item1.longitude),
+                },
+                {
+                  latitude: location?.coords.latitude!,
+                  longitude: location?.coords.longitude!,
+                }
+              ),
+              "m"
+            )
+          : undefined,
+      };
+    });
+
+    console.log("resultArray", resultArray);
+    console.log("orderByDis", orderByDis);
+  }
+
   return (
     <YStack ac={"center"} h={"100%"} bg={"white"}>
+      {/* <Text>5555</Text> */}
       <XStack
         mt={40}
         bg={"white"}
@@ -258,11 +271,13 @@ const SearchComponent = (props: Props) => {
                 )
               );
               console.log(data);
-            } 
-            else {
-              setData2(
-                  name_data.filter((item: { users: { user_name: string; }; }) =>
-                  item.users.user_name.toLowerCase().includes(search.toLowerCase())
+            } else {
+              NearbyData.push(
+                data?.location_storeList.filter(
+                  (item: { users: { user_name: string } }) =>
+                    item.users.user_name
+                      .toLowerCase()
+                      .includes(search.toLowerCase())
                 )
               );
               // console.log(data2);
@@ -290,7 +305,7 @@ const SearchComponent = (props: Props) => {
                 console.log(tabnum);
               },
             }}
-            children={() => <FlatListStore data={data2} />}
+            children={() => <FlatListStore data={NearbyData} />}
           />
           <Tab.Screen
             name="วัสดุรีไซเคิล"

@@ -8,26 +8,16 @@ import { Button, Image } from "tamagui";
 import { useRouter } from "expo-router";
 import { MySafeAreaView } from "./MySafeAreaView";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { gql, useQuery } from "@apollo/client";
-type Props = {};
+import { set } from "react-hook-form";
+type Location = {
+  latitude: number;
+  longitude: number;
+};
+type Props = {
+  addLocation: (location: Location) => void;
+};
 
-const locationQuery = gql`
-  query MyQuery {
-    location_storeList {
-      auth_id
-      latitude
-      location_id
-      longtitude
-      users {
-        user_name
-        phone_number
-      }
-    }
-  }
-`;
-
-const MapViewComponent = (props: Props) => {
-  const { data, loading } = useQuery(locationQuery);
+const MapPickLocation = ({ addLocation }: Props) => {
   const [location, setLocation] = useState<Location.LocationObject>({
     coords: {
       latitude: 0,
@@ -43,6 +33,11 @@ const MapViewComponent = (props: Props) => {
   });
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
+  const [sendLo, setSendLo] = useState<Location>({
+    latitude: 0,
+    longitude: 0,
+  });
+
   useEffect(() => {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -57,59 +52,66 @@ const MapViewComponent = (props: Props) => {
   // const { location } = useLocation();
   const router = useRouter();
   return (
-    <View className=" justify-center items-center">
-      <View
-        style={{
-          width: "100%",
-          height: "100%",
-          overflow: "hidden",
-        }}
-      >
-        <View className="">
-          <MapView
-            style={{ width: "100%", height: "100%" }}
-            region={{
+    // <SafeAreaView className=" justify-center items-center">
+    <View
+      style={{
+        width: "100%",
+        height: "100%",
+        overflow: "hidden",
+      }}
+    >
+      <View>
+        <MapView
+          style={{ width: "100%", height: "100%" }}
+          region={{
+            latitude: location?.coords.latitude!,
+            longitude: location?.coords.longitude!,
+            latitudeDelta: 0.0211,
+            longitudeDelta: 0.0121,
+          }}
+          zoomEnabled={true}
+          rotateEnabled={true}
+          provider={PROVIDER_GOOGLE}
+          showsUserLocation={true}
+        >
+          <Marker
+            draggable={true}
+            coordinate={{
               latitude: location?.coords.latitude!,
               longitude: location?.coords.longitude!,
-              latitudeDelta: 0.0211,
-              longitudeDelta: 0.0121,
             }}
-            zoomEnabled={true}
-            rotateEnabled={true}
-            provider={PROVIDER_GOOGLE}
-            showsUserLocation={true}
-          >
-            {/* <Marker
-					draggable={true}
-					coordinate={{
-						latitude: location?.coords.latitude!,
-						longitude: location?.coords.longitude!,
-					}}
-					title="Marker Title"
-					description="Marker Description"
-					onDragEnd={(e) => {
-						console.log(e.nativeEvent.coordinate);
-					}}
-				/> */}
-            {data?.location_storeList.map((item: any) => (
-              <Marker
-                key={item.location_id}
-                coordinate={{
-                  latitude: parseFloat(item.latitude),
-                  longitude: parseFloat(item.longtitude),
-                }}
-                title={item.users.user_name}
-                description={"ติดต่อ : " + item.users.phone_number}
-              >
-                <Image
-                  source={require("../../assets/images/icons8-recycle-64.png")}
-                  style={{ width: 40, height: 40 }}
-                />
-              </Marker>
-            ))}
-          </MapView>
-        </View>
-        {/* <Text>
+            title="Marker Title"
+            description="Marker Description"
+            onDragEnd={(e) => {
+              console.log(e.nativeEvent.coordinate);
+              setSendLo({
+                latitude: e.nativeEvent.coordinate.latitude,
+                longitude: e.nativeEvent.coordinate.longitude,
+              });
+            }}
+          />
+        </MapView>
+      </View>
+      <Button
+        bg={"$green10Light"}
+        color={"$green1Light"}
+        w={"80%"}
+        alignSelf={"center"}
+        style={{ position: "absolute", bottom: 25 }}
+        onPress={() => {
+          if (sendLo.latitude === 0 && sendLo.longitude === 0) {
+            addLocation({
+              latitude: location?.coords.latitude!,
+              longitude: location?.coords.longitude!,
+            });
+          } else {
+            addLocation(sendLo);
+          }
+        }}
+      >
+        ใช้ตำแหน่งนี้
+      </Button>
+      {/* <Text>
         {convertDistance(
           getDistance(
             { latitude: 13.756331, longitude: 100.501762 },
@@ -136,9 +138,9 @@ const MapViewComponent = (props: Props) => {
             )
             )}
           </Text> */}
-      </View>
     </View>
+    // </SafeAreaView>
   );
 };
 
-export default MapViewComponent;
+export default MapPickLocation;

@@ -7,19 +7,28 @@ import { Button } from "tamagui";
 type Props = {};
 
 const ShowQr = (props: Props) => {
-	const { list, username, userimg, date } = useLocalSearchParams();
-	console.log(list, "qr");
-	const listString = JSON.stringify(list);
+	const { material, username, auth_id, date, score } = useLocalSearchParams();
+	console.log(material, "qr");
+	const materialString = JSON.stringify(material);
 	return (
 		<View className="justify-center items-center flex-1">
-			<Text>{listString}</Text>
+			<Text>
+				{JSON.stringify({
+					material: material,
+					name: username,
+					auth_id: auth_id,
+					date: date,
+					score: score,
+				})}
+			</Text>
 			<View className=" rounded-lg ">
 				<QRCode
 					value={JSON.stringify({
-						list: list,
+						material: material,
 						name: username,
-						img: userimg,
+						auth_id: auth_id,
 						date: date,
+						score: score,
 					})}
 					size={300}
 				/>

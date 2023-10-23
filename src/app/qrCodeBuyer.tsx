@@ -36,7 +36,7 @@ export default function App() {
 			const dataJson = JSON.parse(data);
 			router.push({
 				pathname: "/ApproveDetail",
-				params: { list: data },
+				params: { material: data },
 			});
 		} catch (err) {
 			alert("ไม่สามารถอ่าน QR code ได้");

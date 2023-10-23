@@ -44,12 +44,9 @@ const storeProfile = (props: Props) => {
 		variables: { auth_id: authUser?.id },
 	});
 	console.log("data", data);
-	const [storeimg, setStoreimg] = useState<{ name: string; url: string }[]>([
-		{
-			name: "init",
-			url: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
-		},
-	]);
+	const [storeimg, setStoreimg] = useState<{ name: string; url: string }[]>(
+		[]
+	);
 	useEffect(() => {
 		if (focusCount === 1 && isFocused) {
 			// this is the first time focus => init screen here
@@ -113,7 +110,18 @@ const storeProfile = (props: Props) => {
 				<RefreshControl refreshing={loading} onRefresh={refetch} />
 			}
 		>
-			<Carousel img={storeimg} />
+			<Carousel
+				img={
+					storeimg.length === 0
+						? [
+								{
+									name: "init",
+									url: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
+								},
+						  ]
+						: storeimg
+				}
+			/>
 			<Stack pb={"$14"} pt={"$8"} f={1}>
 				<Stack flexDirection="column" gap={"$5"}>
 					<ButtonStore

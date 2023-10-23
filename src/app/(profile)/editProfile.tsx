@@ -77,7 +77,7 @@ const editProfile = (props: Props) => {
 			console.log(e);
 		}
 		if (image) {
-			uploadImage(image, `Profile/${dbUser.auth_id}/avatar.png`);
+			uploadImage(image, `Profile/${dbUser.auth_id}.png`);
 		} else {
 			console.log("no image");
 		}

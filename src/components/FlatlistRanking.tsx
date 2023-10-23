@@ -2,88 +2,22 @@ import { FlatList } from "react-native";
 import React from "react";
 import { Stack, YStack, Text, View, Avatar } from "tamagui";
 import { DATARank } from "./../app/(tabs)/scoreRanking";
-import RankingUser, { RankingUserProps } from "./RankingUser";
+import RankingUser from "./RankingUser";
 import { colors } from "@/constants/Colors";
 import { router } from "expo-router";
+import { UserRankType } from "@/MockData/types";
 
 type Props = {};
 
-const renderRankingUser = (item: RankingUserProps) => {
+const renderRankingUser = (item: UserRankType) => {
 	return <RankingUser {...item} />;
 };
 
-const FlatlistRanking = ({ data }: { data: RankingUserProps[] }) => {
+const FlatlistRanking = ({ data }: { data: UserRankType[] }) => {
+	// console.log(data[1].score[0].score_trash);
 	return (
-		<YStack jc={"center"} ai={"center"} bc={colors.green1}>
-			<View
-				h={"40%"}
-				fd={"row"}
-				space={"$1"}
-				className="mb-2"
-				jc={"center"}
-				mx={5}
-			>
-				{/* {data
-					.filter((val, i) => {
-						return i < 3;
-					})
-					.map((val, index) => {
-						return (
-							<Stack
-								key={val.id}
-								bg={colors.green4}
-								als={
-									index == 0
-										? "flex-start"
-										: index == 1
-										? "center"
-										: "flex-end"
-								}
-								h={"$13"}
-								w={115}
-								jc={"center"}
-								ai={"center"}
-								br={15}
-								space={"$2"}
-								onPress={() => {
-									router.push({
-										pathname: `/profileRanking/${val.id}`,
-										params: {
-											img: val.img
-												? val.img
-												: "https://images.unsplash.com/photo-1548142813-c348350df52b?&w=150&h=150&dpr=2&q=80",
-											name: val.name,
-											point: val.point,
-										},
-									});
-								}}
-							>
-								<View jc={"center"} ai={"center"} mb={5}>
-									<Avatar als={"center"} br={40} size={80}>
-										<Avatar.Image
-											accessibilityLabel="Cam"
-											src={val.img}
-										/>
-
-										<Avatar.Fallback backgroundColor="$blue10" />
-									</Avatar>
-									<Text
-										className="rounded-xl w-[25px] h-[25px] text-center text-white font-bold absolute bottom-[-10]"
-										bg={"red"}
-									>
-										{index}
-									</Text>
-								</View>
-								<Text className="text-base font-bold text-white">
-									{val.name}
-								</Text>
-								<Text className="font-semibold text-white">
-									{val.point} point
-								</Text>
-							</Stack>
-						);
-					})} */}
-
+		<YStack bc={colors.green1} mt={-45}>
+			<View h={"40%"} fd={"row"} className="mb-2" jc={"center"} mx={5}>
 				<Stack
 					bg={colors.green4}
 					als={"flex-end"}
@@ -95,15 +29,15 @@ const FlatlistRanking = ({ data }: { data: RankingUserProps[] }) => {
 					className="m-1"
 					onPress={() => {
 						router.push({
-							pathname: `/profileRanking/${data[1].id}`,
+							pathname: `/profileRanking/${data[1].auth_id}`,
 							params: {
 								img:
 									data[1].img ||
 									"https://picsum.photos/200/300",
-								name: data[1].name,
-								point: data[1].point.score_trash,
-								point_tree: data[1].point.score_tree,
-								point_carbon: data[1].point.score_carbon,
+								name: data[1].user_name,
+								point: data[1].score[0].score_trash,
+								point_tree: data[1].score[0].score_tree,
+								point_carbon: data[1].score[0].score_carbon,
 							},
 						});
 					}}
@@ -125,10 +59,10 @@ const FlatlistRanking = ({ data }: { data: RankingUserProps[] }) => {
 						</Text>
 					</View>
 					<Text className="text-base font-bold text-white">
-						{data[1].name}
+						{data[1].user_name}
 					</Text>
 					<Text className="font-semibold text-white">
-						{data[1].point.score_trash} point
+						{data[1].score[0].score_trash} point
 					</Text>
 				</Stack>
 				<Stack
@@ -143,15 +77,15 @@ const FlatlistRanking = ({ data }: { data: RankingUserProps[] }) => {
 					className="m-1"
 					onPress={() => {
 						router.push({
-							pathname: `/profileRanking/${data[1].id}`,
+							pathname: `/profileRanking/${data[1].auth_id}`,
 							params: {
 								img:
 									data[0].img ||
 									"https://picsum.photos/200/300",
-								name: data[0].name,
-								point: data[0].point.score_trash,
-								point_tree: data[0].point.score_tree,
-								point_carbon: data[0].point.score_carbon,
+								name: data[0].user_name,
+								point: data[0].score[0].score_trash,
+								point_tree: data[0].score[0].score_tree,
+								point_carbon: data[0].score[0].score_carbon,
 							},
 						});
 					}}
@@ -173,10 +107,10 @@ const FlatlistRanking = ({ data }: { data: RankingUserProps[] }) => {
 						</Text>
 					</View>
 					<Text className="text-base font-bold text-white">
-						{data[0].name}
+						{data[0].user_name}
 					</Text>
 					<Text className="font-semibold text-white">
-						{data[0].point.score_trash} point
+						{data[0].score[0].score_trash} point
 					</Text>
 				</Stack>
 				<Stack
@@ -190,15 +124,15 @@ const FlatlistRanking = ({ data }: { data: RankingUserProps[] }) => {
 					className="m-1"
 					onPress={() => {
 						router.push({
-							pathname: `/profileRanking/${data[1].id}`,
+							pathname: `/profileRanking/${data[1].auth_id}`,
 							params: {
 								img:
 									data[2].img ||
 									"https://picsum.photos/200/300",
-								name: data[2].name,
-								point: data[2].point.score_trash,
-								point_tree: data[2].point.score_tree,
-								point_carbon: data[2].point.score_carbon,
+								name: data[2].user_name,
+								point: data[2].score[0].score_trash,
+								point_tree: data[2].score[0].score_tree,
+								point_carbon: data[2].score[0].score_carbon,
 							},
 						});
 					}}
@@ -220,17 +154,21 @@ const FlatlistRanking = ({ data }: { data: RankingUserProps[] }) => {
 						</Text>
 					</View>
 					<Text className="text-base font-bold text-white">
-						{data[2].name}
+						{data[2].user_name}
 					</Text>
 					<Text className="font-semibold text-white">
-						{data[2].point.score_trash} point
+						{data[2].score[0].score_trash} point
 					</Text>
 				</Stack>
 			</View>
 			<FlatList
 				showsVerticalScrollIndicator={false}
-				style={{ width: "100%", height: "60%", paddingHorizontal: 10 }}
-				data={data.filter((val, i) => {
+				style={{
+					width: "100%",
+					height: "60%",
+					paddingHorizontal: 10,
+				}}
+				data={data.filter((val: any, i: number) => {
 					return i > 2;
 				})}
 				renderItem={({ item, index }) =>

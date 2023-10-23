@@ -71,3 +71,46 @@ export const fetchImages = async (
 		console.error("Error fetching images:", error);
 	}
 };
+
+export const fetchProfile = async (
+	setImgs: (allimg: { name: string; url: string }[]) => void
+) => {
+	try {
+		const listResult = await listAll(ref(storage, `/Profile/`));
+		console.log(listResult.items.length);
+		const imgPromises = listResult.items.map(async (itemRef) => {
+			const imgurl = await getDownloadURL(
+				ref(getStorage(), itemRef.fullPath)
+			);
+			return { name: itemRef.fullPath, url: imgurl };
+		});
+		// ^?
+
+		const allimg = await Promise.all(imgPromises);
+		setImgs(allimg);
+	} catch (error) {
+		console.error("Error fetching images:", error);
+	}
+};
+export const fetchImgPro = async (ids: string[]) => {
+	// ids = [
+	// 	"user_2X2b8zoHJnDgxoOb6KNCahWvZ7Z",
+	// 	"user_2Wpt8BqLepv4XZDiJckACO4LJdR",
+	// 	"user_2WptT9TQfmvWo8Lg4vpT74EGgRt",
+	// 	"user_2WpuvRiG7VAuKISKPS5SqvJexi9",
+	// 	"user_2WpuyUwBlGZB2idtWbVPdWzdjxD",
+	// 	"user_2X1QzgaB4bVBRnh1znfmcNPlJzW",
+	// 	"user_2X9wfTx2sdwE5A4orqyLbc5oGTz",
+	// ];
+	const imgs: string[] = [];
+	for (const id of ids) {
+		try {
+			const imgurl = await getDownloadURL(
+				ref(getStorage(), `/Profile/${id}.png`)
+			);
+		} catch (error) {
+			console.log("Error fetching images:", error);
+		}
+	}
+	return imgs;
+};

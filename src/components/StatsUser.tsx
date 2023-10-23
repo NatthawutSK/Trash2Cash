@@ -14,8 +14,8 @@ type Props = {
 const StatsUser = (props: Props) => {
 	return (
 		<YStack jc={"center"} ai={"center"} space={"$4"}>
-			<View className=" space-x-3  flex-row justify-center content-center">
-				<View className="rounded-xl  bg-[#3C6255] space-x-3 flex-1   content-center flex-row items-center px-3 py-3">
+			<View className=" space-x-2  flex-row justify-center content-center">
+				<View className="rounded-xl  bg-[#3C6255] space-x-1 flex-1   content-center flex-row items-center px-3 py-3">
 					<MaterialCommunityIcons
 						name="molecule-co2"
 						color={"white"}
@@ -25,7 +25,7 @@ const StatsUser = (props: Props) => {
 						<Text className="text-white text-xs font-bold text-center">
 							ลด Co2 ไปแล้ว
 						</Text>
-						<Text className="text-white text-base font-semibold text-center">
+						<Text className="text-white text-base font-semibold">
 							{props.co2} KCo2e
 						</Text>
 					</View>

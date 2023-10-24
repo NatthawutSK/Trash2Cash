@@ -191,7 +191,7 @@ const SignupScreen = ({ toggle }: Props) => {
                 entering={FadeInDown.delay(600).duration(1000).springify()}
               >
                 <TouchableOpacity
-                  className="w-full bg-sky-400 p-3 rounded-2xl mb-3"
+                  className="w-full bg-green-700 p-3 rounded-2xl mb-3"
                   onPress={() => onPressVerify()}
                 >
                   <Text className="text-xl font-bold text-white text-center">

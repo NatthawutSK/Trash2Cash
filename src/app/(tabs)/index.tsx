@@ -166,7 +166,7 @@ export default function home() {
           Trash2Cash
         </Text> */}
         <Stack space={"$4"}>
-          {/* <View
+          <View
             style={{
               alignSelf: "center",
               width: "90%",
@@ -176,7 +176,7 @@ export default function home() {
             }}
           >
             <MiniMap />
-          </View> */}
+          </View>
           <Stack jc={"center"} ai={"center"}>
             <Button
               w={"90%"}

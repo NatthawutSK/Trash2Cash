@@ -272,14 +272,19 @@ const SearchComponent = (props: Props) => {
               );
               console.log(data);
             } else {
-              NearbyData.push(
-                data?.location_storeList.filter(
-                  (item: { users: { user_name: string } }) =>
-                    item.users.user_name
-                      .toLowerCase()
-                      .includes(search.toLowerCase())
-                )
-              );
+              console.warn("ยังมีบัคอยู่");
+
+              // const newData = NearbyData.filter((item: any) =>
+              //   item.user_name.toLowerCase().includes(search.toLowerCase())
+              // );
+              // console.log("ggg" + JSON.stringify(NearbyData));
+              // console.log(newData);
+
+              // NearbyData.length = 0;
+              // console.log("hh" + JSON.stringify(newData));
+
+              // NearbyData.push(newData);
+              // console.log("qq" + JSON.stringify(NearbyData));
               // console.log(data2);
             }
           }}

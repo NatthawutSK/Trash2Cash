@@ -31,7 +31,7 @@ export default function App() {
 		data: string;
 	}) => {
 		setScanned(true);
-		alert(data);
+		// alert(data);
 		try {
 			const dataJson = JSON.parse(data);
 			router.push({

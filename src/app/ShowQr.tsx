@@ -8,11 +8,11 @@ type Props = {};
 
 const ShowQr = (props: Props) => {
 	const { material, username, auth_id, date, score } = useLocalSearchParams();
-	console.log(material, "qr");
+	// console.log(material, "qr");
 	const materialString = JSON.stringify(material);
 	return (
 		<View className="justify-center items-center flex-1">
-			<Text>
+			{/* <Text>
 				{JSON.stringify({
 					material: material,
 					name: username,
@@ -20,7 +20,7 @@ const ShowQr = (props: Props) => {
 					date: date,
 					score: score,
 				})}
-			</Text>
+			</Text> */}
 			<View className=" rounded-lg ">
 				<QRCode
 					value={JSON.stringify({

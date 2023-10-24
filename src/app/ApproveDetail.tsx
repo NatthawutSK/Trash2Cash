@@ -36,6 +36,17 @@ type approveDetail = {
 	score: string;
 	material: string;
 };
+
+const getScore = gql`
+	query MyQuery($score_id: ID!) {
+		score(score_id: $score_id) {
+			score_carbon
+			score_trash
+			score_tree
+		}
+	}
+`;
+
 const getMaterialQuery = gql`
 	query StoreQuery($auth_id: String!) {
 		usersUsingStore_auth_id_fkey(auth_id: $auth_id) {
@@ -88,29 +99,58 @@ const ApproveDetail = (props: Props) => {
 		return val1 + val2.weight * Number(co2);
 	}, 0);
 	const sumTree = sumCarbon / 10;
-	console.log(Number(scoreData.score_tree + sumTree));
+	// console.log(Number(scoreData.score_tree + sumTree));
 	const [handleOrderMutation, { loading: mutationLoad }] =
 		useMutation(createOrderMutation);
 	const {
-		data,
-		loading: queryLoad,
-		refetch,
+		data: scoreF,
+		loading: isLoading,
 		error,
-	} = useQuery(getMaterialQuery, {
-		variables: { auth_id: authUser?.id },
+	} = useQuery(getScore, {
+		variables: { score_id: scoreData.score_id },
 	});
+	// const {
+	// 	data,
+	// 	loading: queryLoad,
+	// 	refetch,
+	// 	error,
+	// } = useQuery(getMaterialQuery, {
+	// 	variables: { auth_id: authUser?.id },
+	// });
 
+	const header = useHeaderHeight();
+	const materialData: TypeTrashMaterial[] = JSON.parse(
+		dbUser.store[0].store_detail
+	);
+	console.log("before loading");
+	if (isLoading) {
+		return (
+			<Spinner
+				animation="fade"
+				visible={true}
+				textContent={"Loading..."}
+				textStyle={{ color: "#FFF" }}
+			/>
+		);
+	}
+	if (error) {
+		console.log(error);
+		return <Text>Something went wrong</Text>;
+	}
+	console.log("fetchinggg");
+	console.log(scoreF === "undefined", "scoreF");
+	console.log(scoreF.score);
+	const scoreFetch = scoreF?.score;
 	const allscore = [
 		Number(scoreData.score_id),
-		Number(Math.floor(Number(scoreData.score_tree) + sumTree)),
-		Number(Number(scoreData.score_trash) + sumWeight),
-		Number(Math.floor(Number(scoreData.score_carbon) + sumCarbon)),
+		Number(Math.floor(Number(scoreFetch.score_tree) + sumTree)),
+		Number(Number(scoreFetch.score_trash) + sumWeight),
+		Number(Math.floor(Number(scoreFetch.score_carbon) + sumCarbon)),
 	];
-
 	const approveOrder = async () => {
 		console.log(orderData);
 		try {
-			console.log(allscore[0]);
+			// console.log(allscore[0]);
 			await handleOrderMutation({
 				variables: {
 					buyer_id: dbUser.auth_id,
@@ -127,10 +167,6 @@ const ApproveDetail = (props: Props) => {
 		}
 	};
 
-	const header = useHeaderHeight();
-	const materialData: TypeTrashMaterial[] = JSON.parse(
-		dbUser.store[0].store_detail
-	);
 	return (
 		<YStack ai={"center"} f={1} mt={header - 10}>
 			<View className=" bg-[#3C6255] w-[70%]  rounded-2xl content-center p-5 space-y-5 items-center">

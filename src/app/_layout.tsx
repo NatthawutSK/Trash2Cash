@@ -197,8 +197,8 @@ function RootLayoutNav() {
         )}
       </SignedIn>
       <SignedOut>
-        <Text style={{ fontFamily: "Kanit" }}>ทดสอบ</Text>
-        {/* <AuthScreen /> */}
+        {/* <Text style={{ fontFamily: "Kanit" }}>ทดสอบ</Text> */}
+        <AuthScreen />
       </SignedOut>
     </>
   );

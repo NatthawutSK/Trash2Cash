@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import {
   Avatar,
@@ -33,6 +33,8 @@ import StoreInfo from "@/components/StoreInfo";
 import { MockImg, MockTrashMaterial, Mockstore } from "@/MockData/data";
 import { gql, useQuery } from "@apollo/client";
 import Spinner from "react-native-loading-spinner-overlay";
+import { fetchImages } from "@/utils/util";
+import { useFocus } from "@/components/UseFocus";
 
 type Props = {};
 const detailStoreQuery = gql`
@@ -53,9 +55,27 @@ const detailStoreQuery = gql`
 
 const detailStore = (props: Props) => {
   const { id } = useLocalSearchParams();
+  // console.log(id[0]);
+
   const { data, loading } = useQuery(detailStoreQuery, {
     variables: { auth_id: id },
   });
+  const { focusCount, isFocused } = useFocus();
+  const [storeimg, setStoreimg] = useState<{ name: string; url: string }[]>([]);
+  // useEffect(() => {
+  //   if (focusCount === 1 && isFocused) {
+  //     // this is the first time focus => init screen here
+  //     fetchImages(id, setStoreimg);
+  //   }
+  // }, [isFocused]);
+
+  useEffect(() => {
+    // if (focusCount > 1 && isFocused) {
+    // trigger when you navigate back from another screen
+    // you can background reload data here ...
+    fetchImages(id, setStoreimg);
+    // }
+  }, []);
 
   if (loading) {
     return (
@@ -80,7 +100,19 @@ const detailStore = (props: Props) => {
   return (
     <ScrollView>
       {/* <Image width={500} h={250} source={{ uri: Mockstore[0].img }} /> */}
-      <Carousel img={MockImg} />
+      {/* <Carousel img={MockImg} /> */}
+      <Carousel
+        img={
+          storeimg.length === 0
+            ? [
+                {
+                  name: "init",
+                  url: "https://upload.wikimedia.org/wikipedia/commons/d/d1/Image_not_available.png",
+                },
+              ]
+            : storeimg
+        }
+      />
       <Stack mt={"$8"}>
         <StoreInfo info={infoStore} />
       </Stack>

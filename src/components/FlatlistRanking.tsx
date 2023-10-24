@@ -62,7 +62,11 @@ const FlatlistRanking = ({ data }: { data: UserRankType[] }) => {
 							2
 						</Text>
 					</View>
-					<Text className="text-base font-bold text-white">
+					<Text
+						ww={"break-word"}
+						className="text-base font-bold min-w-[50px] max-w-[90px] text-white "
+						numberOfLines={1}
+					>
 						{data[1].user_name}
 					</Text>
 					<Text className="font-semibold text-white">
@@ -114,7 +118,11 @@ const FlatlistRanking = ({ data }: { data: UserRankType[] }) => {
 							1
 						</Text>
 					</View>
-					<Text className="text-base font-bold text-white">
+					<Text
+						ww={"break-word"}
+						className="text-base font-bold min-w-[50px] max-w-[90px] text-white "
+						numberOfLines={1}
+					>
 						{data[0].user_name}
 					</Text>
 					<Text className="font-semibold text-white">
@@ -161,7 +169,11 @@ const FlatlistRanking = ({ data }: { data: UserRankType[] }) => {
 							3
 						</Text>
 					</View>
-					<Text className="text-base font-bold text-white">
+					<Text
+						ww={"break-word"}
+						className="text-base font-bold min-w-[50px] max-w-[90px] text-white "
+						numberOfLines={1}
+					>
 						{data[2].user_name}
 					</Text>
 					<Text className="font-semibold text-white">
@@ -173,7 +185,7 @@ const FlatlistRanking = ({ data }: { data: UserRankType[] }) => {
 				showsVerticalScrollIndicator={false}
 				style={{
 					width: "100%",
-					maxHeight: "57%",
+					height: "60%",
 					paddingHorizontal: 10,
 				}}
 				data={data.filter((val: any, i: number) => {

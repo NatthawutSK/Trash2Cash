@@ -283,10 +283,10 @@ const Ranking = (props: Props) => {
 			{dbUser.roles === "Seller" && (
 				<Stack
 					className="rounded-t-2xl"
-					mt={-45}
+					mt={-30}
 					bg={colors.green3}
-					mb={25}
-					pb={40}
+					mb={20}
+					pb={20}
 					// borderRadius={"$10"}
 					pt={"$2"}
 					// mt={"$5"}

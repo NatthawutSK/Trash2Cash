@@ -20,7 +20,7 @@ export type HistoryProps = {
   info: string[][];
 };
 
-const HistoryItem = ({ img, name, date, info }: HistoryProps) => {
+const HistoryItem = ({ name, date, infoOrder }: any) => {
   const [showDetails, setShowDetails] = useState(false);
 
   const toggleDetails = () => {
@@ -31,6 +31,9 @@ const HistoryItem = ({ img, name, date, info }: HistoryProps) => {
   return (
     //   <Link href="/detailStore/66" asChild>
     <YStack flex={1}>
+      {/* <Text>
+        ggg{name} {date} {JSON.stringify(infoOrder)}
+      </Text> */}
       <XStack
         br={20}
         alignItems="center"
@@ -42,9 +45,9 @@ const HistoryItem = ({ img, name, date, info }: HistoryProps) => {
         borderColor={"$green8Dark"}
         jc={"space-between"}
       >
-        <XStack ai={"center"} ac={"center"} space={"$4"} w={"50%"}>
+        <XStack ai={"center"} ac={"center"} space={"$4"} w={"50%"} pb={"$3"}>
           <Avatar size="$6" radiused>
-            <Avatar.Image src={img} />
+            <Avatar.Image source={{ uri: "https://picsum.photos/203" }} />
             <Avatar.Fallback bc="red" />
           </Avatar>
           <YStack space={"$1"}>
@@ -76,18 +79,16 @@ const HistoryItem = ({ img, name, date, info }: HistoryProps) => {
             <Text>กิโลกรัม</Text>
           </XStack>
           <Separator marginVertical={15} />
-          {info.map((x, index) => (
+          {infoOrder.map((x: any, index: any) => (
             <XStack jc={"space-between"} px={5} key={index}>
               <YStack>
-                <Text fow={"800"}>{x[0]}</Text>
+                <Text fow={"800"}>{x.name}</Text>
               </YStack>
               <XStack>
-                <Text fow={"800"}>X {x[1]}</Text>
+                <Text fow={"800"}>{x.weight}</Text>
               </XStack>
             </XStack>
           ))}
-
-          {/* <Text fow={"800"}>Date : {info}</Text> */}
         </Stack>
       )}
     </YStack>

@@ -1,10 +1,14 @@
-import { SafeAreaView, ScrollView, StyleSheet } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 import { View } from "@/components/Themed";
 // import SearchBar from "@/components/SearchBar";
 import DetailPurchaseComponent from "@/components/DetailPurchaseComponent";
 import FlatListHistory from "@/components/FlatListHistory";
-import { Stack } from "tamagui";
+import { Stack, Text } from "tamagui";
+import { ScrollView } from "react-native-virtualized-view";
+import { gql, useQuery } from "@apollo/client";
+import { useUserContext } from "@/provider/UserContext";
+import Spinner from "react-native-loading-spinner-overlay";
 
 type Props = {};
 const DATA = [
@@ -14,8 +18,8 @@ const DATA = [
     date: "01/02/2575",
     info: [
       ["box", "1"],
-      ["bottle", "2"]
-  ],
+      ["bottle", "2"],
+    ],
   },
   {
     img: "https://picsum.photos/203",
@@ -23,8 +27,8 @@ const DATA = [
     date: "01/02/2575",
     info: [
       ["box", "1"],
-      ["bottle", "2"]
-  ],
+      ["bottle", "2"],
+    ],
   },
   {
     img: "https://picsum.photos/204",
@@ -32,20 +36,90 @@ const DATA = [
     date: "01/02/2575",
     info: [
       ["box", "1"],
-      ["bottle", "2"]
-  ],
+      ["bottle", "2"],
+    ],
   },
-
-
 ];
 
+const historyStoreQuery = gql`
+  query MyQuery($auth_id: String!) {
+    ordersUsingOrders_current_user_id_fkey(auth_id: $auth_id) {
+      order_id
+      order_detail
+      usersUsingOrders_trade_user_id_fkey {
+        user_name
+      }
+    }
+  }
+`;
+
+const historySellerQuery = gql`
+  query MyQuery($auth_id: String!) {
+    ordersUsingOrders_trade_user_id_fkey(auth_id: $auth_id) {
+      order_id
+      order_detail
+      usersUsingOrders_current_user_id_fkey {
+        user_name
+      }
+    }
+  }
+`;
 
 export default function history() {
-  return (
-    <Stack ac={"center"} h={"95%"}>
+  const { dbUser, authUser }: any = useUserContext();
+  const { data, loading, refetch } = useQuery(
+    dbUser.roles === "Buyer" ? historyStoreQuery : historySellerQuery,
+    {
+      variables: { auth_id: authUser?.id },
+    }
+  );
 
-        <View>
-          {/* <Text style={styles.title}>Tab One</Text>
+  console.log(data);
+
+  // console.log(data.ordersUsingOrders_trade_user_id_fkey);
+
+  // console.log("za1", data?.ordersUsingOrders_current_user_id_fkey);
+
+  // console.log(" kuy", dataRaw);
+  let transformedData: any = [];
+  if (!loading) {
+    const dataRaw =
+      dbUser.roles === "Buyer"
+        ? data?.ordersUsingOrders_current_user_id_fkey
+        : data?.ordersUsingOrders_trade_user_id_fkey;
+    transformedData = dataRaw.map((item: any) => {
+      const orderDetail = JSON.parse(item.order_detail);
+      // const material = JSON.parse(orderDetail.material);
+
+      return {
+        name:
+          dbUser.roles === "Buyer"
+            ? item.usersUsingOrders_trade_user_id_fkey.user_name
+            : item.usersUsingOrders_current_user_id_fkey.user_name,
+        date: orderDetail.date,
+        infoOrder: JSON.parse(orderDetail.material),
+      };
+    });
+  }
+
+  // console.log("za2", transformedData);
+  if (loading) {
+    return (
+      <Spinner
+        animation="fade"
+        visible={true}
+        textContent={"Loading..."}
+        textStyle={{ color: "#FFF" }}
+      />
+    );
+  }
+  // console.log("555", authUser.id);
+
+  return (
+    // <Stack ac={"center"}>
+    <ScrollView style={{ flex: 1 }}>
+      {/* <Text>{JSON.stringify(data)}</Text> */}
+      {/* <Text style={styles.title}>Tab One</Text>
       <Button alignSelf="center" size="$6">
         Large
       </Button>
@@ -53,11 +127,10 @@ export default function history() {
         throw new Error("Function not implemented.");
       } } />
       <SwitchDemo /> */}
-          {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
-          <FlatListHistory data={DATA} />
-        </View>
-    </Stack>
-    
+      {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
+      <FlatListHistory data={transformedData} />
+    </ScrollView>
+    // </Stack>
   );
 }
 
